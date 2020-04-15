@@ -1,0 +1,10 @@
+<ngx-excel lazyload>
+  <!--  [scrollable]="false" [(dataSet)]="achievement" -->
+  <ngx-excel-column name="name"></ngx-excel-column>
+  <ngx-excel-column name="fraction"></ngx-excel-column>
+  <ngx-excel-column name="remark"></ngx-excel-column>
+  <ngx-excel-context-action label="删除" action="deleteEntity" [execute]="deleteEntity" icon="add_box">
+  </ngx-excel-context-action>
+  <ngx-excel-context-action label="新增分项列表" prefix action="addRow" [execute]="addRelativeEntity" icon="delete">
+  </ngx-excel-context-action>
+</ngx-excel>

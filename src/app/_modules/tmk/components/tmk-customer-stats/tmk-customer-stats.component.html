@@ -1,0 +1,46 @@
+<div class="stats-bar-container">
+  <div class="ant-row stats-bar">
+      <div class="ant-col-4 stat-block">
+        <div class="content nomargin" (click)="handleClickTag('todayFollows')"
+             [ngClass]="{'select-tag': tag === 'todayFollows'}">
+          <div class="num"> {{ num("todayFollows","all") }}</div>
+          <div class="title"> 今日需跟进</div>
+        </div>
+      </div>
+      <div class="ant-col-4 stat-block">
+        <div class="content" (click)="handleClickTag('todayNews')" [ngClass]="{'select-tag': tag === 'todayNews'}">
+          <div class="num"> {{ num("todayNews","all") }} </div>
+          <div class="title"> 今日新单分配</div>
+        </div>
+      </div>
+      <div class="ant-col-4 stat-block">
+        <div class="content" (click)="handleClickTag('todayTransferred')"
+             [ngClass]="{'select-tag': tag === 'todayTransferred'}">
+          <div class="num"> {{ num("todayTransferred","all") }} </div>
+          <div class="title"> 今日流转分配</div>
+        </div>
+      </div>
+      <div class="ant-col-4 stat-block">
+        <div class="content" (click)="handleClickTag('30dayReservation')"
+             [ngClass]="{'select-tag': tag === '30dayReservation'}">
+          <div class="num"> {{ num("thirtyDayReservation","all") }} </div>
+          <div class="title"> 30日内成功预约</div>
+        </div>
+      </div>
+      <div class="ant-col-4 stat-block">
+        <div class="content" (click)="handleClickTag('needCall')" [ngClass]="{'select-tag': tag === 'needCall'}">
+          <div class="num"> {{ num("needCall","all") }}</div>
+          <div class="title"> 应拨未拨</div>
+        </div>
+      </div>
+      <div class="ant-col-4 stat-block">
+        <div class="content" (click)="handleClickTag('7dayRecycling')"
+             [ngClass]="{'select-tag': tag === '7dayRecycling'}">
+          <div class="num"> {{ num("sevenDayRecycling","all") }}</div>
+          <div class="title"> 7日内回收数据</div>
+        </div>
+      </div>
+  </div>
+
+
+</div>

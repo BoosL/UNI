@@ -1,0 +1,19 @@
+organization-tree {
+  .empty,
+  .loading {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loading .anticon {
+    margin-right: 8px;
+  }
+
+  .ant-tree-node-content-wrapper.ant-tree-node-selected {
+    background-color: transparent !important;
+    color: mat-color($angular-app-accent);
+  }
+}

@@ -1,0 +1,25 @@
+<ngx-excel name="excelCurriculumSchedules" [cellHeight]="cellHeight" lazyload readonly>
+  <ngx-excel-column name="time" width="150" locked></ngx-excel-column>
+  <ngx-excel-column name="curriculum" width="150"></ngx-excel-column>
+  <ngx-excel-column name="productType" width="120"></ngx-excel-column>
+  <ngx-excel-column name="teacher" width="190"></ngx-excel-column>
+  <ngx-excel-column name="classroom" width="150"></ngx-excel-column>
+  <ngx-excel-column name="teachingType" width="96"></ngx-excel-column>
+  <ngx-excel-column name="relativeEntries" width="240" [template]="relativeEntriesTpl"></ngx-excel-column>
+  <ngx-excel-column name="school" width="150"></ngx-excel-column>
+  <ngx-excel-column name="package" width="150"></ngx-excel-column>
+  <ngx-excel-column name="status" width="150"></ngx-excel-column>
+  <ngx-excel-column name="creator" width="150"></ngx-excel-column>
+  <ngx-excel-column name="createdAt" width="150"></ngx-excel-column>
+</ngx-excel>
+
+<ng-template #relativeEntriesTpl let-context="context">
+  <ng-container *ngIf="getEntries(context.relativeEntries) as entries; else noEntryTpl">
+    <div class="cell cell-combo" nz-tooltip [nzTitle]="entries">
+      <div class="relative-entries">{{entries}}</div>
+    </div>
+  </ng-container>
+  <ng-template #noEntryTpl>
+    <div class="cell cell-combo ng-star-inserted text-warning"> 未设置</div>
+  </ng-template>
+</ng-template>

@@ -1,0 +1,76 @@
+<portlet title="学员成绩详情"  noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="achievement" readonly>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.student"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.student"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.type"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.type" ></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.examDate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.examDate"  ></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.resultDate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.resultDate" ></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.totalScore"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.totalScore"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isProgressed"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.isProgressed"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isQualified"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.isQualified"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-9">
+          <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row ">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.subjects"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row achievement-subjects">
+        <div class="ant-col-24">
+          <achievement-subject-option [achievement]="achievement"> </achievement-subject-option>
+        </div>
+      </div>
+    </ngx-excel-context>
+      </ng-template>
+</portlet>
+<div class="drawer-footer">
+  <a mat-stroked-button  (click)="dismiss()"> 关闭 </a>
+</div>

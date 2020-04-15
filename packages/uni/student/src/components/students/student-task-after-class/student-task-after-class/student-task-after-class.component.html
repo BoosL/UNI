@@ -1,0 +1,13 @@
+<portlet title="学员课下任务列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="task" width="96"></ngx-excel-column>
+      <ngx-excel-column name="time" width="96"></ngx-excel-column>
+      <ngx-excel-column name="status" width="96"></ngx-excel-column>
+      <ngx-excel-column name="remark" width="96"></ngx-excel-column>
+      <ngx-excel-column name="createdTime" width="96"></ngx-excel-column>
+      <ngx-excel-context-action label="编辑课下任务" icon="add_box" action="editTaskAfterClass" [execute]="editTaskAfterClass">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>

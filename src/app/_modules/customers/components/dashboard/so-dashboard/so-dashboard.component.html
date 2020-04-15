@@ -1,0 +1,12 @@
+<div class="layout-main">
+  <ng-template block>
+    <so-dashboard-stats class="dashboard-stats so-dashboard-stats" [dictionary$]="dictionary$"></so-dashboard-stats>
+  </ng-template>
+  <ng-template block>
+    <portlet title="图表统计" class="charts">
+      <ng-template portletBody>
+        <div echarts [options]="options" (chartInit)="handleChartInit($event)"></div>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

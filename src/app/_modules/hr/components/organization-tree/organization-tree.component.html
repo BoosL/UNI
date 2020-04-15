@@ -1,0 +1,18 @@
+<ng-container *ngTemplateOutlet="organizationTreeTpl; context: { nodes: nodes$ | async }"></ng-container>
+<ng-template #organizationTreeTpl let-nodes="nodes">
+  <ng-container *ngIf="nodes === null">
+    <div class="loading">
+      <i nz-icon nzType="loading" nzTheme="outline"></i>
+      数据加载中...
+    </div>
+  </ng-container>
+  <ng-container *ngIf="nodes !== null && nodes.length === 0">
+    <div class="empty">
+      <nz-empty></nz-empty>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="nodes !== null && nodes.length > 0">
+    <nz-tree [nzData]="nodes" nzShowLine [nzMultiple]="false" (nzClick)="nzEvent($event)" (nzExpandChange)="nzEvent($event)">
+    </nz-tree>
+  </ng-container>
+</ng-template>

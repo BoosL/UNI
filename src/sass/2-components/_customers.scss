@@ -1,0 +1,437 @@
+.portlet-customer {
+  portlet.table {
+    border-radius: 4px;
+  }
+
+  .portlet-head {
+    .subtitle {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      margin-left: 3.6rem !important;
+
+      dl,
+      dt,
+      dd {
+        margin: 0;
+        font-weight: normal;
+      }
+
+      dl {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-right: 3.6rem;
+      }
+
+      dd:not(.text-warning) {
+        color: rgba(0, 0, 0, 0.65);
+      }
+    }
+
+    .actions {
+      .ant-btn:not(.ant-btn-icon-only) {
+        padding: 0 15px;
+      }
+    }
+  }
+
+  .ngx-excel-cell--normal .cell > b {
+    font-size: 0.9rem;
+    font-weight: normal;
+  }
+}
+
+.customer-stats.cc-customer-stats {
+  .stats-bar-container {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    padding-left: 0;
+  }
+  .stats-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 128px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background-color: white;
+    padding: 18px 0;
+
+    .stat-section,
+    .ant-row,
+    .stat-block {
+      height: 100%;
+    }
+  }
+
+  .stat-section {
+    border-right: 1px dashed rgba(0, 0, 0, 0.2);
+  }
+
+  .stat-section:last-child {
+    border-right-width: 0;
+  }
+
+  .stat-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 18px;
+    position: relative;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .num {
+      font-family: $code-family;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+  }
+
+  .stat-section .stat-block::after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: "/";
+    font-size: 1.6rem;
+    color: $border-color;
+  }
+
+  .stat-section .stat-block:last-child::after {
+    display: none;
+  }
+}
+
+.portlet-timeline {
+  padding: 18px;
+
+  portlet.table {
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    box-shadow: none;
+
+    .portlet-head {
+      background-color: mat-color($angular-app-primary, 0.04);
+    }
+
+    .portlet-head .trailing {
+      color: mat-color($angular-app-primary, 0.25);
+      font-size: 0.9rem;
+      span {
+        color: rgba(0, 0, 0, 0.65);
+      }
+    }
+
+    .portlet-body {
+      margin-right: 0;
+    }
+
+    .ngx-excel-context .ant-row:last-child {
+      border-bottom-width: 0;
+    }
+
+    .ngx-excel-cell--head-upload {
+      height: 188px;
+      .cell {
+        align-items: flex-start;
+      }
+    }
+
+    .ngx-excel-cell--normal-upload {
+      &,
+      .cell-combo.cell-combo--upload {
+        height: 188px !important;
+        overflow: hidden;
+      }
+    }
+
+    .note {
+      padding: 0;
+      margin: 0;
+      line-height: 39px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+}
+
+so-dashboard,
+us-dashboard,
+cc-dashboard {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+backend-page.customers,
+backend-page.partial-customers {
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+backend-page.partial-customers {
+  .customer-stats.cc-customer-stats .stats-bar-container {
+    margin-top: -18px;
+  }
+}
+
+customer.layout {
+  padding: 0;
+}
+
+customer:not(.layout) {
+  .layout {
+    padding: 0;
+  }
+}
+
+customer-finder,
+customer-visited-record-edit {
+  .search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+    .ngx-excel-cell {
+      height: 100%;
+    }
+
+    .ngx-excel-cell:last-child::after {
+      display: none;
+    }
+
+    .ngx-excel-cell--head,
+    .ngx-excel-cell--btn {
+      width: 96px;
+      min-width: 96px;
+    }
+
+    .ngx-excel-cell--head {
+      border-width: 0;
+      background-color: $border-color;
+    }
+
+    .ngx-excel-cell--normal {
+      flex: 1 0 auto;
+    }
+
+    .input-search {
+      border-width: 1px;
+      border-color: $border-color;
+    }
+
+    .button-search {
+      border-width: 0;
+    }
+
+    .ant-btn {
+      width: 100%;
+      height: 100%;
+      color: white;
+      background-color: mat-color($angular-app-accent);
+      border-radius: 0;
+      font-size: 0.9rem;
+      padding: 0 !important;
+    }
+  }
+}
+
+customer-finder .search {
+  height: calc(38px + 6rem) !important;
+  padding: 3rem 25%;
+}
+
+customer-visited-record-edit .search {
+  height: calc(38px + 5rem) !important;
+  padding: 2.5rem 12.5%;
+  border-bottom: 1px solid $border-color;
+}
+
+customer-follow-record-edit {
+  alert-bar .alert-container {
+    margin-left: -18px;
+    margin-right: -18px;
+    width: auto;
+  }
+
+  alert-bar .alert {
+    margin-top: 18px;
+    margin-bottom: 0;
+  }
+
+  .portlet-body {
+    padding: 18px !important;
+  }
+
+  .portlet-foot {
+    padding: 36px 0 18px;
+
+    .portlet-foot-buttons + .portlet-foot-buttons {
+      margin-top: 24px;
+    }
+
+    .btn-abandon {
+      width: 48%;
+      min-width: 120px;
+    }
+  }
+}
+
+customer-follow-record-abandon,
+customer-consulting-record-abandon {
+  .ant-row {
+    border-color: transparent !important;
+  }
+
+  .ngx-excel-cell--normal {
+    background-color: mat-color($angular-app-primary, default, 0.025);
+  }
+}
+
+backend-page.customer-edit-page {
+  .container-steps {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .container-steps .panel-step {
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  portlet.matched-customer {
+    portlet {
+      box-shadow: none;
+    }
+
+    .portlet-head {
+      height: 4.2rem;
+      overflow: hidden;
+    }
+
+    .portlet-body {
+      height: calc(100% - 4.2rem);
+      margin-right: 0;
+    }
+
+    .portlet-body > .helper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: mat-color($angular-app-primary, 0.25);
+      font-size: 2.4rem;
+      padding: 3.6rem;
+      text-align: center;
+    }
+  }
+}
+
+customer-follow-record-edit,
+customer-visited-record-edit {
+  display: block;
+  height: 100%;
+}
+
+marketing-customer-external {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background-color: white;
+
+  marketing-customer-source,
+  marketing-customer-relationship,
+  marketing-customer-status {
+    display: block;
+  }
+
+  marketing-customer-source,
+  marketing-customer-relationship {
+    portlet {
+      box-shadow: none;
+    }
+  }
+}
+.customer-consulting-record {
+  .consulting-record {
+    display: flex !important;
+    flex-flow: column;
+    .portlet-body {
+      display: block;
+      width: calc(100% + 18px);
+      overflow-y: scroll;
+    }
+  }
+}
+customer-timeline-consulting-record {
+  .consulting-record-abandon {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 1.08rem;
+    flex: 1 0 auto;
+    color: #1c134d;
+    font-weight: bold;
+    padding: 1rem 2rem;
+  }
+}
+
+customer-import-upload {
+  display: block;
+  position: relative;
+  height: 200px;
+  margin-bottom: 24px;
+  overflow: hidden;
+
+  .ant-upload.ant-upload-drag,
+  .uploadText {
+    height: 100%;
+    background-color: white;
+  }
+  .uploadText {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 200px;
+    border-radius: 4px;
+    border: 1px dashed #d9d9d9;
+  }
+  .ant-upload-text {
+    font-size: 18px !important;
+    font-weight: 600;
+  }
+}
+
+
+customer-search-filter{
+  button{
+    margin-top: 4px;
+  }
+}

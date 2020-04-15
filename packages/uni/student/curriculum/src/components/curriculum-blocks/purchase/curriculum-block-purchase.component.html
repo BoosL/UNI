@@ -1,0 +1,54 @@
+<div class="layout-block-main">
+  <nz-collapse nzAccordion [nzBordered]="false">
+    <ng-container *ngFor="let panel of panels">
+      <nz-collapse-panel *ngIf="panel.active" [nzHeader]="'购买 ' + panel.productType.label + ' 产品'"
+        [(nzActive)]="panel.nzActive" [nzExpandedIcon]="collapseExpandedIcon">
+        <ng-template #collapseExpandedIcon>
+          <i *ngIf="panel.nzActive" nz-icon nzType="minus" nzTheme="outline" class="ant-collapse-arrow"></i>
+          <i *ngIf="!panel.nzActive" nz-icon nzType="plus" nzTheme="outline" class="ant-collapse-arrow"></i>
+        </ng-template>
+        <ng-container *ngIf="panel.isEtpProductType">
+          <div class="section section-form">
+            <curriculum-block-purchase-form [productType]="panel.productType"
+              (curriculumFormSubmit)="handleCurriculumFormSubmit($event, panel.productType)"></curriculum-block-purchase-form>
+          </div>
+          <div class="section section-table">
+            <curriculum-table readonly [productSubjects$]="panel.entities$" [columns]="[
+              { name: 'selectedProduct', label: '产品名称' },
+              { name: 'selectedSubject', label: '科目名称' },
+              { name: 'curriculumCount', label: '预购产品课时数' }
+            ]" (componentReady)="handleCurriculumTableReady($event, panel.productType)"></curriculum-table>
+          </div>
+          <div class="section section-extra">
+            <curriculum-block-extra [productType]="panel.productType"></curriculum-block-extra>
+          </div>
+          <!-- <curriculum-block-purchase-etp [productType]="panel.productType"></curriculum-block-purchase-etp> -->
+        </ng-container>
+        <ng-container *ngIf="!panel.isEtpProductType">
+          <div class="section section-table">
+            <curriculum-table [productSubjects$]="panel.entities$"></curriculum-table>
+          </div>
+          <!-- <curriculum-block-purchase-regular [productType]="panel.productType"></curriculum-block-purchase-regular> -->
+        </ng-container>
+      </nz-collapse-panel>
+    </ng-container>
+  </nz-collapse>
+</div>
+<div class="layout-block-sub">
+  <div class="title"> 可购买的产品类型 </div>
+  <ul>
+    <ng-container *ngFor="let panel of panels">
+      <li matRipple (click)="handleProductTypeClick($event, panel)">
+        <span [class.active]="panel.active"> {{ panel.productType.label }} </span>
+        <button matRipple nz-button nzType="default" nzShape="circle"
+          (click)="handleProductTypeButtonClick($event, panel)">
+          <i *ngIf="panel.disabled" nz-icon nz-tooltip nzTitle="ETP类产品不可同时购买" nzPlacement="top" nzType="stop"
+            nzTheme="outline"></i>
+          <i *ngIf="!panel.disabled && panel.loading" nz-icon nzType="loading" nzTheme="outline"></i>
+          <i *ngIf="!panel.disabled && !panel.loading" nz-icon [nzType]="panel.active ? 'delete' : 'plus-square'"
+            nzTheme="outline"></i>
+        </button>
+      </li>
+    </ng-container>
+  </ul>
+</div>

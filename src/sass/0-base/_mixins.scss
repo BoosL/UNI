@@ -1,0 +1,62 @@
+//== Media Query - Responsive Below
+@mixin responsive-below($width) {
+    @media (max-width: #{$width}) {
+      @content;
+    }
+}
+
+//== Media Query - Responsive Above
+@mixin responsive-above($width) {
+    @media (min-width: #{$width}) {
+      @content;
+    }
+}
+
+//== Media Query - Min Desktop Mode
+@mixin minimal-desktop {
+    @media (min-width: calc(#{map-get($layout-breakpoints, lg)} + 1px)) and (max-width: #{map-get($layout-breakpoints, xl)}) {
+       @content;
+     }
+}
+
+//== Media Query - Min Desktop And Below Mode
+@mixin minimal-desktop-and-below {
+    @media (max-width: calc(#{map-get($layout-breakpoints, xl)} + 1px)) {
+        @content;
+    }
+}
+
+//== Media Query - Desktop Mode
+@mixin desktop {
+    @media (min-width: calc(#{map-get($layout-breakpoints, lg)} + 1px)) {
+      @content;
+    }
+}
+
+//== Media Query - Desktop & Tablet Modes
+@mixin desktop-and-tablet {
+    @media (min-width: calc(#{map-get($layout-breakpoints, md)} + 1px)) {
+      @content;
+    }
+}
+
+//== Media Query - Tablet Mode
+@mixin tablet {
+    @media (min-width: calc(#{map-get($layout-breakpoints, md)} + 1px)) and (max-width: #{map-get($layout-breakpoints, lg)}) {
+      @content;
+    }
+}
+
+//== Media Query - Tablet & Mobile Modes
+@mixin tablet-and-mobile {
+    @media (max-width: #{map-get($layout-breakpoints, lg)}) {
+      @content;
+    }
+}
+
+//== Media Query - Mobile Mode
+@mixin mobile {
+    @media (max-width: #{map-get($layout-breakpoints, md)}) {
+      @content;
+    }
+}

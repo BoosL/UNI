@@ -1,0 +1,22 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="小班列表" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="excelStudents" lazyload>
+          <ngx-excel-column name="name" width="96"></ngx-excel-column>
+          <ngx-excel-column name="classNumber" width="60" readonly></ngx-excel-column>
+          <ngx-excel-column name="allStudent" width="120" readonly></ngx-excel-column>
+          <ngx-excel-column name="importance" width="60"></ngx-excel-column>
+          <ngx-excel-column name="school" width="60" readonly></ngx-excel-column>
+          <ngx-excel-column name="remark" width="60"></ngx-excel-column>
+          <ngx-excel-context-action action="view" label="查看详情" icon="insert_drive_file" [execute]="view">
+          </ngx-excel-context-action>
+          <ngx-excel-context-action label="新建小班" prefix icon="add_box" action="addSmall" [execute]="addSmall">
+          </ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+

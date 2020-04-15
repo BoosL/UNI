@@ -1,0 +1,36 @@
+<portlet title="新增上课频率" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="componentValue">
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.week"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.week"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.startTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell [column]="rules.startTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.endTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell [column]="rules.endTime"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div class="drawer-footer">
+  <button matRipple nz-button [disabled]="loading" (click)="dismiss()"> 关闭 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm()"> 保存
+  </button>
+</div>

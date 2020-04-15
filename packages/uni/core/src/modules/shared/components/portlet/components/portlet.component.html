@@ -1,0 +1,28 @@
+<div *ngIf="portletHeadTpl || title" class="portlet-head" [class.no-border]="noBorder">
+  <ng-template [ngTemplateOutlet]="portletHeadTpl || defaultPortletHeadTpl"></ng-template>
+</div>
+<div class="portlet-body" [class.no-padding]="noPadding">
+  <nz-alert *ngIf="warning" nzBanner [nzMessage]="warning" class="portlet-warning"></nz-alert>
+  <ng-template [ngTemplateOutlet]="portletBodyTpl || defaultPortletBodyTpl"></ng-template>
+  <div class="portlet-foot" *ngIf="portletFootTpl">
+    <ng-template [ngTemplateOutlet]="portletFootTpl"></ng-template>
+  </div>
+</div>
+
+<ng-template #defaultPortletHeadTpl>
+  <div class="leading">
+    <i *ngIf="icon" nz-icon [nzType]="icon"></i>
+  </div>
+  <div class="title">
+    {{ title }}
+    <div *ngIf="subtitle" class="subtitle"> {{ subtitle }} </div>
+  </div>
+  <div class="trailing">
+    <ul *ngIf="actions.length > 0" class="actions">
+      <li *ngFor="let action of actions">
+        <ng-template [ngTemplateOutlet]="action"></ng-template>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<ng-template #defaultPortletBodyTpl></ng-template>

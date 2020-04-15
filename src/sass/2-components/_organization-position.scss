@@ -1,0 +1,14 @@
+organization-graph {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  .ngx-excel-cell {
+    border: 1px solid #000;
+  }
+
+  .ngx-excel-cell .cell {
+    border-width: 1px;
+    justify-content: center;
+  }
+}

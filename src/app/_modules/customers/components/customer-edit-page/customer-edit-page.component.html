@@ -1,0 +1,16 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleBackButtonClick($event)">
+    <i nz-icon nzType="unordered-list" nzTheme="outline"></i> 客户列表
+  </button>
+</ng-template>
+<div pageOnInit></div>
+<div class="container-steps">
+  <ng-container #containerSteps></ng-container>
+</div>
+
+<ng-template #customerTpl let-config="config" let-simpleMode="simpleMode" let-context="context">
+  <so-customer-portlet *ngIf="config.name === 'SO'" [simpleMode]="simpleMode" [context]="context"
+    (actionButtonClick)="handleActionButtonClick($event)"></so-customer-portlet>
+  <us-customer-portlet *ngIf="config.name === 'US'" [simpleMode]="simpleMode" [context]="context"
+    (actionButtonClick)="handleActionButtonClick($event)"></us-customer-portlet>
+</ng-template>

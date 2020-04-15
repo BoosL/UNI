@@ -1,0 +1,222 @@
+<div class="section">
+  <div class="section-head portlet-head">
+    <div class="title"> 咨询记录
+      <div class="subtitle">
+        <dl>
+          <dt>订金：</dt>
+          <dd> {{ customer?.hasDeposit ? '已交' : '无' }} </dd>
+        </dl>
+        <dl>
+          <dt>demo/试听：</dt>
+          <dd> {{ customer?.isImportant ? '已参与' : '无' }} </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+    <ngx-excel-context [(context)]="consultingRecord" [attachSelectTo]="attachSelectTo"
+      (contextChange)="handleChange($event)">
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.visitingPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.visitingPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.englishDegree"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.englishDegree"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.monthlyDisposableIncome"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.monthlyDisposableIncome"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.backgroundInfo"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-21">
+          <ngx-excel-cell normalCell [column]="rules.backgroundInfo"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.course"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.course"></ngx-excel-cell>
+        </div>
+      </div>
+      <ngx-excel-context *ngIf="isCourse === true" [(context)]="consultingRecord" [attachSelectTo]="attachSelectTo"
+        (contextChange)="handleChange($event)">
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.courseType"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #courseTypeTpl let-context="context">
+              <ng-container *ngIf="context?.course === true">
+                <div class="cell" [class.text-warning]="!context?.courseType">
+                  {{ context?.courseType ? context.courseType.label : '请选择课程类型' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="context?.course !== true">
+                <div *ngIf="context?.course === false" class="cell text-optional"> 只有推荐课程才能选择课程类型</div>
+                <div *ngIf="context?.course !== false" class="cell text-optional"> 请先选择是否推荐课程？</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.courseType" [template]="courseTypeTpl"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.courseCount"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #courseCountTpl let-context="context">
+              <ng-container *ngIf="context?.courseType">
+                <div class="cell" [class.text-warning]="!context?.courseCount">
+                  {{ context?.courseCount ? context.courseCount : '请输入课时数' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!context?.courseType">
+                <div class="cell text-optional"> 请先选择课程类型</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.courseCount" [template]="courseCountTpl"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.courseMonth"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #courseMonthTpl let-context="context">
+              <ng-container *ngIf="context?.courseType">
+                <div class="cell" [class.text-warning]="!context?.courseMonth">
+                  {{ context?.courseMonth ? context.courseMonth : '请输入学习时长' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!context?.courseType">
+                <div class="cell text-optional"> 请先选择课程类型</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.courseMonth" [template]="courseMonthTpl"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.offerPriceStatus"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.offerPriceStatus"></ngx-excel-cell>
+        </div>
+      </div>
+      <ngx-excel-context *ngIf="offerPriceStatus === true" [(context)]="consultingRecord"
+        [attachSelectTo]="attachSelectTo" (contextChange)="handleChange($event)">
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.offerPrice"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #offerPriceTpl let-context="context">
+              <ng-container *ngIf="context?.offerPriceStatus === true">
+                <div class="cell" [class.text-warning]="!context?.offerPrice">
+                  {{ context?.offerPrice ? context.offerPrice : '请输入报价金额' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="context?.offerPriceStatus !== true">
+                <div *ngIf="context?.offerPriceStatus === false" class="cell text-optional"> 只有选择报价才能输入报价金额
+                </div>
+                <div *ngIf="context?.offerPriceStatus !== false" class="cell text-optional"> 请先选择是否报价？</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.offerPrice" [template]="offerPriceTpl"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['isInvalidation']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules['isInvalidation']"></ngx-excel-cell>
+        </div>
+      </div>
+
+
+      <ngx-excel-context *ngIf="isInvalidation === true" [(context)]="consultingRecord"
+        [attachSelectTo]="attachSelectTo" (contextChange)="handleChange($event)">
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.invalidationReason"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #invalidationReasonTpl let-context="context">
+              <ng-container *ngIf="context?.isInvalidation === true">
+                <div class="cell" [class.text-warning]="!context?.invalidationReason">
+                  {{ context?.invalidationReason ? context.invalidationReason.label : '请选择废turn理由' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="context?.isInvalidation !== true">
+                <div *ngIf="context?.isInvalidation === false" class="cell text-optional"> 只有选择废turn才能选择废涂然诺理由
+                </div>
+                <div *ngIf="context?.isInvalidation !== false" class="cell text-optional"> 请先选择是否废turn？</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.invalidationReason" [template]="invalidationReasonTpl">
+            </ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.attachments"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-21">
+            <ngx-excel-cell normalCell [column]="rules.attachments"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.invalidationRemark"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-21">
+            <ng-template #invalidationRemarkTpl let-context="context">
+              <ng-container *ngIf="context?.isInvalidation === true">
+                <div class="cell" [class.text-warning]="!context?.invalidationRemark">
+                  {{ context?.invalidationRemark ? context.invalidationRemark : '请输入废turn描述' }}
+                </div>
+              </ng-container>
+              <ng-container *ngIf="context?.isInvalidation !== true">
+                <div *ngIf="context?.isInvalidation === false" class="cell text-optional"> 只有选择废turn才能填写废turn描述
+                </div>
+                <div *ngIf="context?.isInvalidation !== false" class="cell text-optional"> 请先选择是否废turn？</div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.invalidationRemark" [template]="invalidationRemarkTpl">
+            </ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+      <div class="ant-row">
+        <ngx-excel-context *ngIf="isInvalidation !== true" [(context)]="consultingRecord"
+          [attachSelectTo]="attachSelectTo" (contextChange)="handleChange($event)">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.contractRate"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.contractRate"></ngx-excel-cell>
+          </div>
+        </ngx-excel-context>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isImportant"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.isImportant"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </div>
+</div>

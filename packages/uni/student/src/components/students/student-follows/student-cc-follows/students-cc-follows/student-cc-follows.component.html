@@ -1,0 +1,31 @@
+<portlet title="学员CC跟进列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="createData" width="60"></ngx-excel-column>
+      <ngx-excel-column name="followPerson" width="60"></ngx-excel-column>
+      <ngx-excel-column name="record" width="60"></ngx-excel-column>
+      <ngx-excel-column name="nextTime" width="96"></ngx-excel-column>
+      <ngx-excel-column name="recording" width="240" [template]="recordingTpl"></ngx-excel-column>
+      <!-- [onClickedCallback]="handleRecordingClick" -->
+      <ngx-excel-column name="school" width="96"></ngx-excel-column>
+      <ngx-excel-context-action label="添加学员CC跟进记录" prefix icon="add_box" action="appendRow" [execute]="editCcFollows">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+
+
+<ng-template #recordingTpl let-context='context'>
+  <div class="cell text-optional empty" *ngIf="!context.recording">(空)</div>
+  <ng-container *ngIf="context.recording">
+    <div class="cell">
+      <ng-container *ngFor="let item of context.recording">
+        <audio controls="controls" [src]="item">
+          <source type="audio/ogg">
+          <source type="audio/mpeg">
+        </audio>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>

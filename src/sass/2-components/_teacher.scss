@@ -1,0 +1,20 @@
+backend-page.teachers {
+
+  .cell-teacher-flag [nz-popconfirm] {
+    justify-content: center;
+
+    .toggle_icon {
+      font-size: 1.4rem;
+      margin-right: 0;
+    }
+
+    .toggle_icon--0 {
+      color: mat-color($angular-app-primary, default, 0.125);
+    }
+
+    .toggle_icon--1 {
+      color: mat-color($angular-app-danger);
+    }
+  }
+
+}

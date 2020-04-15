@@ -1,0 +1,53 @@
+<portlet title="客户事件记录" class="list">
+  <ng-template portletBody>
+    <ngx-excel #excelComponent readonly lazyload [cellHeight]="300" [customCalculateHeight]="calculateTimelineHeight"
+      [customTemplate]="timelineItemTpl"></ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #timelineItemTpl let-context>
+  <ng-template #actionTpl>
+    操作人：<span>{{ context?.relativeEmployee?.name || '系统判定' }}</span>
+  </ng-template>
+  <div class="portlet-timeline">
+    <portlet class="table" [title]="context?.createdTime + ' - ' + getTitle(context)" [actions]="[actionTpl]">
+      <ng-template portletBody>
+        <ng-container [ngSwitch]="context?.type?.value">
+          <customer-timeline-add-record *ngSwitchCase="'customer_add'" [record]="context?.relativeCustomer"
+            [excel]="excelComponent">
+          </customer-timeline-add-record>
+         <!-- <customer-timeline-compatible-follow-record *ngSwitchCase="'tmk_followed'" [record]="context?.tmkFollowRecord"
+            [excel]="excelComponent">
+          </customer-timeline-compatible-follow-record>-->
+          <customer-timeline-tmk-follow-record *ngSwitchCase="'tmk_followed'" [record]="context?.tmkFollowRecord"
+                                                      [excel]="excelComponent">
+          </customer-timeline-tmk-follow-record>
+          <customer-timeline-reserved-record *ngSwitchCase="'tmk_reserved'" [record]="context?.tmkReservedRecord"
+            [excel]="excelComponent">
+          </customer-timeline-reserved-record>
+          <customer-timeline-employee-transferred-record *ngSwitchCase="'tmk_transferred'"
+            [record]="context?.tmkTransferredRecord" [excel]="excelComponent">
+          </customer-timeline-employee-transferred-record>
+          <customer-timeline-employee-transferred-record *ngSwitchCase="'sc_transferred'"
+            [record]="context?.scTransferredRecord" [excel]="excelComponent">
+          </customer-timeline-employee-transferred-record>
+          <customer-timeline-follow-record *ngSwitchCase="'cc_followed'" [record]="context?.ccFollowRecord"
+            [excel]="excelComponent"></customer-timeline-follow-record>
+          <customer-timeline-reserved-record *ngSwitchCase="'cc_reserved'" [record]="context?.ccReservedRecord"
+            [excel]="excelComponent">
+          </customer-timeline-reserved-record>
+          <customer-timeline-consulting-record *ngSwitchCase="'cc_consult'" [record]="context?.ccConsultingRecord"
+            [excel]="excelComponent">
+          </customer-timeline-consulting-record>
+          <customer-timeline-employee-transferred-record *ngSwitchCase="'cc_transferred'"
+            [record]="context?.ccTransferredRecord" [excel]="excelComponent">
+          </customer-timeline-employee-transferred-record>
+          <customer-timeline-visited-record *ngSwitchCase="'visited'" [record]="context?.usVisitedRecord"
+            [excel]="excelComponent">
+          </customer-timeline-visited-record>
+          <customer-timeline-common-record *ngSwitchDefault [record]="context"></customer-timeline-common-record>
+        </ng-container>
+      </ng-template>
+    </portlet>
+  </div>
+</ng-template>

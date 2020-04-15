@@ -1,0 +1,148 @@
+<portlet [title]="context?.name" noPadding class="table">
+  <ng-template portletHead>
+    <div class="title">
+      {{ context?.name }}
+      <div class="subtitle">
+        <dl>
+          <dt>性别：</dt>
+          <dd [class.text-warning]="!context?.gender"> {{ context?.gender?.label || '未设置' }} </dd>
+        </dl>
+        <dl>
+          <dt>当前状态：</dt>
+          <dd> {{ context?.status?.label || '未知状态' }} </dd>
+        </dl>
+        <dl *ngIf="!simpleMode">
+          <dt>定金：</dt>
+          <dd> {{ context?.hasDeposit ? '有' : '无' }} </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="trailing">
+      <ul class="actions">
+        <button *ngIf="simpleMode" matRipple nz-button nzType="link" (click)="navigateTo($event, 'edit', context)">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+          更新渠道
+        </button>
+        <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'detail', context)">
+          <i nz-icon nzType="eye" nzTheme="outline"></i>
+        </button>
+      </ul>
+    </div>
+  </ng-template>
+  <ng-template portletBody>
+    <ngx-excel-context readonly [context]="context" [excel]="excelComponent">
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.age"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.age"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.contactType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.contactType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.lastVisitedTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.lastVisitedTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.lastVisitedSchool"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.lastVisitedSchool"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.capacity"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.capacity" [template]="columnCapacityTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.learningPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.learningPurpose"></ngx-excel-cell>
+        </div>
+        <ng-container *ngIf="!simpleMode">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.relativeSource"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.relativeSource"></ngx-excel-cell>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="simpleMode">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.sourceProtectedToDate"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.sourceProtectedToDate" [template]="columnSourceProtectedToDateTpl"></ngx-excel-cell>
+          </div>
+        </ng-container>
+      </div>
+      <div *ngIf="!simpleMode" class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.cc"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.cc"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.tmk"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.tmk"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeSourceEmployee"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.relativeSourceEmployee"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.sourceProtectedToDate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.sourceProtectedToDate" [template]="columnSourceProtectedToDateTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div *ngIf="!simpleMode" class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-22">
+          <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<ng-template #columnCapacityTpl let-context="context">
+  <div *ngIf="!context.capacity && !context.grade" class="cell text-warning"> 未设置 </div>
+  <div *ngIf="context.capacity || context.grade" class="cell">
+    <b [class.text-warning]="!context?.capacity"> {{ context?.capacity?.label || '未设置身份' }} </b>
+    <ng-container *ngIf="context?.grade">
+      &nbsp;/&nbsp;
+      <b [class.text-warning]="!context?.grade"> {{ context?.grade?.label || '未设置年级' }} </b>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #columnSourceProtectedToDateTpl let-context="context">
+  <div *ngIf="context.isSourceProtected" class="cell text-danger"> {{ context.sourceProtectedToDate ? (context.sourceProtectedToDate | ngxExcelDateTime:'date')  : '是' }} </div>
+  <div *ngIf="!context.isSourceProtected" class="cell text-optional"> (空) </div>
+</ng-template>

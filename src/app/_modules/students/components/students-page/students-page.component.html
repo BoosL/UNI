@@ -1,0 +1,56 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleSearchButtonClick($event)">
+    <i nz-icon nzType="search" nzTheme="outline"></i> 学员搜索
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="全部学员" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="excelStudents" cellHeight="60" lazyload readonly>
+          <ngx-excel-column name="id" width="80" locked [template]="idTpl"></ngx-excel-column>
+          <ngx-excel-column name="sn" width="160" locked></ngx-excel-column>
+          <ngx-excel-column name="name" width="120" locked></ngx-excel-column>
+          <ngx-excel-column name="gender" width="80"></ngx-excel-column>
+          <ngx-excel-column name="school" width="150"></ngx-excel-column>
+          <ngx-excel-column name="importanceType" width="80"></ngx-excel-column>
+          <ngx-excel-column name="levelEtpCurrent" width="220" [template]="etpCollectTpl"></ngx-excel-column>
+          <ngx-excel-column name="sc" width="140"></ngx-excel-column>
+          <ngx-excel-column name="cc" width="140"></ngx-excel-column>
+          <ngx-excel-column name="scFollow" width="180"></ngx-excel-column>
+          <ngx-excel-column name="curriculumBeginTime" width="140"></ngx-excel-column>
+          <ngx-excel-column name="curriculumEndTime" width="140"></ngx-excel-column>
+          <ngx-excel-column name="curriculumCount" width="80" [template]="curriculumCountTpl"></ngx-excel-column>
+          <ngx-excel-context-action action="view" label="查看详情" icon="insert_drive_file" [execute]="view">
+          </ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #idTpl let-context="context">
+  <div class="cell">{{context.id}}</div>
+</ng-template>
+
+<ng-template #etpCollectTpl let-context="context">
+  <div *ngIf="context.levelEtpCurrent" class="cell">
+    <div class="etp-progress-wrapper">
+      <div class="s"> {{ context.levelEtpStart.label | stripChinese }} </div>
+      <div class="progress">
+        <div class="progress-bar" [style.width.%]="context.levelEtpPercent">
+          <span class="text"> {{ context.levelEtpCurrent.label | stripChinese }} </span>
+        </div>
+      </div>
+      <div class="e"> {{ context.levelEtpEnd.label | stripChinese }} </div>
+    </div>
+  </div>
+  <div *ngIf="!context.levelEtpCurrent" class="cell text-warning"> 未设置 </div>
+</ng-template>
+
+<ng-template #curriculumCountTpl let-context="context">
+  <div class="cell"> {{ context.curriculumCount }} </div>
+</ng-template>

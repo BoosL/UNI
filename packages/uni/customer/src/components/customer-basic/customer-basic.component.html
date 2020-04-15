@@ -1,0 +1,186 @@
+<div class="section">
+  <div class="section-head">
+    <div class="title"> 基本信息 </div>
+  </div>
+  <div class="section-body">
+    <ng-container *ngIf="readonly">
+      <ng-container *ngTemplateOutlet="basicInfoReadModeTpl; context: { customer: handledCustomer$ | async }"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!readonly">
+      <ngx-excel-context [(context)]="customer" [attachSelectTo]="attachSelectTo" (contextChange)="handleContextChange($event)">
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.phone"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell disabled [column]="rules.phone"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.phoneParents"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [disabled]="cantEditPhoneParents" [column]="rules.phoneParents"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.phoneBackup"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [disabled]="cantEditPhoneBackup" [column]="rules.phoneBackup"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.nameCn"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.nameCn"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.nameEn"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.nameEn"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.age"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.age"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.gender"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.gender"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.capacity"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.capacity"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.grade"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ng-template #columnGradeTpl let-context="context">
+              <ng-container *ngIf="cantEditGrade">
+                <div *ngIf="context.capacity" class="cell text-optional"> (无需选择年级) </div>
+                <div *ngIf="!context.capacity" class="cell text-optional"> (请先选择客户身份) </div>
+              </ng-container>
+              <ng-container *ngIf="!cantEditGrade">
+                <div *ngIf="context.capacity" class="cell" [class.text-warning]="!context.grade"> {{ context?.grade?.label || '未设置' }} </div>
+                <div *ngIf="!context.capacity" class="cell text-optional"> (请先选择客户身份) </div>
+              </ng-container>
+            </ng-template>
+            <ngx-excel-cell normalCell [disabled]="cantEditGrade" [column]="rules.grade" [template]="columnGradeTpl"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.learningPurpose"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.learningPurpose"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-3">
+            <ngx-excel-cell headCell [column]="rules.level"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-5">
+            <ngx-excel-cell normalCell [column]="rules.level"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+    </ng-container>
+  </div>
+</div>
+
+
+<ng-template #basicInfoReadModeTpl let-customer="customer">
+  <ngx-excel-context readonly [context]="customer">
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.nameCn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.nameCn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.nameEn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.nameEn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.gender"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.gender"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.age"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.age"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.level"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.level"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.capacity"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.capacity"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.phone"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.phone"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.phoneParents"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.phoneParents"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.phoneBackup"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.phoneBackup"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.grade"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.grade"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.learningPurpose"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.learningPurpose"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-21">
+        <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+    </div>
+  </ngx-excel-context>
+</ng-template>

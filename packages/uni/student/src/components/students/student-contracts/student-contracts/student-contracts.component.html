@@ -1,0 +1,11 @@
+<portlet title="合同列表" noPadding class="list portlet-contract" cdkDropListGroup>
+  <ng-template portletBody>
+    <!--<contracts  (handleContractRecharge)="handleContractRecharge($event)"> </contracts>-->
+    <contracts [portletTpl]="contractTpl" [schemeConfig]="schemeConfig"></contracts>
+  </ng-template>
+</portlet>
+
+<ng-template #contractTpl let-config="config" let-context="context" let-excel="excel">
+  <student-contract-portlet [context]="context" [excelComponent]="excel"
+                            (actionButtonClick)="handleActionButtonClick($event)"></student-contract-portlet>
+</ng-template>

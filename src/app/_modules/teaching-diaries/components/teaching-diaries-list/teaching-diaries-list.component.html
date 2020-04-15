@@ -1,0 +1,20 @@
+<ngx-excel lazyload readonly>
+  <ngx-excel-column name="school"></ngx-excel-column>
+  <ngx-excel-column name="classroom"></ngx-excel-column>
+  <ngx-excel-column name="courseDate"></ngx-excel-column>
+  <ngx-excel-column name="curriculum"></ngx-excel-column>
+  <ngx-excel-column name="classStudents" [template]="classStudentsTpl"></ngx-excel-column>
+  <ngx-excel-column name="teachingInsert"></ngx-excel-column>
+  <ngx-excel-context-action action="editDiary" label="编辑教学日志" icon="insert_drive_file" [execute]="editDiary"></ngx-excel-context-action>
+  <ngx-excel-context-action action="addDiary" label="新增教学日志" icon="insert_drive_file"  [execute]="addDiary"></ngx-excel-context-action>
+</ngx-excel>
+<ng-template #classStudentsTpl let-context="context">
+  <ng-container *ngIf="getEntries(context.classStudents) as names; else noEntryTpl">
+    <div class="cell cell-combo" nz-tooltip [nzTitle]="names">
+      <div class="relative-entries">{{names}}</div>
+    </div>
+  </ng-container>
+  <ng-template #noEntryTpl>
+    <div class="cell cell-combo ng-star-inserted text-warning"> 未设置</div>
+  </ng-template>
+</ng-template>

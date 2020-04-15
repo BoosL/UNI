@@ -1,0 +1,165 @@
+backend-page.schedule {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 0;
+  }
+
+  .ant-checkbox-group {
+    width: 100%;
+  }
+
+  .schedule-type {
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .schedule-calendar {
+    position: relative;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    .schedule-calendar-head {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 2rem;
+      padding-bottom: 0;
+
+      .leading, .trailing {
+        width: 30%;
+        flex: 0 0 30%;
+      }
+
+      .trailing {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .leading {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 2.8rem;
+          padding: 0 1.25rem;
+          border: 1px solid $border-color;
+          border-radius: 4px;
+
+          &.prev {
+            border-radius: 4px 0 0 4px;
+            border-right-width: 0;
+          }
+
+          &.next {
+            border-radius: 0 4px 4px 0;
+          }
+        }
+
+        .navigator {
+          display: flex;
+          justify-content: center;
+          margin-right: 1rem;
+
+          a {
+            line-height: normal;
+            padding: 0 .75rem;
+
+            .mat-icon {
+              width: auto;
+              height: auto;
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+
+      .title {
+        flex: 1 0 auto;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+      }
+    }
+
+    .schedule-calendar-body {
+      position: relative;
+    }
+
+    .ant-fullcalendar--fullscreen {
+      position: relative;
+      z-index: 20;
+      // height: 100%;
+
+      .ant-fullcalendar-date {
+        height: 80px;
+        padding: 0;
+
+        .ant-badge {
+          position: relative;
+        }
+        .ant-badge-status-text {
+          font-size: 1.8rem;
+          margin-left: 0;
+        }
+        .ant-badge-status-dot {
+          position: absolute;
+          right: -10px;
+          top: 0;
+        }
+      }
+
+      .ant-fullcalendar-last-month-cell .ant-fullcalendar-value,
+      .ant-fullcalendar-next-month-btn-day .ant-fullcalendar-value {
+        .ant-badge .ant-badge-status-text {
+          color: rgba(0, 0, 0, .15);
+        }
+      }
+
+      .ant-fullcalendar-date .type {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: .5rem;
+        font-size: .9rem;
+      }
+    }
+
+    .current-month {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      transform: translate(-50%, -30%);
+
+      span {
+        font-family: $code-family;
+        font-size: 3rem;
+        font-weight: bold;
+        transform: scale(8);
+        color: $border-color;
+        opacity: 0.35;
+      }
+    }
+  }
+}

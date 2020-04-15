@@ -1,0 +1,20 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet class="list" title="职位列表" noPadding>
+      <ng-template portletBody>
+        <ngx-excel cellHeight="60" lazyload>
+          <ngx-excel-column name="name" width="150" locked></ngx-excel-column>
+          <ngx-excel-column name="type" width="120" locked></ngx-excel-column>
+          <ngx-excel-column name="count" width="96" readonly></ngx-excel-column>
+          <ngx-excel-column name="createdTime" width="150" readonly></ngx-excel-column>
+          <ngx-excel-column name="updatedTime" width="96" readonly></ngx-excel-column>
+          <ngx-excel-context-action action="view" prefix label="新增职务" icon="add_box" [execute]="addNewposition">
+          </ngx-excel-context-action>
+          <ngx-excel-context-action action="deletePosition" label="删除职务" icon="delete">
+          </ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

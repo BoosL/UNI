@@ -1,0 +1,35 @@
+{
+  "/api-dev": {
+    "target": "http://t2.uni.baff.online",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api-dev": "/api"
+    }
+  },
+  "/api-lan": {
+    "target": "http://t2.uni.baff.online",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+        "^/api-lan": "/api"
+    }
+},
+  "/api-beta": {
+    "target": "10.1.5.144",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api-beta": "/api"
+    }
+  },
+  "/api": {
+    "target": "https://uni.baffedu.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

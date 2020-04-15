@@ -1,0 +1,18 @@
+<div pageOnInit></div>
+
+<div class="layout-sub layout-sub-l" [class.renderred]="initComponentState === 'complete'">
+  <ng-template block>
+    <teaching-diaries-calendar [monthSchedulesSubject]="monthSchedulesSubject"  [selectCurrentDateSubject]="currentDateSubject"
+                               (handleCalendar)="handleCalendarChange($event)"></teaching-diaries-calendar>
+  </ng-template>
+</div>
+<div class="layout-main" [class.renderred]="initComponentState === 'complete'">
+  <ng-template block>
+    <portlet title="日志列表" noPadding class="list" cdkDropListGroup>
+      <ng-template portletBody>
+        <teaching-diaries-list [schedulesSubject]="schedulesSubject" (handleChangeTeachingStatus)="handleChangeTeachingStatus($event)"></teaching-diaries-list>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+

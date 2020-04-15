@@ -1,0 +1,48 @@
+<portlet title="学员签课" noPadding class="table">
+  <ng-template portletBody>
+    <div class="layout">
+      <div class="layout-main" canExternal>
+        <ng-template block>
+          <div class="section">
+            <div class="section-head">
+              <div class="title"> 签课名单</div>
+            </div>
+            <div class="section-body">
+              <curriculum-schedules-entries-student class="signing-container" [rules]="rules"
+                                                    [entriesSubject]="entriesStudentSubject" editType="true">
+
+              </curriculum-schedules-entries-student>
+              <ng-container *ngIf="schedule && schedule.status.value !== '5'">
+                <ngx-excel-context [(context)]="uploadFile">
+                  <div class="ant-row">
+                    <div class="ant-col-3">
+                      <ngx-excel-cell headCell [column]="rules.attachments"></ngx-excel-cell>
+                    </div>
+                    <div class="ant-col-21">
+                      <ngx-excel-cell normalCell [column]="rules.attachments"></ngx-excel-cell>
+                    </div>
+                  </div>
+                </ngx-excel-context>
+              </ng-container>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+<div class="drawer-footer">
+  <button
+     matRipple nz-button [disabled]="loading"  (click)="dismiss()"> 关闭 
+  </button>
+  <button
+     matRipple nz-button nzType="primary"  class="ant-btn-accent"  [nzLoading]="loading" [disabled]="loading"
+     (click)="confirm()"> 保存
+  </button>
+
+</div>
+
+
+

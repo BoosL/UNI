@@ -1,0 +1,20 @@
+<div pageOnInit></div>
+<div class="layout-main ">
+  <ng-template block>
+    <portlet title="添加咨询记录" noPadding scrollableY class="table portlet-customer">
+      <ng-template portletBody>
+        <customer-basic #customerBasicComponent [customer$]="customer$" (customerChange)="handleCustomerChange($event)"></customer-basic>
+        <customer-consulting-record [consultingRecord]="consultingRecord" [customer]="customer$ | async" [rules]='rules'
+          [attachSelectTo]="customerBasicComponent.attachedContextComponent"
+          (handleConsultingRecordChange)="handleConsultingRecordChange($event)"></customer-consulting-record>
+      </ng-template>
+      <ng-template portletFoot>
+        <div class="portlet-foot-buttons">
+          <button matRipple nz-button nzType="default" (click)="cancel($event)"> 取消 </button>
+          <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading"
+            (click)="confirm($event)"> 提交 </button>
+        </div>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

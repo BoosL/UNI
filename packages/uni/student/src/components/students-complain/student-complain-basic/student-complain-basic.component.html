@@ -1,0 +1,79 @@
+<portlet title="学员投诉基本信息" noPadding class="table">
+  <ng-template portletBody>
+    <ng-container *ngTemplateOutlet="basicInfoTpl; context: { student: student$ | async }"></ng-container>
+  </ng-template>
+</portlet>
+
+<ng-template #basicInfoTpl let-student="student">
+  <ngx-excel-context [context]="student">
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.theme"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.theme"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.student"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.student"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.complaintDate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.complaintDate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.complaintsType"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.complaintsType"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.byComplainant"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.byComplainant"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.state"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.state"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.manage"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.manage"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.campus"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.campus"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-20">
+        <ngx-excel-cell normalCell disabled [column]="rules.remark"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="minor-title">跟进纪录</div>
+      <student-complain-basic-follows [student$]="student$">
+      </student-complain-basic-follows>
+    </div>
+  </ngx-excel-context>
+</ng-template>

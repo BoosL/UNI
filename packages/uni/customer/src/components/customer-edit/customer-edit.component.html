@@ -1,0 +1,188 @@
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="新增客户" noPadding scrollableY class="table">
+      <ng-template portletBody>
+        <ngx-excel-context #attachedContextComponent [(context)]="context">
+          <customer-basic [customer$]="customer$" [attachSelectTo]="attachedContextComponent"
+            (customerChange)="handleCustomerBasicChange($event)"></customer-basic>
+          <div class="section">
+            <div class="section-head">
+              <div class="title"> 渠道信息 </div>
+            </div>
+            <div class="section-body">
+              <div class="ant-row">
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.contactType"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [disabled]="cantEditContactType" [column]="rules.contactType">
+                  </ngx-excel-cell>
+                </div>
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.school"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [disabled]="cantEditSchool" [column]="rules.school"></ngx-excel-cell>
+                </div>
+              </div>
+              <div class="ant-row">
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.relativeFirstSource"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [column]="rules.relativeFirstSource"
+                    [template]="columnRelativeFirstSourceTpl">
+                  </ngx-excel-cell>
+                </div>
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.relativeSecondSource"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [column]="rules.relativeSecondSource"
+                    [template]="columnRelativeSecondSourceTpl"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.relativeThirdSource"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [column]="rules.relativeThirdSource"
+                    [template]="columnRelativeThirdSourceTpl">
+                  </ngx-excel-cell>
+                </div>
+              </div>
+              <customer-edit-ccrn [ccrn$]="ccrn$" [(ccrnInfo)]="ccrnInfo" [attachSelectTo]="attachedContextComponent">
+              </customer-edit-ccrn>
+              <div *ngIf="scheme === 'US'" class="ant-row">
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.relativeSourceEmployee"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [column]="rules.relativeSourceEmployee"
+                    [template]="columnRelativeSourceEmployeeTpl"></ngx-excel-cell>
+                </div>
+              </div>
+              <div *ngIf="scheme !== 'US'" class="ant-row">
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.remarkSource"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-5">
+                  <ngx-excel-cell normalCell [column]="rules.remarkSource"></ngx-excel-cell>
+                </div>
+              </div>
+              <div *ngIf="scheme !== 'US'" class="ant-row">
+                <div class="ant-col-3">
+                  <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+                </div>
+                <div class="ant-col-21">
+                  <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ngx-excel-context>
+        <div *ngIf="scheme === 'US'" class="section">
+          <div class="section-head">
+            <div class="title"> 到访信息 </div>
+          </div>
+          <div class="section-body">
+            <customer-visited-record-edit componentMode="simple" [(record)]="record"
+              [attachSelectTo]="attachedContextComponent"></customer-visited-record-edit>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template portletFoot>
+        <div class="portlet-foot-buttons">
+          <button matRipple nz-button nzType="default" (click)="cancel($event)"> 取消 </button>
+          <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading"
+            (click)="confirm($event)"> 提交 </button>
+        </div>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #defaultRequiredTpl>
+  <div class="cell text-warning"> 未设置 </div>
+</ng-template>
+
+<ng-template #schoolRequiredTpl>
+  <div class="cell text-optional"> (请先选择所属校区) </div>
+</ng-template>
+
+<ng-template #contactTypeRequiredTpl>
+  <div class="cell text-optional"> (请先选择来访形式) </div>
+</ng-template>
+
+<ng-template #relativeFirstSourceRequiredTpl>
+  <div class="cell text-optional"> (请先选择一级渠道) </div>
+</ng-template>
+
+<ng-template #relativeSecondSourceRequiredTpl>
+  <div class="cell text-optional"> (请先选择二级渠道) </div>
+</ng-template>
+
+<ng-template #relativeThirdSourceRequiredTpl>
+  <div class="cell text-optional"> (请先选择点位) </div>
+</ng-template>
+
+<ng-template #columnRelativeFirstSourceTpl let-context="context">
+  <ng-container *ngIf="!context?.contactType" [ngTemplateOutlet]="contactTypeRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && !context?.school" [ngTemplateOutlet]="schoolRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && context?.school && !context?.relativeFirstSource"
+    [ngTemplateOutlet]="defaultRequiredTpl">
+  </ng-container>
+  <ng-container *ngIf="context?.contactType && context?.school && context?.relativeFirstSource">
+    <div class="cell"> {{ context?.relativeFirstSource?.name }} </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnRelativeSecondSourceTpl let-context="context">
+  <ng-container *ngIf="!context?.contactType" [ngTemplateOutlet]="contactTypeRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && !context?.school" [ngTemplateOutlet]="schoolRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && context?.school && !context?.relativeFirstSource"
+    [ngTemplateOutlet]="relativeFirstSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && !context?.relativeSecondSource"
+    [ngTemplateOutlet]="defaultRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource">
+    <div class="cell"> {{ context?.relativeSecondSource?.name }} </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnRelativeThirdSourceTpl let-context="context">
+  <ng-container *ngIf="!context?.contactType" [ngTemplateOutlet]="contactTypeRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && !context?.school" [ngTemplateOutlet]="schoolRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && context?.school && !context?.relativeFirstSource"
+    [ngTemplateOutlet]="relativeFirstSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && !context?.relativeSecondSource"
+    [ngTemplateOutlet]="relativeSecondSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource && !context?.relativeThirdSource"
+    [ngTemplateOutlet]="defaultRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource && context?.relativeThirdSource">
+    <div class="cell"> {{ context?.relativeThirdSource?.name }} </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnRelativeSourceEmployeeTpl let-context="context">
+  <ng-container *ngIf="!context?.contactType" [ngTemplateOutlet]="contactTypeRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && !context?.school" [ngTemplateOutlet]="schoolRequiredTpl"></ng-container>
+  <ng-container *ngIf="context?.contactType && context?.school && !context?.relativeFirstSource"
+    [ngTemplateOutlet]="relativeFirstSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && !context?.relativeSecondSource"
+    [ngTemplateOutlet]="relativeSecondSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource && !context?.relativeThirdSource"
+    [ngTemplateOutlet]="relativeThirdSourceRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource && context?.relativeThirdSource && !context?.relativeSourceEmployee"
+    [ngTemplateOutlet]="defaultRequiredTpl"></ng-container>
+  <ng-container
+    *ngIf="context?.contactType && context?.school && context?.relativeFirstSource && context?.relativeSecondSource && context?.relativeThirdSource && context?.relativeSourceEmployee">
+    <div class="cell"> {{ context?.relativeSourceEmployee?.name }} </div>
+  </ng-container>
+</ng-template>

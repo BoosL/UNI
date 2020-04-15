@@ -1,0 +1,47 @@
+<portlet title="学员账单列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="status" width="96" locked [template]="statusTpl"></ngx-excel-column>
+      <ngx-excel-column name="amount" width="96"></ngx-excel-column>
+      <ngx-excel-column name="isInstalment" width="96"></ngx-excel-column>
+      <ngx-excel-column name="bank" width="120" [template]="bankTpl"></ngx-excel-column>
+      <ngx-excel-column name="instalment" width="96" [template]="instalmentTpl"></ngx-excel-column>
+      <ngx-excel-column name="instalmentFee" label="分期手续费" width="96" [template]="instalmentFeeTpl">
+      </ngx-excel-column>
+      <ngx-excel-column name="receivableMoney" width="96"></ngx-excel-column>
+      <ngx-excel-column name="paidMoney" width="96"></ngx-excel-column>
+      <ngx-excel-column name="paidTime" width="120" [template]="paidTimeTpl"></ngx-excel-column>
+      <ngx-excel-column name="deadline" width="120"></ngx-excel-column>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #statusTpl let-context="context">
+  <div *ngIf="!context.status" class="cell text-warning"> 未设置 </div>
+  <ng-container *ngIf="context.status" [ngSwitch]="context.status.value">
+    <div class="cell text-primary" *ngSwitchCase="'0'"> {{ context.status.label }} </div>
+    <div class="cell text-success" *ngSwitchCase="'1'"> {{ context.status.label }} </div>
+    <div class="cell text-danger" *ngSwitchCase="'-1'"> {{ context.status.label }} </div>
+    <div class="cell" *ngSwitchDefault> {{ context.status.label }} </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #bankTpl let-context="context">
+  <div class="cell"> {{ context.bank?.name || '-' }} </div>
+</ng-template>
+
+<ng-template #instalmentTpl let-context="context">
+  <div class="cell"> {{ context.instalment?.label || '-' }} </div>
+</ng-template>
+
+<ng-template #instalmentFeeTpl let-context="context">
+  <div class="cell"> {{ context.instalment ? (context.instalment.fee | ngxExcelCurrency) : '-' }} </div>
+</ng-template>
+
+<ng-template #paidTimeTpl let-context="context">
+  <div class="cell"> {{ context.paidTime || '-' }} </div>
+</ng-template>
+
+<ng-template #studentTpl let-context="context">
+  <div class="cell" [class.text-warning]="!context.student"> {{ context.student?.name || '未设置' }} </div>
+</ng-template>

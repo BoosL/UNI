@@ -1,0 +1,6 @@
+{
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "search.followSymlinks": false,
+    "git.enabled": true,
+    "git.autorefresh": false
+}

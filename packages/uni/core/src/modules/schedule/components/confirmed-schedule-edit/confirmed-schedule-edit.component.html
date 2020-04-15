@@ -1,0 +1,91 @@
+<portlet title="班表变更设置" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="editModel">
+      <ng-container *ngIf="employeeSchedule">
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.originalDate"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell disabled [column]="rules.originalDate"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.originalScheduleType"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell disabled [column]="rules.originalScheduleType"></ngx-excel-cell>
+          </div>
+        </div>
+      </ng-container>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.startDate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [disabled]="!!employeeSchedule" [column]="rules.startDate"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.endDate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.endDate"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.scheduleType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.scheduleType"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.restDates"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.restDates" [template]="columnRestDatesTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row" style="height: auto;">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.attachments"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.attachments"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div class="drawer-footer">
+  <a mat-stroked-button (click)="dismiss()"> 关闭 </a>
+  <a class="button-ladda" mat-flat-button [disabled]="loading" color="accent" (click)="confirm()">
+    <mat-progress-spinner *ngIf="loading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+    保存
+  </a>
+</div>
+
+<ng-template #columnRestDatesTpl let-context="context" let-value="value">
+  <div *ngIf="!context || !context.scheduleType" class="cell text-optional">(请先选择班表变更类型)</div>
+  <ng-container *ngIf="context && context.scheduleType">
+    <div *ngIf="context.scheduleType.value !== '5'" class="cell text-optional">(只有调休才需要选择用于调休的日期)</div>
+    <div *ngIf="context.scheduleType.value === '5' && value && value.length > 0" class="cell">{{ value | ngxExcelMultiItem:'date':3 }}</div>
+    <div *ngIf="context.scheduleType.value === '5' && (!value || value.length === 0)" class="cell text-warning"> 未设置 </div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,18 @@
+<ng-template pageHeadButtons>
+    <button matRipple nz-button nzType="dashed" (click)="handleTransformButtonClick($event)">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> 资源转移
+    </button>
+    <button matRipple nz-button nzType="dashed" (click)="handleSearchButtonClick($event)">
+      <i nz-icon nzType="search" nzTheme="outline"></i> 客户搜索
+    </button>
+  </ng-template>
+  <div pageOnInit></div>
+  <div class="layout-main">
+    <ng-template block>
+      <tmk-customer-stats class="tmk-customer-stats" [extraFilters$]="extraFilters$" [migrateSuccess$]="migrateSuccess$" (handleTagsChange)="handleTagsChange($event)"> </tmk-customer-stats>
+    </ng-template>
+    <ng-template block>
+      <tmk-customers [extraFilters$] = "extraFilters$" (handleChangeSelect)="handleChangeSelect($event)" [isPool] = "false" (followSuccess)="followSuccess($event)"></tmk-customers>
+    </ng-template>
+  </div>
+

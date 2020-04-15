@@ -1,0 +1,144 @@
+<portlet title="合同详情" class="table">
+  <ng-template portletBody>
+    <div class="layout">
+      <ng-container [ngTemplateOutlet]="containerCustomerTpl"></ng-container>
+    </div>
+  </ng-template>
+</portlet>
+
+<ng-template #containerCustomerTpl>
+  <div class="layout-main" canExternal>
+    <ng-template block>
+        <contract-basic [contract]="contractDetail"></contract-basic>
+    </ng-template>
+    <ng-template block>
+      <div class="section">
+        <div class="section-head">
+          <div class="title"> 产品信息</div>
+        </div>
+        <div class="section-body">
+          <ngx-excel-context [(context)]="contractDetail">
+            <div class="ant-row">
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rules['productType']"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ng-template #productTypeTpl let-context="context">
+                  <div class="cell">{{context.relativeSubjects[0].relativeProduct.type.label}}</div>
+                </ng-template>
+                <ngx-excel-cell normalCell [column]="rules['productType']" [template]="productTypeTpl"></ngx-excel-cell>
+              </div>
+            </div>
+            <div class="ant-row">
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rules.relativeSubjects"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-21 contract-subjects">
+                <contract-subjects [contractSubjects$]="contractSubjects$"></contract-subjects>
+              </div>
+            </div>
+          </ngx-excel-context>
+
+        </div>
+      </div>
+    </ng-template>
+    <ng-template block>
+      <div class="section">
+        <div class="section-head">
+          <div class="title"> 合同充值</div>
+        </div>
+        <div class="section-body">
+          <ngx-excel-context [(context)]="relativeContext">
+            <div class="ant-row">
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.isInstalment"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.isInstalment" disabled></ngx-excel-cell>
+              </div>
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.contractAmount"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.contractAmount" disabled></ngx-excel-cell>
+              </div>
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.serverAmount"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.serverAmount" [template]="serverAmountTpl" disabled></ngx-excel-cell>
+              </div>
+            </div>
+            <div class="ant-row">
+            <!--  <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.totalReceipts"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.totalReceipts" disabled></ngx-excel-cell>
+              </div>-->
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.downPayment"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.downPayment"  [template]="downPaymentTpl" disabled></ngx-excel-cell>
+              </div>
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.instalmentAmount"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.instalmentAmount" [template]="instalmentAmountTpl" disabled></ngx-excel-cell>
+              </div>
+            </div>
+
+            <ng-container *ngFor="let extendCell of extendCells">
+              <div class="ant-row">
+                <ng-container *ngFor="let columnRule of extendCell">
+                  <div class="ant-col-3">
+                    <ngx-excel-cell headCell [column]="columnRule"></ngx-excel-cell>
+                  </div>
+                  <div class="ant-col-5">
+                    <ngx-excel-cell normalCell [column]="columnRule"></ngx-excel-cell>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <div class="ant-row">
+              <div class="ant-col-3">
+                <ngx-excel-cell headCell [column]="rechargeRules.useCap"></ngx-excel-cell>
+              </div>
+              <div class="ant-col-5">
+                <ngx-excel-cell normalCell [column]="rechargeRules.useCap"></ngx-excel-cell>
+              </div>
+            </div>
+          </ngx-excel-context>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</ng-template>
+
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div class="drawer-footer">
+  <a mat-stroked-button [disabled]="loading" (click)="dismiss($event)"> 取消 </a>
+  <a mat-flat-button color="accent" class="button-ladda" [disabled]="loading" (click)="confirm($event)">
+    <mat-progress-spinner *ngIf="loading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+    提交
+  </a>
+</div>
+
+<ng-template #serverAmountTpl let-context="context">
+  <div
+    class="cell">{{context.isInstalment ? (context.serverAmount | ngxExcelCurrency:2:'.':',') || '0.00' : '-' }}</div>
+</ng-template>
+
+<ng-template #downPaymentTpl let-context="context">
+  <div
+    class="cell">{{context.isInstalment ? (context.downPayment | ngxExcelCurrency:2:'.':',') || '0.00' : '-' }}</div>
+</ng-template>
+
+<ng-template #instalmentAmountTpl let-context="context">
+  <div
+    class="cell">{{context.isInstalment ? (context.instalmentAmount | ngxExcelCurrency:2:'.':',') || '0.00' : '-' }}</div>
+</ng-template>

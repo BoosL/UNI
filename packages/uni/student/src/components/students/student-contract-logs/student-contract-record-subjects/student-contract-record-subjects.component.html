@@ -1,0 +1,10 @@
+<ngx-excel lazyload>
+  <ngx-excel-column name="name"></ngx-excel-column>
+  <ngx-excel-column name="curriculumCount"  [template]="curriculumCountTpl"></ngx-excel-column>
+</ngx-excel>
+
+<ng-template #curriculumCountTpl let-context="context">
+  <div class="cell">
+    {{context.curriculumCount}}
+  </div>
+</ng-template>

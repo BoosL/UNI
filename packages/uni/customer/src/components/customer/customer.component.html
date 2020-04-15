@@ -1,0 +1,157 @@
+<ng-container *ngIf="componentMode === 'portlet'">
+  <portlet title="客户信息" class="page" [actions]="[ actionRedirectTpl ]">
+    <ng-template portletBody>
+      <div class="layout">
+        <ng-container [ngTemplateOutlet]="containerCustomerTpl"></ng-container>
+      </div>
+    </ng-template>
+  </portlet>
+</ng-container>
+
+<ng-container *ngIf="componentMode !== 'portlet'">
+  <ng-container [ngTemplateOutlet]="containerCustomerTpl"></ng-container>
+</ng-container>
+
+<ng-template #actionRedirectTpl>
+  <button matRipple nz-button nzType="dashed" (click)="handleRedirectButtonClick($event)">
+    <i nz-icon>
+      <svg t="1569489745738" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        p-id="2044" width="12" height="12">
+        <path
+          d="M768 938.666667H170.666667c-93.866667 0-170.666667-76.8-170.666667-170.666667V341.333333c0-93.866667 76.8-170.666667 170.666667-170.666666h469.333333c25.6 0 42.666667 17.066667 42.666667 42.666666s-17.066667 42.666667-42.666667 42.666667H170.666667c-46.933333 0-85.333333 38.4-85.333334 85.333333v426.666667c0 46.933333 38.4 85.333333 85.333334 85.333333h597.333333c46.933333 0 85.333333-38.4 85.333333-85.333333v-298.666667c0-25.6 17.066667-42.666667 42.666667-42.666666s42.666667 17.066667 42.666667 42.666666v298.666667c0 93.866667-76.8 170.666667-170.666667 170.666667z"
+          p-id="2045" fill="#1c134d"></path>
+        <path
+          d="M640 512c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l341.333334-341.333334c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733334l-341.333333 341.333333c-8.533333 8.533333-17.066667 12.8-29.866667 12.8z"
+          p-id="2046" fill="#1c134d"></path>
+        <path
+          d="M981.333333 170.666667h-170.666666c-25.6 0-42.666667-17.066667-42.666667-42.666667s17.066667-42.666667 42.666667-42.666667h170.666666c25.6 0 42.666667 17.066667 42.666667 42.666667s-17.066667 42.666667-42.666667 42.666667z"
+          p-id="2047" fill="#1c134d"></path>
+        <path
+          d="M981.333333 341.333333c-25.6 0-42.666667-17.066667-42.666666-42.666666V128c0-25.6 17.066667-42.666667 42.666666-42.666667s42.666667 17.066667 42.666667 42.666667v170.666667c0 25.6-17.066667 42.666667-42.666667 42.666666z"
+          p-id="2048" fill="#1c134d"></path>
+      </svg>
+    </i>
+    页面方式打开
+  </button>
+</ng-template>
+
+<ng-template #containerCustomerTpl>
+  <div class="layout-sub layout-sub-l" [layoutMenus]="layoutMenus" (layoutMenuClick)="handleMenuClick($event)">
+    <ng-template block>
+      <ng-container *ngTemplateOutlet="schoolCardTpl; context: { customer: customer$ | async }"></ng-container>
+    </ng-template>
+  </div>
+
+  <div class="layout-main" canExternal>
+    <ng-template block>
+      <!-- <marketing-customer-basic [customer$]="customer$"></marketing-customer-basic> -->
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #schoolCardTpl let-customer="customer">
+  <ng-template #portraintTpl>
+    <nz-avatar nzShape="square" nzIcon="user" nzSrc="">
+    </nz-avatar>
+  </ng-template>
+  <ng-template #nameTpl>
+    <span class="name"> {{ customer?.name }} </span>
+  </ng-template>
+  <ng-template #descTpl>
+    <div class="status">
+      <ng-container *ngIf="customer?.status" [ngSwitch]="customer.status.value">
+        <ng-container *ngSwitchCase="'added'">
+          <nz-badge nzStatus="warning"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_empty'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_pending'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_invalid'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span nz-text nzType="danger"> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_reoffer'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_valid'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_reserved'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'tmk_reserved_no_visit'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span nz-text nzType="danger"> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'cc_pending'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'visited'">
+          <nz-badge nzStatus="success"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'cc_consulted'">
+          <nz-badge nzStatus="success"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'cc_invalid'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span nz-text nzType="danger"> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'cc_visited_no_consult'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span nz-text nzType="danger"> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'signed'">
+          <nz-badge nzStatus="success"></nz-badge>
+          <span nz-text> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchCase="'refunded'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span nz-text nzType="danger"> {{ customer.status.label }} </span>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <nz-badge nzStatus="default"></nz-badge>
+          <span nz-text nzType="secondary"> {{ customer.status.label }} </span>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-template>
+  <nz-card class="card-profile">
+    <nz-card-meta [nzAvatar]="portraintTpl" [nzTitle]="nameTpl" [nzDescription]="descTpl"></nz-card-meta>
+    <dl>
+      <dt><span nz-text>所属校区：</span></dt>
+      <dd>
+        <span nz-text [nzType]="customer?.school ? 'default' : 'warning'">
+          {{ customer?.school?.name || '未设置' }}
+        </span>
+      </dd>
+    </dl>
+    <dl>
+      <dt><span nz-text>联系电话：</span></dt>
+      <dd>
+        <span nz-text [nzType]="customer?.phone ? 'default' : 'warning'">
+          {{ customer?.phone || '未设置' }}
+        </span>
+      </dd>
+    </dl>
+    <dl>
+      <dt><span nz-text>录入时间：</span></dt>
+      <dd>
+        <span nz-text [nzType]="customer?.createdTime ? 'default' : 'warning'">
+          {{ customer?.createdTime || '未设置' }}
+        </span>
+      </dd>
+    </dl>
+  </nz-card>
+</ng-template>

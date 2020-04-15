@@ -1,0 +1,23 @@
+<portlet title="失败明细" noPadding class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="student"></ngx-excel-column>
+      <ngx-excel-column name="curriculum" [template]="curriculumTpl" width="300"></ngx-excel-column>
+      <ngx-excel-column name="time" ></ngx-excel-column>
+      <ngx-excel-column name="reason" [template]="reasonTpl"></ngx-excel-column>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+<div class="drawer-footer">
+  <button
+     matRipple nz-button nzType="primary" class="ant-btn-accent" (click)="handleDownload()"> 下载失败明细
+      </button>
+</div>
+
+<ng-template #curriculumTpl let-context="context">
+  <div class="cell">{{getCurriculumInfo(context)}}</div>
+</ng-template>
+
+<ng-template #reasonTpl let-context="context">
+  <div class="cell" nz-tooltip [nzTitle]="context.reason" nzPlacement="topLeft">{{context.reason}}</div>
+</ng-template>

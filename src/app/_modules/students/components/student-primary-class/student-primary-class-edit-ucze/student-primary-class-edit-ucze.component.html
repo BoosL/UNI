@@ -1,0 +1,9 @@
+<ngx-excel lazyload [dataSet]="studentsValue" (dataSetChange)="dataSetChange($event)">
+  <ngx-excel-column name="student"></ngx-excel-column>
+  <ngx-excel-column name="product"></ngx-excel-column>
+  <ngx-excel-column name="remark"></ngx-excel-column>
+  <ngx-excel-context-action label="新增分项列表" prefix action="addRow" [execute]="appendStudent" icon="add_box">
+  </ngx-excel-context-action>
+    <ngx-excel-context-action label="删除" action="delete" [execute]="deleteStudent" icon="add_box">
+  </ngx-excel-context-action>
+</ngx-excel>

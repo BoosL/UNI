@@ -1,0 +1,71 @@
+<ng-container *ngIf="currentUser$ | async as currentUser">
+
+  <ng-template #coverTpl>
+    <div class="me">
+      <div class="leading">
+        <span *ngIf="currentUser?.portrait" class="portrait">
+          <nz-avatar nzShape="square" nzIcon="user" [nzSize]="64" [nzSrc]="currentUser.portrait.url | realUrl"></nz-avatar>
+        </span>
+        <span *ngIf="!currentUser?.portrait" class="username"> {{ currentUser?.nameEn | slice:0:1 }} </span>
+      </div>
+      <div class="title">
+        <div class="name">
+          <ng-container *ngIf="currentUser.nameCn && currentUser.nameEn">
+            <span class="nickname"> {{ currentUser?.nameCn }} </span>
+            <span class="nickname_extra"> {{ currentUser?.nameEn }} </span>
+          </ng-container>
+          <ng-container *ngIf="!currentUser.nameCn || !currentUser.nameEn">
+            <span class="nickname"> {{ currentUser?.nameCn || currentUser?.nameEn }} </span>
+          </ng-container>
+        </div>
+        <span class="position"> {{ currentUser?.organizationPosition?.name }} </span>
+      </div>
+      <div class="trailing"></div>
+    </div>
+  </ng-template>
+
+  <div nz-dropdown [nzDropdownMenu]="userinfoMenu" nzPlacement="bottomRight" nzTrigger="click" class="navbar-userinfo"
+    [class.active]="visible" [(nzVisible)]="visible">
+    <span class="welcome">你好，</span>
+    <span class="nickname"> {{ currentUser?.name }} </span>
+    <span *ngIf="currentUser?.portrait" class="portrait">
+      <nz-avatar nzShape="square" nzIcon="user" [nzSrc]="currentUser.portrait.url | realUrl"></nz-avatar>
+    </span>
+    <span *ngIf="!currentUser?.portrait" class="username"> {{ currentUser?.nameEn | slice:0:1 }} </span>
+  </div>
+
+  <nz-dropdown-menu #userinfoMenu="nzDropdownMenu">
+    <div nz-menu class="navbar-userinfo-card">
+      <nz-card [nzCover]="coverTpl" [nzBordered]="false" [nzActions]="[actionSignOutTpl, actionRollbackTpl]">
+        <ul>
+          <li>
+            <a mat-ripple (click)="navigateTo($event, 'profile')">
+              <i nz-icon nzType="profile"></i>
+              <dl class="label">
+                <dt>个人资料</dt>
+                <dd>更改个人资料、更改密码</dd>
+              </dl>
+            </a>
+          </li>
+          <li>
+            <a mat-ripple (click)="navigateTo($event, 'schedules')">
+              <i nz-icon nzType="calendar"></i>
+              <dl class="label">
+                <dt>班表安排</dt>
+                <dd>设置班表、班表变动</dd>
+              </dl>
+            </a>
+          </li>
+        </ul>
+      </nz-card>
+    </div>
+  </nz-dropdown-menu>
+</ng-container>
+
+<ng-template #actionSignOutTpl>
+  <a mat-button color="primary" (click)="logout($event)"> 退出登陆 </a>
+</ng-template>
+
+<ng-template #actionRollbackTpl>
+  <a mat-button href="javascript:;" (click)="navigateTo($event, 'rollback')"> 返回旧版 </a>
+</ng-template>

@@ -1,0 +1,65 @@
+<portlet title="学员成绩详情" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="componentValue" >
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.realClassDescription"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.realClassDescription"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.task"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.task"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.nextTask"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.nextTask"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.classDescription"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.classDescription"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row ">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.taskExt"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row teaching-diaries-ext">
+        <div class="ant-col-24">
+          <teaching-diaries-edit-entries [taskExtSubject]="taskExtSubject"></teaching-diaries-edit-entries>
+        </div>
+      </div>
+      <div class="ant-row teaching-diaries-file">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.files"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.files"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+<div class="drawer-footer">
+  <a mat-stroked-button (click)="dismiss()"> 关闭 </a>
+  <a  mat-flat-button color="accent" class="button-ladda" [disabled]="loading" (click)="confirm()">
+    <mat-progress-spinner *ngIf="loading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+    保存
+  </a>
+</div>

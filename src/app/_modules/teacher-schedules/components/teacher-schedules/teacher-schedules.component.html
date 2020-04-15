@@ -1,0 +1,108 @@
+<div pageOnInit></div>
+<div class="layout-main">
+<ng-template block>
+  <portlet title="老师时间列表" class="list">
+    <ng-template portletBody>
+      <ngx-excel name="teachers-rest" readonly lazyload>
+        <ngx-excel-column name="relativeTeachers" width="160"></ngx-excel-column>
+        <ngx-excel-column name="type" width="96"></ngx-excel-column>
+        <ngx-excel-column name="frequency" width="96"></ngx-excel-column>
+        <ngx-excel-column name="week" width="96" [template]="weekTpl"></ngx-excel-column>
+        <ngx-excel-column name="startDate" width="96" [template]="startDateTpl"></ngx-excel-column>
+        <ngx-excel-column name="endDate" width="96" [template]="endDateTpl"></ngx-excel-column>
+        <ngx-excel-column name="startTime" width="96" [template]="startTimeTpl"></ngx-excel-column>
+        <ngx-excel-column name="endTime" width="96" [template]="endTimeTpl"></ngx-excel-column>
+        <ngx-excel-column name="remark" width="160" ></ngx-excel-column>
+        <ngx-excel-column name="createdTime" width="120" readonly></ngx-excel-column>
+        <ngx-excel-context-action label="新增老师时间" prefix action="append" icon="add_box" [execute]="append"></ngx-excel-context-action>
+        <ngx-excel-context-action label="删除"  action="remove" icon="delete"></ngx-excel-context-action>
+      </ngx-excel>
+    </ng-template>
+  </portlet>
+</ng-template>
+</div>
+
+
+<ng-template #startDateTpl let-context="context">
+  <ng-container *ngIf="context.frequency && context.frequency.value === '1'">
+    <ng-container *ngIf="context.startDate">
+      <div class="cell-combo ng-star-inserted">{{context.startDate}}</div>
+    </ng-container>
+    <ng-container *ngIf="!context.startDate">
+      <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.frequency || context.frequency.value !== '1'">
+    <div class="cell text-optional ng-star-inserted  text-optional" >(空)</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #endDateTpl let-context="context">
+  <ng-container *ngIf="context.frequency && context.frequency.value === '1'">
+    <ng-container *ngIf="context.endDate">
+      <div class="cell-combo ng-star-inserted">{{context.endDate}}</div>
+    </ng-container>
+    <ng-container *ngIf="!context.endDate">
+      <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.frequency || context.frequency.value !== '1'">
+    <div class="cell text-optional ng-star-inserted  text-optional" >(空)</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #weekTpl let-context="context">
+  <ng-container *ngIf="context.frequency && context.frequency.value === '3'">
+    <ng-container *ngIf="context.week">
+      <div class="cell-combo ng-star-inserted">{{context.week.label}}</div>
+    </ng-container>
+    <ng-container *ngIf="!context.week">
+      <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.frequency || context.frequency.value  !== '3'">
+    <div class="cell text-optional ng-star-inserted  text-optional" >(空)</div>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #startTimeTpl let-context="context">
+  <ng-container *ngIf="context.frequency">
+    <ng-container *ngIf="context.startTime">
+      <div class="cell-combo ng-star-inserted">{{context.startTime}}</div>
+    </ng-container>
+    <ng-container *ngIf="!context.startTime">
+      <ng-container *ngIf="!context.frequency || context.frequency.value  === '2'">
+        <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+      </ng-container>
+      <ng-container *ngIf="context.frequency && context.frequency.value !== '2'">
+        <div class="cell cell-combo ng-star-inserted  text-optional"> （空）</div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.frequency">
+    <div class="cell text-optional ng-star-inserted">(请设置频率)</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #endTimeTpl let-context="context">
+  <ng-container *ngIf="context.frequency">
+    <ng-container *ngIf="context.endTime">
+      <div class="cell-combo ng-star-inserted">{{context.endTime}}</div>
+    </ng-container>
+    <ng-container *ngIf="!context.endTime">
+      <ng-container *ngIf="!context.frequency || context.frequency.value === '2'">
+        <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+      </ng-container>
+      <ng-container *ngIf="context.frequency && context.frequency.value !== '2'">
+        <div class="cell cell-combo ng-star-inserted  text-optional"> （空）</div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.frequency">
+    <div class="cell text-optional ng-star-inserted">(请设置频率)</div>
+  </ng-container>
+</ng-template>
+
+
+

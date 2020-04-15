@@ -1,0 +1,647 @@
+.ngx-excel-cell {
+  display: flex;
+  position: relative;
+  // z-index: 90;
+  background-color: #fff;
+  font-size: 0.9rem;
+  // width: 0;
+  transition: all 0.2s ease;
+  cursor: cell;
+
+  &.locked {
+    position: sticky;
+    z-index: 100;
+  }
+
+  &.invisible {
+    display: none;
+  }
+
+  &:after {
+    display: block;
+    content: "";
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-width: 5px 0;
+    border-style: solid;
+    border-color: #f4f4f4;
+  }
+
+  .cell,
+  .cell-form-control {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    [nz-popconfirm] {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+    }
+
+    .toggle_icon {
+      font-size: 1.2rem;
+      width: auto;
+      height: auto;
+      margin-right: 6px;
+    }
+  }
+
+  .cell.text-optional {
+    color: rgba(0, 0, 0, 0.15);
+  }
+
+  .cell.text-info {
+    &,
+    .mat-icon,
+    a[nz-popconfirm] {
+      color: #1890ff;
+    }
+  }
+
+  .cell.text-warning {
+    &,
+    .mat-icon,
+    a[nz-popconfirm] {
+      color: mat-color($angular-app-warn);
+    }
+  }
+
+  .cell.text-danger {
+    &,
+    .mat-icon,
+    a[nz-popconfirm] {
+      color: mat-color($angular-app-danger);
+    }
+  }
+
+  .cell.text-success {
+    &,
+    .mat-icon,
+    a[nz-popconfirm] {
+      color: mat-color($angular-app-accent);
+    }
+  }
+
+  .cell > span {
+    font-size: 0.8rem;
+  }
+
+  .cell-combo {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    padding: 8px 12px;
+    padding-right: 32px;
+
+    .input-group {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .cell {
+      padding: 0;
+      border-width: 0;
+    }
+
+    &.cell-combo--upload {
+      padding-bottom: 0;
+      min-height: 188px;
+
+      nz-upload.form-control {
+        display: block;
+
+        .ant-upload {
+          width: 120px;
+          height: 166px;
+          padding: 0;
+
+          a.mat-ripple {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .ant-upload-list-item {
+          width: 120px;
+          height: 168px;
+          padding: 0;
+          border-color: mat-color($angular-app-primary, default, 0.025);
+
+          &:hover {
+            border-color: mat-color($angular-app-primary, default, 0.125);
+          }
+
+          .ant-upload-list-item-info {
+            width: 100%;
+            padding: 8px;
+
+            &::before {
+              width: auto;
+              height: auto;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              background-color: mat-color($angular-app-primary, default, 0.025);
+            }
+          }
+
+          .ant-upload-list-item-progress {
+            margin: 0 12px;
+          }
+
+          .ant-upload-list-item-uploading-text {
+            text-align: center;
+          }
+
+          .ant-upload-list-item-thumbnail {
+            position: static;
+            width: 100%;
+            height: 102px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            &::before {
+              display: block;
+              content: "";
+              flex: 1 1 100%;
+            }
+
+            img {
+              width: 100%;
+              height: auto;
+              overflow: visible;
+            }
+
+            .anticon-file {
+              font-size: 3.6rem;
+              top: 36%;
+            }
+          }
+
+          .ant-upload-list-item-name {
+            display: block;
+            width: 100%;
+            word-wrap: break-word;
+            height: 40px;
+            white-space: normal;
+            text-align: center;
+            font-family: $code-family;
+            font-size: 0.9rem;
+            line-height: 20px;
+            padding: 0;
+            margin: 0;
+            margin-top: 8px;
+          }
+
+          .ant-upload-list-item-actions {
+            position: absolute;
+            /* bottom: 56px;
+            right: 8px;
+            left: auto;
+            top: auto;
+            transform: translate(0, 0); */
+
+            .anticon {
+              color: mat-color($angular-app-primary);
+              opacity: 0.35;
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+
+            .anticon-delete {
+              color: mat-color($angular-app-danger);
+            }
+          }
+        }
+      }
+
+      .upload-icon,
+      .ant-upload-text {
+        color: mat-color($angular-app-primary, default, 0.35);
+      }
+
+      .ant-upload-text {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .cell-combo--multiline-text {
+    padding: 0;
+
+    .input-group {
+      padding: 8px 12px;
+      padding-right: 20px;
+    }
+
+    .cell {
+      display: block;
+ /*     height: auto;
+      white-space: normal;
+      word-break: break-all;*/
+    }
+  }
+
+  .cell-form-control {
+    padding: 0;
+  }
+
+  & {
+    &:after {
+      border-color: #f4f4f4;
+    }
+
+    .cell,
+    .cell-combo {
+      border-color: transparent;
+    }
+  }
+
+  &.selected {
+    &:after {
+      border-color: transparent;
+    }
+
+    .cell,
+    .cell-form-control,
+    .cell-combo,
+    .cell-collapse {
+      border-color: #15ab93;
+    }
+
+    .cell-combo .cell,
+    .cell-collapse .cell {
+      border-color: transparent;
+    }
+  }
+
+  &.ngx-excel-cell--handle {
+    .handle {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: mat-color($angular-app-primary, default, 0.025);
+    }
+  }
+
+  &.ngx-excel-cell--head {
+    height: 39px;
+
+    .cell {
+      color: #333;
+      font-weight: bold;
+    }
+    cursor: pointer;
+
+    .cell.cell-tooltip {
+      i {
+        font-size: 1rem;
+        margin-left: 8px;
+        opacity: 0.25;
+      }
+    }
+  }
+
+  &.ngx-excel-cell--normal {
+    height: 39px;
+  }
+}
+
+.ngx-excel-cell .cell-form-control {
+  input.form-control,
+  textarea.form-control {
+    padding: 9px 12px;
+    border-width: 0;
+    border-color: transparent;
+    width: 100%;
+    height: 100%;
+    outline: none;
+  }
+
+  textarea.form-control {
+    resize: none;
+  }
+
+  .ant-input {
+    height: 100%;
+    border-radius: 0;
+    border-width: 0;
+    padding: 8px 12px;
+
+    &:hover {
+      border-width: 0 !important;
+    }
+  }
+
+  nz-time-picker.form-control {
+    &,
+    nz-picker,
+    .ant-time-picker-input {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ant-time-picker-input {
+      border-width: 0 !important;
+    }
+  }
+
+  nz-date-picker.form-control {
+    &,
+    nz-picker,
+    .ant-calendar-picker {
+      display: inline-block;
+      width: 100% !important;
+      height: 100%;
+    }
+
+    .ant-calendar-picker-input {
+      border-width: 0 !important;
+    }
+
+    /* &:focus,
+    .ant-calendar-picker:focus {
+      .ant-calendar-picker-input:not(.ant-input-disabled) {
+        border-width: 0 !important;
+      }
+    } */
+  }
+
+  nz-range-picker.form-control {
+    &,
+    nz-picker .ant-calendar-picker {
+      display: inline-block;
+      width: 100% !important;
+    }
+  }
+
+  nz-select.form-control {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    .ant-select-selection {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      border-width: 0 !important;
+      border-radius: 0;
+      box-shadow: none !important;
+    }
+
+    .ant-select-selection__rendered {
+      display: flex;
+      align-items: center;
+      width: calc(100% - 22px);
+      height: 100%;
+      flex: 1 0 auto;
+    }
+
+    .ant-select-selection--multiple {
+      .ant-select-selection__rendered {
+        margin-top: -3px;
+      }
+
+      .ant-select-selection__choice {
+        padding-right: 10px;
+      }
+
+      .ant-select-selection__choice__remove {
+        display: none;
+      }
+    }
+  }
+}
+
+.ngx-excel-cell {
+  & .cell-form-control {
+    border-color: transparent;
+
+    input.form-control {
+      background-color: inherit;
+    }
+
+    ng-select.form-control .ng-select-container {
+      background-color: inherit;
+    }
+  }
+
+  &.disabled .cell-form-control {
+    border-color: #f7f8faab;
+
+    input.form-control:disabled {
+      background-color: #f7f8faab;
+    }
+
+    ng-select.form-control.ng-select-disabled > .ng-select-container {
+      background-color: #f7f8faab;
+    }
+  }
+}
+
+.ngx-excel-cell--normal > div.helper {
+  display: flex;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  width: 38px;
+  font-size: 0.8rem;
+  color: #000;
+  // opacity: 0.3;
+
+  &,
+  a {
+    justify-content: center;
+    align-items: center;
+  }
+
+  a {
+    display: flex;
+    font-size: 1rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .anticon {
+    width: auto;
+    height: auto;
+    font-size: 1rem;
+    opacity: 0.25;
+  }
+
+  /* > i {
+    font-size: 1.2rem;
+  } */
+
+  &.invalid-feedback .anticon {
+    font-size: 1rem;
+    color: mat-color($angular-app-danger);
+    opacity: 0.65;
+  }
+}
+
+.ngx-excel-cell--head > div.cell {
+  justify-content: space-between;
+
+  .mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 1.25rem;
+    opacity: 0.25;
+  }
+}
+
+.ngx-excel-cell--table-upload {
+  height: 188px !important;
+
+  .cell {
+    align-items: flex-start;
+  }
+
+  > div.helper {
+    bottom: auto;
+    height: 38px;
+  }
+}
+
+.ngx-excel-cell--table-multiline-text {
+  height: 10em !important;
+
+  > div.helper {
+    bottom: auto;
+    right: 22px;
+    height: 38px;
+  }
+
+  .cell-combo--multiline-text .input-group {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .multiline-text-word-count {
+    position: absolute;
+    right: 22px;
+    bottom: 2px;
+    padding: 3px 8px;
+    background-color: mat-color($angular-app-primary, default, 0.025);
+
+    span.text-danger {
+      color: mat-color($angular-app-danger);
+    }
+  }
+
+  .btn-clipboard {
+    display: none;
+    height: 38px;
+    font-size: 0.9rem;
+    position: absolute;
+    right: 58px;
+    top: 2px;
+    background-color: transparent;
+    border-width: 0;
+    cursor: pointer;
+    opacity: 0.25;
+  }
+
+  &:hover .btn-clipboard,
+  &.selected .btn-clipboard {
+    display: block;
+  }
+}
+
+.ngx-excel-cell--normal > div.cell.cell-score {
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 38px;
+}
+
+.ngx-excel-cell--normal > div.helper.edit {
+  display: none;
+}
+
+.ngx-excel-cell--normal:not(.disabled):hover > div.helper.edit,
+.ngx-excel-cell--normal:not(.disabled).selected > div.helper.edit {
+  display: flex;
+}
+
+.excel-row .ngx-excel-cell:last-child:after {
+  display: none;
+}
+
+.form-control-dropdown {
+  .ant-select-dropdown-menu-item {
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+}
+
+.form-control-datepicker {
+  .ant-calendar {
+    border-radius: 0 0 4px 4px;
+  }
+
+  .ant-calendar-input-wrap {
+    min-height: 39px;
+    padding: 8px 12px;
+  }
+}
+
+.form-control-timepicker {
+  .ant-time-picker-panel-inner {
+    border-radius: 0 0 4px 4px;
+  }
+
+  .ant-time-picker-panel-input-wrap {
+    min-height: 39px;
+    padding: 9px 12px;
+  }
+}
+
+.form-control-datetimepicker {
+  .ant-calendar {
+    border-radius: 0 0 4px 4px;
+  }
+  .ant-calendar-input-wrap {
+    min-height: 39px;
+    padding: 8px 12px;
+  }
+}
+
+.upload-preview-modal {
+  .ant-modal-close-x {
+    width: 24px;
+    height: 24px;
+    line-height: 27px;
+    font-size: 0.9rem;
+  }
+}

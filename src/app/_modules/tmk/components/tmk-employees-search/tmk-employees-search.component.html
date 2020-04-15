@@ -1,0 +1,57 @@
+<portlet title="员工搜索..." noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="context">
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.keyword"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.keyword"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeSchools"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-10">
+          <ngx-excel-cell normalCell [column]="rules.relativeSchools"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.acceptCustomer"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.acceptCustomer"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeFirstSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.relativeFirstSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeSecondSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.relativeSecondSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeThirdSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.relativeThirdSource"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="reset($event)"> 重置并刷新列表 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" (click)="confirm($event)"> 确认搜索 </button>
+</div>

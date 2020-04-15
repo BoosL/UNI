@@ -1,0 +1,67 @@
+<ul role="menu" aria-hidden="true" class="menu">
+  <li role="menuitem" class="menu-item">
+    <a routerLink="/dashboard" [ngClass]="getMenuCssClasses('/dashboard')">
+      <i nz-icon nzType="icons/design:layers"></i>
+      <span class="label"> 控制面板 </span>
+    </a>
+  </li>
+
+  <ng-container *ngFor="let menuGroup of menus$ | async">
+    <li role="separator" class="separator">
+      <span class="label"> {{ menuGroup.label }} </span>
+      <i nz-icon nzType="icons/general:more-h"></i>
+    </li>
+    <ng-container *ngTemplateOutlet="menusTpl; context: { menus: menuGroup.children, levelRoot: true }"></ng-container>
+  </ng-container>
+
+  <li role="separator" class="separator">
+    <span class="label"> SYSTEM </span>
+    <i nz-icon nzType="icons/general:more-h"></i>
+  </li>
+  <li role="menuitem" class="menu-item">
+    <a class="back-to-old-version" (click)="rollback()">
+      <i nz-icon nzType="icons/text:undo"></i>
+      <span class="label"> 返回旧版 </span>
+    </a>
+  </li>
+</ul>
+
+<ng-template #menusTpl let-menus="menus" let-levelRoot="levelRoot">
+  <li *ngFor="let menu of menus" role="menuitem" class="menu-item">
+    <ng-container *ngTemplateOutlet="menuTpl; context: { menu: menu, levelRoot: levelRoot }"></ng-container>
+    <ul *ngIf="menu.children && menu.children.length > 0" class="menu" [@fadeInOut]="isExpandedMenu(menu) ? 'expand' : 'collapse'">
+      <ng-container *ngTemplateOutlet="menusTpl; context: { menus: menu.children, levelRoot: false }"></ng-container>
+    </ul>
+  </li>
+</ng-template>
+
+<ng-template #menuTpl let-menu="menu" let-levelRoot="levelRoot">
+  <ng-container *ngIf="menu.url && menu.isLocal">
+    <a [routerLink]="[menu.url, menu.params || {}]" [ngClass]="getMenuCssClasses(menu)">
+      <i nz-icon [nzType]="'icons/' + menu.icon" *ngIf="levelRoot && menu.icon"></i>
+      <span class="label">
+        <i *ngIf="!levelRoot" class="bullet bullet-line"></i>
+        {{ menu.label }}
+      </span>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="menu.url && !menu.isLocal">
+    <a [href]="menu.url">
+      <i nz-icon [nzType]="'icons/' + menu.icon" *ngIf="levelRoot && menu.icon"></i>
+      <span class="label">
+        <i *ngIf="!levelRoot" class="bullet bullet-line"></i>
+        {{ menu.label }}
+      </span>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="!menu.url">
+    <a href="javascript:;" [ngClass]="getMenuCssClasses(menu)" (click)="toggleMenu(menu)">
+      <i nz-icon [nzType]="'icons/' + menu.icon" *ngIf="levelRoot && menu.icon"></i>
+      <span class="label">
+        <i *ngIf="!levelRoot" class="bullet bullet-line"></i>
+        {{ menu.label }}
+      </span>
+      <i *ngIf="menu.children.length > 0" nz-icon nzType="caret-right" nzTheme="outline" class="menu-dropdown"></i>
+    </a>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,25 @@
+<portlet title="学员CC跟进录音查看" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context compact [(context)]="context">
+     
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<ng-template #recordingTpl let-context='context'>
+  <div class="cell text-optional empty" *ngIf="!context.recording">(空)</div>
+  <ng-container *ngIf="context.recording">
+    <div class="cell">
+      <ng-container *ngFor="let item of context.recording">
+        <audio controls="controls" [src]="item">
+          <source type="audio/ogg">
+          <source type="audio/mpeg">
+        </audio>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="close($event)"> 关闭 </button>
+</div>

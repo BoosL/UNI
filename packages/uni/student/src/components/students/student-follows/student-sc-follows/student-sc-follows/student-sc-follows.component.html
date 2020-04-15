@@ -1,0 +1,19 @@
+<portlet title="学员SC跟进列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="name" width="120"></ngx-excel-column>
+      <ngx-excel-column name="nextData" width="120"></ngx-excel-column>
+      <ngx-excel-column name="record" width="120"></ngx-excel-column>
+      <ngx-excel-column name="followPerson"  [template]="followPersonTpl" width="120"></ngx-excel-column>
+      <ngx-excel-column name="createData" width="120"></ngx-excel-column>
+      <ngx-excel-column name="school" width="120"></ngx-excel-column>
+      <ngx-excel-context-action label="添加学员SC跟进记录" prefix icon="add_box" action="appendRow" [execute]="editScFollows">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+
+<ng-template #followPersonTpl let-context="context">
+  <div class="cell"> {{ context.followPerson || '-' }} </div>
+</ng-template>

@@ -1,0 +1,38 @@
+<portlet title="编辑课下任务" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="componentValue">
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell [column]="rules.status"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.task"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.task"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div class="drawer-footer">
+  <button matRipple nz-button [disabled]="loading" (click)="dismiss()"> 关闭 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm()"> 保存
+  </button>
+</div>

@@ -1,0 +1,18 @@
+<portlet title="放弃跟进" class="table">
+  <ng-template portletBody>
+    <ngx-excel-context compact [(context)]="record">
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ngx-excel-cell normalCell placeholder="请输入 10 ~ 500 位中文、英文、数字字符的放弃原因" [column]="rules.reasonForAbandoning"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm($event)"> 确认 </button>
+</div>

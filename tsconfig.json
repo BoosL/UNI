@@ -1,0 +1,72 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@uni/common": [
+        "dist/uni/common"
+      ],
+      "@uni/common/*": [
+        "dist/uni/common/*"
+      ],
+      "@uni/core": [
+        "dist/uni/core"
+      ],
+      "@uni/core/*": [
+        "dist/uni/core/*"
+      ],
+      "ngx-excel": [
+        "dist/ngx-excel"
+      ],
+      "ngx-excel/*": [
+        "dist/ngx-excel/*"
+      ],
+      "@uni/customer": [
+        "dist/uni/customer"
+      ],
+      "@uni/customer/*": [
+        "dist/uni/customer/*"
+      ],
+      "@uni/student": [
+        "dist/uni/student"
+      ],
+      "@uni/student/*": [
+        "dist/uni/student/*"
+      ],
+      "@uni/curriculum": [
+        "dist/uni/curriculum"
+      ],
+      "@uni/curriculum/*": [
+        "dist/uni/curriculum/*"
+      ],
+      "@uni/school": [
+        "dist/uni/school"
+      ],
+      "@uni/school/*": [
+        "dist/uni/school/*"
+      ],
+      "@uni/contract": [
+        "dist/uni/contract"
+      ],
+      "@uni/contract/*": [
+        "dist/uni/contract/*"
+      ]
+    }
+  }
+}

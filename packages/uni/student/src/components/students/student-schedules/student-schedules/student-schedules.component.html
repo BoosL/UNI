@@ -1,0 +1,22 @@
+<portlet title="学员时间管理列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="week" width="96" [template]="weekTpl"></ngx-excel-column>
+      <ngx-excel-column name="startTime" width="96"></ngx-excel-column>
+      <ngx-excel-column name="endTime" width="96"></ngx-excel-column>
+      <ngx-excel-context-action label="新增上课频率" prefix icon="add_box" action="appendRow"
+        [execute]="appendSchedules">
+      </ngx-excel-context-action>
+      <ngx-excel-context-action label="删除" action="removeRow" icon="delete"></ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #weekTpl let-context="context">
+  <ng-container *ngIf="!context.week">
+    <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+  </ng-container>
+  <ng-container *ngIf="context.week">
+    <div class="cell-combo ng-star-inserted">{{context.week.label}}</div>
+  </ng-container>
+</ng-template>

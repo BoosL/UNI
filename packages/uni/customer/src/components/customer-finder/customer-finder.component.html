@@ -1,0 +1,49 @@
+<div class="layout-main">
+  <ng-template block>
+    <portlet [title]="schemeConfig.createPortletFirstTitle">
+      <ng-template portletBody>
+        <div class="search">
+          <div class="ngx-excel-cell ngx-excel-cell--head">
+            <div class="cell"> 手机号码 </div>
+          </div>
+          <div class="ngx-excel-cell ngx-excel-cell--normal">
+            <div class="cell-form-control input-search">
+              <input class="form-control" type="text" placeholder="请输入手机号码" nz-input [(ngModel)]="searchPhone"
+                (ngModelChange)="handleSearchPhoneChange()">
+            </div>
+          </div>
+          <div class="ngx-excel-cell ngx-excel-cell--btn">
+            <div class="cell-form-control button-search">
+              <button type="submit" matRipple nz-button nzType="link" (click)="handleSearchPhoneConfirm($event)"
+                [nzLoading]="searching">
+                <i nz-icon nzType="search" nzTheme="outline"></i>
+                搜索
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </portlet>
+  </ng-template>
+  <ng-template block>
+    <portlet [title]="schemeConfig.createPortletSecondTitle" noPadding class="list matched-customer portlet-customer">
+      <ng-template portletBody>
+        <!--  <so-customer-portlet *ngIf="schemeConfig.name === 'SO'" [simpleMode]="true" [context]="matchedCustomer"
+            (actionButtonClick)="handleActionButtonClick($event)"></so-customer-portlet>
+          <us-customer-portlet *ngIf="schemeConfig.name === 'US'" [simpleMode]="true" [context]="matchedCustomer"
+            (actionButtonClick)="handleActionButtonClick($event)"></us-customer-portlet>-->
+        <ng-container *ngIf="matchedCustomer">
+          <ng-container
+            *ngTemplateOutlet="portletTpl; context: { config: schemeConfig, simpleMode: true, context: matchedCustomer }">
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!matchedCustomer">
+          <div class="helper">
+            请先输入完整的手机号码并点击“搜索”按钮<br>
+            以检测客户是否存在
+          </div>
+        </ng-container>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

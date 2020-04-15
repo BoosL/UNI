@@ -1,0 +1,21 @@
+<ngx-excel *ngIf="componentReady" readonly [scrollable]="false" [(dataSet)]="curriculumSwapNodes">
+  <ngx-excel-column name="relativeProduct" width="180" label="产品名称"></ngx-excel-column>
+  <ngx-excel-column name="relativeSubject" width="180" label="科目名称"></ngx-excel-column>
+  <ngx-excel-column name="remainedCurriculumCount" width="96" label="调整前课时"></ngx-excel-column>
+  <ngx-excel-column name="expectedCurriculumCount" width="96" label="调整后课时"
+    [template]="columnExpectedCurriculumCountTpl">
+  </ngx-excel-column>
+</ngx-excel>
+
+<ng-template #columnExpectedCurriculumCountTpl let-context="context">
+  <div class="cell cell--number-step">
+    <button matRipple nz-button nzType="default" nzShape="circle" (click)="handleMinusButtonClick($event, context)">
+      <i nz-icon nzType="minus" nzTheme="outline"></i>
+    </button>
+    <input type="text" [ngModel]="context.expectedCurriculumCount" [textMask]="inputMaskConfig"
+      (ngModelChange)="handleExpectedCurriculumCountChange($event, context)">
+    <button matRipple nz-button nzType="default" nzShape="circle" [disabled]="cantPlusButton" (click)="handlePlusButtonClick($event, context)">
+      <i nz-icon nzType="plus" nzTheme="outline"></i>
+    </button>
+  </div>
+</ng-template>

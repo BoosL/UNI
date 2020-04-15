@@ -1,0 +1,85 @@
+<ng-container *ngIf="componentMode === 'portlet'">
+  <portlet title="小班基本信息" noPadding class="table" [actions]="[ actionRedirectTpl ]">
+    <ng-template portletBody>
+          <ng-container *ngTemplateOutlet="basicInfoTpl; context: { student: student$ | async }"></ng-container>
+    </ng-template>
+  </portlet>
+</ng-container>
+
+<ng-container *ngIf="componentMode !== 'portlet'">
+  <portlet title="小班基本信息" class="page">
+    <ng-template portletBody>
+      <div class="layout">
+        <div class="layout-main" canExternal>
+          <ng-template block>
+            <ng-container [ngTemplateOutlet]="basicInfoTpl"></ng-container>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+  </portlet>
+</ng-container>
+
+<ng-template #basicInfoTpl let-student="student">
+  <ngx-excel-context [context]="student">
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.name"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell [column]="rules.name"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.classNumber"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell [column]="rules.classNumber"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.importance"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell [column]="rules.importance"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell headCell [column]="rules.school"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-8">
+        <ngx-excel-cell normalCell disabled [column]="rules.school"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row primary-class-detail">
+      <div class="minor-title">学员</div>
+      <student-primary-class-ucze [student$]="student$"></student-primary-class-ucze>
+    </div>
+    <div class="ant-row primary-class-detail">
+      <div class="minor-title">产品</div>
+      <student-primary-class-product [student$]="student$"></student-primary-class-product>
+    </div>
+  </ngx-excel-context>
+</ng-template>
+
+<ng-template #actionRedirectTpl>
+  <button matRipple nz-button nzType="dashed" (click)="handleRedirectButtonClick($event)">
+    <i nz-icon>
+      <svg t="1569489745738" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+           p-id="2044" width="12" height="12">
+        <path
+          d="M768 938.666667H170.666667c-93.866667 0-170.666667-76.8-170.666667-170.666667V341.333333c0-93.866667 76.8-170.666667 170.666667-170.666666h469.333333c25.6 0 42.666667 17.066667 42.666667 42.666666s-17.066667 42.666667-42.666667 42.666667H170.666667c-46.933333 0-85.333333 38.4-85.333334 85.333333v426.666667c0 46.933333 38.4 85.333333 85.333334 85.333333h597.333333c46.933333 0 85.333333-38.4 85.333333-85.333333v-298.666667c0-25.6 17.066667-42.666667 42.666667-42.666666s42.666667 17.066667 42.666667 42.666666v298.666667c0 93.866667-76.8 170.666667-170.666667 170.666667z"
+          p-id="2045" fill="#1c134d"></path>
+        <path
+          d="M640 512c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l341.333334-341.333334c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733334l-341.333333 341.333333c-8.533333 8.533333-17.066667 12.8-29.866667 12.8z"
+          p-id="2046" fill="#1c134d"></path>
+        <path
+          d="M981.333333 170.666667h-170.666666c-25.6 0-42.666667-17.066667-42.666667-42.666667s17.066667-42.666667 42.666667-42.666667h170.666666c25.6 0 42.666667 17.066667 42.666667 42.666667s-17.066667 42.666667-42.666667 42.666667z"
+          p-id="2047" fill="#1c134d"></path>
+        <path
+          d="M981.333333 341.333333c-25.6 0-42.666667-17.066667-42.666666-42.666666V128c0-25.6 17.066667-42.666667 42.666666-42.666667s42.666667 17.066667 42.666667 42.666667v170.666667c0 25.6-17.066667 42.666667-42.666667 42.666666z"
+          p-id="2048" fill="#1c134d"></path>
+      </svg>
+    </i>
+    页面方式打开
+  </button>
+</ng-template>

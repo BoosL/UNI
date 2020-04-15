@@ -1,0 +1,85 @@
+<ng-container *ngTemplateOutlet="scheduleMinorTpl; context: { schedule: componentValueSubject | async }" ></ng-container>
+<ng-template #scheduleMinorTpl let-schedule="schedule">
+  <ngx-excel-context [context]="schedule" (contextChange)="handleMinorChange($event)" [attachSelectTo]="attachSelectTo">
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.classroom"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.classroom" ></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.meetingName" ></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.meetingName" [template]="meetingNameTpl"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.meetingNumber"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.meetingNumber" [template]="meetingNumberTpl"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.meetingAccount"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.meetingAccount"  [template]="meetingAccountTpl"></ngx-excel-cell>
+      </div>
+   <!--   <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.package"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.package" ></ngx-excel-cell>
+      </div>-->
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-21">
+        <ngx-excel-cell normalCell [column]="rules.remark" ></ngx-excel-cell>
+      </div>
+    </div>
+  </ngx-excel-context>
+</ng-template>
+
+<!--次要信息-->
+<!--会议名称-->
+<ng-template #meetingNameTpl let-context="context">
+  <ng-container *ngIf="context.teachingType && context.teachingType.value && context.teachingType.value === '3'">
+    <div *ngIf="!context.meetingName" class="cell cell-combo ng-star-inserted  text-optional">(空)</div>
+    <div *ngIf="context.meetingName " class="cell-combo ng-star-inserted">
+      {{context.meetingName}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.teachingType || context.teachingType.value !== '3'">
+    <div class="cell cell-combo ng-star-inserted text-optional">（授课方式设置为视频）</div>
+  </ng-container>
+</ng-template>
+<!--会议编号-->
+<ng-template #meetingNumberTpl let-context="context">
+  <ng-container *ngIf="context.teachingType && context.teachingType.value && context.teachingType.value === '3'">
+    <div *ngIf="!context.meetingNumber" class="cell cell-combo ng-star-inserted  text-optional">(空)</div>
+    <div *ngIf="context.meetingNumber " class="cell-combo ng-star-inserted">
+      {{context.meetingNumber}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.teachingType || context.teachingType.value !== '3'">
+    <div class="cell cell-combo ng-star-inserted text-optional">（授课方式设置为视频）</div>
+  </ng-container>
+</ng-template>
+<!--会议账号-->
+<ng-template #meetingAccountTpl let-context="context">
+  <ng-container *ngIf="context.teachingType && context.teachingType.value && context.teachingType.value === '3'">
+    <div *ngIf="!context.meetingAccount" class="cell cell-combo ng-star-inserted  text-optional">(空)</div>
+    <div *ngIf="context.meetingAccount " class="cell-combo ng-star-inserted">
+      {{context.meetingAccount}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.teachingType || context.teachingType.value !== '3'">
+    <div class="cell cell-combo ng-star-inserted text-optional">（授课方式设置为视频）</div>
+  </ng-container>
+</ng-template>

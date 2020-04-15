@@ -1,0 +1,72 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleSearchButtonClick($event)">
+    <i nz-icon nzType="search" nzTheme="outline"></i> 排课搜索
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<portlet title="排班管理" noPadding class="list" [actions]="[ buttonAddAutoCoursesTpl, buttonImportTpl, buttonExportTpl,
+ buttonFailureDetailsTpl, buttonConfirmTpl,buttonChangeViewTpl ]" cdkDropListGroup>
+  <ng-template portletBody>
+    <div class="layout-sub layout-sub-l" [class.renderred]="initComponentState === 'complete'">
+      <ng-template block>
+        <curriculum-schedules-calendar [scheduleDateSubject]="scheduleDateSubject"
+                                       (handleCalendar)="handleCalendarChange($event)"
+                                       [monthCurriculumSchedulesSubject]="monthCurriculumSchedulesSubject"
+                                       (handleCalendarComplete)="handleLoadingStatus()"></curriculum-schedules-calendar>
+      </ng-template>
+      <ng-template block>
+        <curriculum-schedules-classroom [classroomListSubject]="classroomListSubject"
+                                        [curriculumSchedulesSubject]="curriculumSchedulesSubject"
+                                        (handleScheduleDrag)="handleScheduleDrag($event)"></curriculum-schedules-classroom>
+      </ng-template>
+    </div>
+    <div class="layout-main" [class.renderred]="initComponentState === 'complete'">
+      <ng-template block>
+        <ng-container #modelMenuContainer></ng-container>
+      </ng-template>
+    </div>
+  </ng-template>
+</portlet>
+
+<ng-template #buttonAddAutoCoursesTpl>
+  <button matRipple nz-button nzType="line" (click)="handleAddAutoCourses($event)">
+    新增智能排课
+  </button>
+</ng-template>
+
+<ng-template #buttonImportTpl>
+  <button matRipple nz-button nzType="line" (click)="handleImport($event)" [disabled]="scheduleIsConfirm || !showGridModel">
+    导入课表
+  </button>
+</ng-template>
+
+<ng-template #buttonExportTpl>
+  <button matRipple nz-button nzType="line" (click)="handleExport($event)">
+    导出课表
+  </button>
+</ng-template>
+
+
+
+<ng-template #buttonFailureDetailsTpl>
+  <button matRipple nz-button nzType="line" class="button-ladda" (click)="handleShowFailureDetails($event)">
+    失败明细
+  </button>
+</ng-template>
+
+<ng-template #buttonChangeViewTpl>
+
+  <nz-button-group>
+    <button *ngFor="let modeButton of modelMenus" matRipple nz-button nzType="default"
+            [class.active]="modeButton.active" (click)="handleChangeView(modeButton)"> {{ modeButton.label }} </button>
+  </nz-button-group>
+</ng-template>
+
+<ng-template #buttonConfirmTpl>
+  <button matRipple nz-button nzType="line" class="button-ladda schedules-confirm-btn" (click)="handleConfirmSchedules()"    [disabled]="scheduleIsConfirm || !showGridModel || !scheduleIsComplete">
+    <mat-progress-spinner *ngIf="btnLoading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+    确认排课
+  </button>
+</ng-template>

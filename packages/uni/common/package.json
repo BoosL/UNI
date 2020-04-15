@@ -1,0 +1,6 @@
+{
+  "name": "@uni/common",
+  "version": "1.5.2",
+  "dependencies": { },
+  "peerDependencies": { }
+}

@@ -1,0 +1,22 @@
+<ng-container *ngTemplateOutlet="productTreeTpl; context: { nodes: nodes$ | async }"></ng-container>
+<ng-template #productTreeTpl let-nodes="nodes">
+  <ng-template #emptyTpl>
+    <div class="empty"><nz-empty></nz-empty></div>
+  </ng-template>
+  <ng-container *ngIf="nodes.length > 0; else emptyTpl;">
+    <nz-tree [nzData]="nodes" nzAsyncData nzShowLine [nzExpandedIcon]="expandedIconTpl" (nzClick)="nzEvent($event)"
+      (nzExpandChange)="nzEvent($event)">
+      <ng-template #expandedIconTpl let-node>
+        <ng-container *ngIf="!node.origin.isLeaf">
+          <mat-progress-spinner class="ant-tree-switcher-line-icon" *ngIf="node.isExpanded && node.isLoading"
+            mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+          <!-- <i nz-icon nzType="folder-open" nzTheme="fill"></i> -->
+          <i *ngIf="node.isExpanded && !node.isLoading" class="ant-tree-switcher-line-icon" nz-icon
+            nzType="minus-square" nzTheme="outline"></i>
+          <i *ngIf="!node.isExpanded" class="ant-tree-switcher-line-icon" nz-icon nzType="plus-square"
+            nzTheme="outline"></i>
+        </ng-container>
+      </ng-template>
+    </nz-tree>
+  </ng-container>
+</ng-template>

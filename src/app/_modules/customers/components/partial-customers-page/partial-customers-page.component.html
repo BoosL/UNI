@@ -1,0 +1,42 @@
+<ng-template pageHead>
+  <h1 class="page-title"> {{ pageTitle }} </h1>
+  <ul class="breadcrumb">
+    <li *ngFor="let item of pageBreadcrumb"><a href="javascript:;"> {{ item.label }} </a></li>
+  </ul>
+  <button matRipple nz-button nzType="dashed" (click)="handleBackButtonClick($event)">
+    <i nz-icon nzType="unordered-list" nzTheme="outline"></i> 全部客户
+  </button>
+  <button matRipple nz-button nzType="link" class="back-to-dashboard"
+    (click)="handleDashboardButtonClick($event)">返回控制面板</button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<div class="layout-main">
+  <ng-template block>
+    <ng-container *ngIf="partialConfig?.name === 'old_call'">
+      <cc-old-call-customer-stats class="customer-stats cc-customer-stats" [schoolId$]="schoolId$">
+      </cc-old-call-customer-stats>
+    </ng-container>
+    <!-- <ng-container *ngIf="partialConfig?.name === 'consulted'">
+      <cc-consulted-customer-stats class="customer-stats cc-customer-stats" [schoolId$]="schoolId$">
+      </cc-consulted-customer-stats>
+    </ng-container> -->
+    <ng-container *ngIf="partialConfig?.name === 'has_deposit'">
+      <cc-has-deposit-customer-stats class="customer-stats cc-customer-stats" [schoolId$]="schoolId$">
+      </cc-has-deposit-customer-stats>
+    </ng-container>
+  </ng-template>
+  <ng-template block>
+    <customers [schemeConfig]="schemeConfig" [portletTpl]="customerTpl"></customers>
+  </ng-template>
+</div>
+
+<ng-template #customerTpl let-config="config" let-context="context" let-excel="excel">
+  <so-customer-portlet *ngIf="config.name === 'SO'" [context]="context" [excelComponent]="excel"
+    (actionButtonClick)="handleActionButtonClick($event)"></so-customer-portlet>
+  <us-customer-portlet *ngIf="config.name === 'US'" [context]="context" [excelComponent]="excel"
+    (actionButtonClick)="handleActionButtonClick($event)"></us-customer-portlet>
+  <cc-customer-portlet *ngIf="config.name === 'CC'" [context]="context" [excelComponent]="excel"
+    (actionButtonClick)="handleActionButtonClick($event)"></cc-customer-portlet>
+</ng-template>

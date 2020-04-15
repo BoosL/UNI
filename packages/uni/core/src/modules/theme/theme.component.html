@@ -1,0 +1,54 @@
+<div class="root">
+  <div class="content-main">
+    <mat-toolbar class="navbar navbar-header">
+      <mat-toolbar-row class="navbar-primary">
+        <div class="title">
+          <quick-links></quick-links>
+        </div>
+        <div class="trailing">
+          <user-menus></user-menus>
+        </div>
+      </mat-toolbar-row>
+      <mat-toolbar-row class="navbar-secondary">
+        <div class="title">
+          <ng-container *ngTemplateOutlet="pageHeadTpl; context: { payload: pageBound$ | async } "></ng-container>
+        </div>
+        <div *ngIf="enabledViewFilters" class="trailing">
+          <span class="label"> 当前视图： </span>
+          <school-menus></school-menus>
+          <employee-menus></employee-menus>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="sidebar-left">
+    <a mat-button [title]="appConfig?.name" class="brand-logo"></a>
+    <div class="ps menubar" role="menubar" [perfectScrollbar]="{}">
+      <backend-menus></backend-menus>
+    </div>
+  </div>
+  <!-- <chrome-stats *ngIf="!appConfig.production"></chrome-stats> -->
+</div>
+
+<ng-template #pageHeadTpl let-payload="payload">
+  <ng-template [ngTemplateOutlet]="payload?.headTpl || defaultPageHeadTpl"
+    [ngTemplateOutletContext]="{ page: payload }"></ng-template>
+</ng-template>
+
+<ng-template #defaultPageHeadTpl let-page="page">
+  <h1 class="page-title"> {{ page?.title }} </h1>
+  <ng-container *ngIf="page?.breadcrumb">
+    <ul class="breadcrumb">
+      <li *ngFor="let item of page.breadcrumb">
+        <a href="javascript:;"> {{ item.label }} </a>
+      </li>
+    </ul>
+    <ng-template [ngTemplateOutlet]="page?.headButtonsTpl || defaultPageHeadButtonsTpl"></ng-template>
+    <button *ngIf="page.breadcrumb.length > 0" matRipple nz-button nzType="link" class="back-to-dashboard" (click)="backToDashboard()">
+      返回控制面板
+    </button>
+  </ng-container>
+</ng-template>
+
+<ng-template #defaultPageHeadButtonsTpl></ng-template>

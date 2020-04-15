@@ -1,0 +1,21 @@
+<div *ngIf="isVisible" class="alert-container" [class.compact]="!alertBarBodyTpl && message"
+  [@visible]="visibleState ? 'true' : 'false'"
+  (@visible.done)="handleVisibleAnimationDone($event)"
+>
+  <div class="alert" [ngClass]="classes">
+    <div *ngIf="icon" class="alert-icon">
+      <i nz-icon [nzType]="icon"></i>
+    </div>
+    <div class="alert-text">
+      <ng-template [ngTemplateOutlet]="alertBarBodyTpl || defaultAlertBarBodyTpl"
+        [ngTemplateOutletContext]="{ context: context }"></ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #defaultAlertBarBodyTpl let="context">
+  <div class="line">
+    <span> {{ message }} </span>
+    <a class="close" (click)="context.close()">&times;</a>
+  </div>
+</ng-template>

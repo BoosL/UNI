@@ -1,0 +1,69 @@
+backend-page.organizations {
+  portlet.graph .portlet-body {
+    height: calc(100% - 4.2rem);
+  }
+}
+
+backend-page.employees {
+  portlet.manager .portlet-body {
+    display: flex;
+    height: calc(100% - 4.2rem);
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .left,
+  .right {
+    height: 100%;
+  }
+
+  .left {
+    flex: 0 0 270px;
+    width: 270px;
+    border-right: 1px solid $border-color;
+    overflow: hidden;
+
+    .search {
+      height: 40px;
+      border-bottom: 1px solid $border-color;
+
+      .ngx-excel-cell {
+        height: 100%;
+      }
+
+      .ngx-excel-cell .cell-form-control {
+        position: relative;
+      }
+
+      .ngx-excel-cell .cell-form-control .ant-input {
+        padding-right: 24px;
+      }
+
+      .ngx-excel-cell .cell-form-control .anticon-loading {
+        position: absolute;
+        right: 6px;
+      }
+    }
+
+    .tree {
+      padding: 16px 8px;
+      padding-right: 0;
+      height: calc(100% - 40px);
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+  }
+
+  .right {
+    flex: 1 0 auto;
+    width: 1px;
+
+    .empty {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

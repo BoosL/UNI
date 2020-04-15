@@ -1,0 +1,49 @@
+<div class="block-header">
+  <a *ngIf="!editType" mat-flat-button (click)="toggleExpand()">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> {{portletState === 'expand' ? 'remove':'add'}}
+    </mat-icon></a>
+  <span>学员名单</span>
+  <a *ngIf="!editType" class="block-remove-btn" mat-flat-button (click)="removeBlock()">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> delete
+    </mat-icon></a>
+</div>
+<div class="excel-container">
+  <ngx-excel lazyload>
+    <ngx-excel-column *ngIf="rules['relativeSchool']" name="relativeSchool" ></ngx-excel-column>
+    <ngx-excel-column *ngIf="rules['relativeSchool']" name="student" [template]="studentTpl" ></ngx-excel-column>
+    <ngx-excel-column *ngIf="rules['studentId']" name="studentId" readonly></ngx-excel-column>
+    <ngx-excel-column *ngIf="rules['studentId']" name="student.school" readonly></ngx-excel-column>
+    <ngx-excel-column *ngIf="rules['studentId']" name="studentName" readonly></ngx-excel-column>
+    <ngx-excel-column *ngIf="rules['signClass']" name="signClass" [template]="signClassTpl"></ngx-excel-column>
+    <ngx-excel-context-action *ngIf="rules['relativeSchool']"  label="删除" action="remove" icon="add_box" [execute]="removeRow">
+    </ngx-excel-context-action>
+    <ngx-excel-context-action *ngIf="rules['relativeSchool']" label="新增学员" prefix action="addRow" icon="add_box" [execute]="appendRelativeEntity">
+    </ngx-excel-context-action>
+  </ngx-excel>
+</div>
+
+<ng-template #studentTpl let-context="context">
+  <ng-container *ngIf="context.relativeSchool">
+    <ng-container *ngIf="!context.student">
+      <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+    </ng-container>
+    <ng-container *ngIf="context.student">
+      <div class="cell cell-combo ng-star-inserted ">{{context.student.name}}</div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.relativeSchool">
+    <div class="cell cell-combo ng-star-inserted text-optional">（请设置学员校区）</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #signClassTpl let-context="context" let-value="value">
+  <ng-container *ngIf="value" >
+    <div class="cell">
+        {{ value.label }}
+        <span *ngIf="context.mark.value === '3'" class="sing-class-tip">(签课状态变更中)</span>
+    </div>
+  </ng-container>
+</ng-template>
+

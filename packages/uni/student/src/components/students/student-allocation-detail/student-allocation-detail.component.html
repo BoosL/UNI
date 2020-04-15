@@ -1,0 +1,16 @@
+<portlet title="学员分配明细列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="time" width="96"></ngx-excel-column>
+      <ngx-excel-column name="type" width="96"></ngx-excel-column>
+      <ngx-excel-column name="old" width="96" [template]='oldccTpl'></ngx-excel-column>
+      <ngx-excel-column name="new" width="96"></ngx-excel-column>
+      <ngx-excel-column name="operator" width="96"></ngx-excel-column>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #oldccTpl let-value='value'>
+  <div class="cell text-optional empty" *ngIf="!value">(空)</div>
+  <div class="cell" *ngIf="value">{{ value }}</div>
+</ng-template>

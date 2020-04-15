@@ -1,0 +1,68 @@
+<div class="student-Contract">
+  <portlet title="申请课时延期" noPadding class="table">
+    <ng-template portletBody>
+      <ngx-excel-context [(context)]="componentValue">
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.productEndTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell disabled [column]="rules.productEndTime"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [tooltip]="columnMonthTooltipTpl" [column]="rules.month"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell [column]="rules.month"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.startTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell disabled [column]="rules.startTime"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.endTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell disabled [column]="rules.endTime"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.attachments"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell [column]="rules.attachments"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-6">
+            <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-18">
+            <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+    </ng-template>
+  </portlet>
+
+  <alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+  <div class="drawer-footer">
+    <button matRipple nz-button [disabled]="loading" (click)="dismiss()"> 关闭 </button>
+    <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm()"> 保存
+    </button>
+  </div>
+
+  <ng-template #columnMonthTooltipTpl>
+    <span>延期时长只能是以“月”为单位的整数，且只能延期 1 ~ 99 个月</span>
+  </ng-template>
+</div>

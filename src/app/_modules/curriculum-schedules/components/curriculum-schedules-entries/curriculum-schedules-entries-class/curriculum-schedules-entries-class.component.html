@@ -1,0 +1,39 @@
+<div class="block-header">
+  <a *ngIf="!editType" mat-flat-button (click)="toggleExpand()">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> {{portletState === 'expand' ? 'remove':'add'}}
+    </mat-icon>
+  </a>
+  <span>小班名单</span>
+  <a  *ngIf="!editType" class="block-remove-btn" mat-flat-button (click)="removeBlock()">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> delete
+    </mat-icon>
+  </a>
+</div>
+<div class="excel-container">
+  <ngx-excel lazyload>
+    <ngx-excel-column name="relativeSchool"></ngx-excel-column>
+    <ngx-excel-column name="smallClass"  [template]="smallClassTpl"></ngx-excel-column>
+    <ngx-excel-context-action label="删除" action="remove" icon="add_box" [execute]="removeRow">
+    </ngx-excel-context-action>
+    <ngx-excel-context-action label="新增小班" prefix action="addRow" icon="add_box" [execute]="appendRelativeEntity">
+    </ngx-excel-context-action>
+  </ngx-excel>
+</div>
+
+<ng-template #smallClassTpl let-context="context">
+  <ng-container *ngIf="context.relativeSchool">
+    <ng-container *ngIf="!context.smallClass">
+      <div class="cell cell-combo ng-star-inserted text-warning">未设置</div>
+    </ng-container>
+    <ng-container *ngIf="context.smallClass">
+      <div class="cell cell-combo ng-star-inserted ">{{context.smallClass.name}}</div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!context.relativeSchool">
+    <div class="cell cell-combo ng-star-inserted text-optional">（请设置小班校区）</div>
+  </ng-container>
+</ng-template>
+
+

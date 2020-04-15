@@ -1,0 +1,17 @@
+<!--<div pageOnInit></div>
+<div class="layout-main" canExternal>
+  <ng-template block>
+
+  </ng-template>
+</div>-->
+
+
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleBackButtonClick($event)">
+    <i nz-icon nzType="unordered-list" nzTheme="outline"></i> 学员小班列表
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<student-primary-class [studentId$]="studentId$" ></student-primary-class>

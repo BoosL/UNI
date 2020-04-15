@@ -1,0 +1,52 @@
+$font-family: "Poppins, Roboto, 'Helvetica Neue', Helvetica, 'Microsoft YaHei', Tahoma, Arial, 'FZLanTingHeiS-L-G', 'PingFang SC'";
+$code-family: "Poppins, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace";
+$border-color: #eff0f6;
+
+$layout-breakpoints: (
+    // Small screen / phone
+  	sm: 576px,
+  	// Medium screen / tablet
+		md: 768px,
+		// md: 1024px,
+  	// Large screen / desktop
+		lg: 992px,
+		// lg: 1400px,
+  	// Extra large screen / wide desktop
+  	xl: 1200px,
+    // Extra large screen / wide desktop
+    xxl: 1400px,
+    // Super Extra large screen / wide desktop
+    xxxl: 1600px
+)!default;
+.device_notable{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background-color: rgba(0,0,0,0.8);z-index: 99999;
+  div{
+    text-align: center;
+    margin-top: 300px;
+    span{
+      font-size: 2rem;
+      display: block;
+      color: #fff;
+    }
+    .download_btn{
+      display: inline-block;
+      width:15rem;
+      line-height:5rem;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      background-color:#15ab92;
+      color: #fff;
+      border-radius: 0.5rem;
+      .chrome_logo{
+        vertical-align: middle;
+        width: 3rem;
+      }
+    }
+  }
+}

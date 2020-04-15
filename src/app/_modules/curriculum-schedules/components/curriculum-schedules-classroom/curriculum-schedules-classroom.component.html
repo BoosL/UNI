@@ -1,0 +1,26 @@
+
+<div class="classroom-list">
+  <ng-container *ngIf="classroomData && classroomData.length>0">
+    <ng-container *ngFor="let item of classroomData" >
+      <div class="classroom-item" cdkDropList  [ngClass]="{'disable-drag':dragIsStart || item.classroom.status.value === '0'}"
+           [cdkDropListData]="[item]"
+           (cdkDropListDropped)="drop($event)"
+           [cdkDropListEnterPredicate]="dropLimit"
+      >
+        <div class="classroom-list" cdkDrag [cdkDragData]="item" (cdkDragStarted)="dragStart($event)"
+             [cdkDragDisabled]="item.classroom.status.value === '0'"
+             (cdkDragEnded)="dragEnd($event)"
+        >
+          <span>{{item.classroom ? item.classroom.name : ""}}</span>
+          <div class="classroom-container">
+            <span>容纳人数：{{(item.classroom && item.classroom.capacityNum)? item.classroom.capacityNum : 0}}/人</span>
+            <span>排课数：{{item.count? item.count: 0}}/节</span>
+          </div>
+          <div *cdkDragPreview class="drag-classroom-list">
+            <span>{{item.classroom ? item.classroom.name : ""}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,77 @@
+<portlet title="教室基本信息" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="classroom">
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.name"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.name"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.roomSizeType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.roomSizeType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.capacityNum"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.capacityNum"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.frequencyName"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.frequencyName"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isSupportVideo"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.isSupportVideo"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isStandard"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.isStandard"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.originalPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-13">
+          <ngx-excel-cell normalCell [column]="rules.originalPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell disabled [column]="rules.status"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-21">
+          <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<div class="drawer-footer">
+  <a mat-stroked-button (click)="dismiss()"> 关闭 </a>
+  <a mat-flat-button color="accent" (click)="confirm()"> 保存 </a>
+</div>
+
+<ng-template #nonTeacherTpl>
+  <div class="cell text-optional"> 非老师角色无该项显示 </div>
+</ng-template>

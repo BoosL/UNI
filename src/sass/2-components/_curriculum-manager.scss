@@ -1,0 +1,117 @@
+curriculum-manager {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  .left,
+  .right {
+    height: 100%;
+  }
+
+  .left {
+    flex: 0 0 270px;
+    width: 270px;
+    border-right: 1px solid $border-color;
+    overflow: hidden;
+
+    .search {
+      height: 40px;
+      border-bottom: 1px solid $border-color;
+
+      > [class^="ant-col-"],
+      .ngx-excel-cell {
+        height: 100%;
+      }
+
+      .cell-form-control {
+        position: relative;
+
+        .ant-input {
+          padding-right: 32px;
+        }
+
+        .mat-progress-spinner {
+          position: absolute;
+          right: 6px;
+        }
+      }
+    }
+
+    .tree {
+      padding: 16px 8px;
+      padding-right: 0;
+      height: calc(100% - 40px);
+      overflow: hidden;
+      overflow-y: scroll;
+
+      .empty {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .right {
+    position: relative;
+    flex: 1 0 auto;
+    width: 1px;
+  }
+
+  curriculums {
+    @keyframes curriculum-helper-animation {
+      0% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    > .helper {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 999;
+      background-color: white;
+      margin-right: 18px;
+      padding-left: 6%;
+
+      i.anticon,
+      span.title {
+        color: mat-color($angular-app-primary, 0.25);
+      }
+
+      i.anticon {
+        animation: curriculum-helper-animation 0.3s infinite;
+        animation-direction: alternate;
+      }
+
+      span.title {
+        font-size: 2.4rem;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+product-tree {
+  .ant-tree-node-content-wrapper.ant-tree-node-selected {
+    background-color: transparent !important;
+    color: mat-color($angular-app-accent);
+  }
+
+  .mat-progress-spinner {
+    margin-left: 3px;
+    margin-top: 3px;
+  }
+}

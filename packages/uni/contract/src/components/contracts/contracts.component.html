@@ -1,0 +1,42 @@
+<ng-container *ngIf="portletTpl, else defaultTpl">
+  <ngx-excel #excelComponent lazyload readonly [cellHeight]="schemeConfig.height" [customTemplate]="excelBodyTpl">
+  </ngx-excel>
+  <ng-template #excelBodyTpl let-context>
+    <div [style.height.px]="schemeConfig.height - 18">
+      <ng-container
+        *ngTemplateOutlet="portletTpl; context: { config: schemeConfig, context: context, excel: excelComponent }">
+      </ng-container>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #defaultTpl>
+  <ngx-excel lazyload readonly name="excelFinanceContracts">
+    <ngx-excel-column name="status" width="96" locked readonly [template]="statusTpl"></ngx-excel-column>
+    <ngx-excel-column name="type" width="150"></ngx-excel-column>
+    <ngx-excel-column name="sn" width="150" [locked]="true"></ngx-excel-column>
+    <ngx-excel-column name="beginTime" width="150"></ngx-excel-column>
+    <ngx-excel-column name="endTime" width="150"></ngx-excel-column>
+    <ngx-excel-column name="relativeStudent" width="150"></ngx-excel-column>
+    <ngx-excel-column name="relativeEmployee" width="150"></ngx-excel-column>
+    <ngx-excel-column name="createdTime" width="150"></ngx-excel-column>
+    <ngx-excel-column name="amount" width="96"></ngx-excel-column>
+    <ngx-excel-column name="actualAmount" width="96"></ngx-excel-column>
+    <ngx-excel-context-action label="合同充值" action="recharge" [execute]="handleMenuRecharge"
+                              [invisible]="sourceType !== 'finance'"></ngx-excel-context-action>
+    <ngx-excel-context-action label="合同延期" action="deferContract" [execute]="deferContract" [invisible]="sourceType !== 'student'">
+    </ngx-excel-context-action>
+    <ngx-excel-context-action label="删除合同" action="deleteContract" icon="delete" [invisible]="sourceType !== 'student'"></ngx-excel-context-action>
+
+  </ngx-excel>
+</ng-template>
+
+
+<ng-template #statusTpl let-context="context">
+  <div *ngIf="!context.status" class="cell text-warning"> 未知</div>
+  <ng-container *ngIf="context.status" [ngSwitch]="context.status.value">
+    <div class="cell text-danger" *ngSwitchCase="'1'"> {{ context.status.label }} </div>
+    <div class="cell text-success" *ngSwitchCase="'2'"> {{ context.status.label }} </div>
+    <div class="cell" *ngSwitchDefault> {{ context.status.label }} </div>
+  </ng-container>
+</ng-template>

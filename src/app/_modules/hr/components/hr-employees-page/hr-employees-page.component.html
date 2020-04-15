@@ -1,0 +1,26 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="员工与组织架构管理" noPadding class="list manager">
+      <ng-template portletBody>
+        <div class="left">
+          <div class="search">
+            <div class="ngx-excel-cell ngx-excel-cell--normal">
+              <div class="cell-form-control">
+                <input class="form-control" type="text" placeholder="请输入员工名称或组织名称" nz-input [(ngModel)]="searchKeyword"
+                  (ngModelChange)="handleSearchChange($event)">
+                <i nz-icon *ngIf="searching" nzType="loading" nzTheme="outline"></i>
+              </div>
+            </div>
+          </div>
+          <div class="tree">
+            <organization-tree [organizations$]="organizations$" [onExpandCallback]="handleExpandCallback" (nodeSelect)="handleNodeSelect($event)"></organization-tree>
+          </div>
+        </div>
+        <div class="right">
+          <employees [filters$]="employeeFilters$"></employees>
+        </div>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

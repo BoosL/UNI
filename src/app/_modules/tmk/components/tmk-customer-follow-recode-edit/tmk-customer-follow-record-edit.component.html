@@ -1,0 +1,58 @@
+<portlet title="添加跟进记录" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context compact [(context)]="record">
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ngx-excel-cell normalCell [column]="rules.actionCode"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ngx-excel-cell normalCell [column]="rules.tmkStatus" readonly></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ng-template #nextFollowTimeTpl let-context="context" let-column="column">
+              <div class="cell" [class.text-warning]="context?.isEnableNextTime && !context?.nextFollowTime" [class.text-optional]="!context?.isEnableNextTime">
+                {{ context?.nextFollowTime ? (context.nextFollowTime | ngxExcelDateTime:'datetime') : '下次跟进时间' }}
+              </div>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules.nextFollowTime" [template]="nextFollowTimeTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ng-template #nextVisitedTimeTpl let-context="context" let-column="column">
+            <div class="cell" [class.text-warning]="context?.isEnableReservationTime && !context?.nextVisitedTime" [class.text-optional]="!context?.isEnableReservationTime">
+              {{ context?.nextVisitedTime ? (context.nextVisitedTime | ngxExcelDateTime:'datetime') : '预约到访时间' }}
+            </div>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules.nextVisitedTime" [template]="nextVisitedTimeTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ng-template #schoolTpl let-context="context" let-column="column">
+            <div class="cell" [class.text-warning]="context?.isEnableReservationTime && !context?.school" [class.text-optional]="!context?.isEnableReservationTime">
+              {{ context?.school ? context.school.name : '预约校区' }}
+            </div>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules.school" [template]="schoolTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-24">
+          <ngx-excel-cell normalCell [column]="rules.content"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+    <alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+  </ng-template>
+  <ng-template portletFoot>
+    <div class="portlet-foot-buttons">
+      <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading"
+        (click)="confirm($event)"> 提交 </button>
+    </div>
+  </ng-template>
+</portlet>

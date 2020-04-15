@@ -1,0 +1,44 @@
+<portlet title="校区教室管理" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload>
+      <ngx-excel-column name="status" width="96" readonly [template]="columnStatusTpl"></ngx-excel-column>
+      <ngx-excel-column name="name"></ngx-excel-column>
+      <ngx-excel-column name="frequencyName"></ngx-excel-column>
+      <ngx-excel-column name="capacityNum" width="96"></ngx-excel-column>
+      <ngx-excel-column name="roomSizeType" width="96"></ngx-excel-column>
+      <ngx-excel-column name="isSupportVideo" width="96"></ngx-excel-column>
+      <ngx-excel-column name="isStandard" width="96"></ngx-excel-column>
+      <ngx-excel-column name="originalPurpose" [template]="columnOriginalPurposeTpl"></ngx-excel-column>
+
+      <ngx-excel-context-action label="新增教室" prefix action="appendRow" icon="add_box" [execute]="append">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #columnStatusTpl let-context="context" let-value="value">
+  <ng-container *ngIf="value" [ngSwitch]="value.value">
+    <div class="cell text-danger" *ngSwitchCase="0">
+      <a nz-popconfirm nzTitle="您确认要启用这个教室？" (nzOnConfirm)="enable(context)">
+        <mat-icon class="toggle_icon toggle_icon--0">pause</mat-icon>
+        {{ value.label }}
+      </a>
+    </div>
+    <div class="cell text-success" *ngSwitchCase="1">
+      <a nz-popconfirm nzTitle="你确认要禁用这个教室？" (nzOnConfirm)="disable(context)">
+        <mat-icon class="toggle_icon toggle_icon--1">play_arrow</mat-icon>
+        {{ value.label }}
+      </a>
+    </div>
+    <div class="cell text-optional" *ngSwitchDefault> 未知状态 </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnOriginalPurposeTpl let-context="context" let-value="value">
+  <ng-template #emptyTpl>
+    <div class="cell text-optional">（空）</div>
+  </ng-template>
+  <ng-container *ngIf="!context.isStandard; else emptyTpl;">
+    <div class="cell" [class.text-warning]="!value"> {{ value || '未设置' }} </div>
+  </ng-container>
+</ng-template>

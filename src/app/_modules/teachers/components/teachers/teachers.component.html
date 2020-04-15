@@ -1,0 +1,52 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="全部老师" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="teachers" lazyload readonly>
+          <ngx-excel-column name="id" width="60" [template] = 'idTpl'></ngx-excel-column>
+          <ngx-excel-column name="status" width="60" [template]="columnStatusTpl"></ngx-excel-column>
+          <ngx-excel-column name="flag" label="ETP老师标记" width="60" [template]="columnFlagTpl"></ngx-excel-column>
+          <ngx-excel-column name="name" width="240"></ngx-excel-column>
+          <ngx-excel-column name="phoneNumber" width="96"></ngx-excel-column>
+          <ngx-excel-column name="isPluralistic" width="60"></ngx-excel-column>
+          <ngx-excel-column name="score" width="60"></ngx-excel-column>
+          <ngx-excel-column name="scoreCount" width="60"></ngx-excel-column>
+          <ngx-excel-column name="entryDate" width="96"></ngx-excel-column>
+          <ngx-excel-column name="departureDate" width="96"></ngx-excel-column>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #idTpl let-context="context">
+  <div class="cell">{{context.id}}</div>
+</ng-template>
+
+<ng-template #columnStatusTpl let-value="value">
+  <ng-container [ngSwitch]="value.value">
+    <div *ngSwitchCase="20" class="cell text-success"> {{ value.label }} </div>
+    <div *ngSwitchCase="21" class="cell text-warning"> {{ value.label }} </div>
+    <div *ngSwitchCase="23" class="cell text-danger"> {{ value.label }} </div>
+    <div *ngSwitchDefault class="cell text-info"> {{ value?.label || '未知状态' }} </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnFlagTpl let-context="context">
+  <ng-container *ngIf="isEtpTeacher(context); then tplEtpTeacher; else tplNonEtpTeacher"></ng-container>
+  <ng-template #tplEtpTeacher>
+    <div class="cell cell-teacher-flag">
+      <a nz-popconfirm nzTitle="您确认要取消这个老师的 ETP 标记？" (nzOnConfirm)="toggleEtpTags(context)">
+        <mat-icon class="toggle_icon toggle_icon--1">flag</mat-icon>
+      </a>
+    </div>
+  </ng-template>
+  <ng-template #tplNonEtpTeacher>
+    <div class="cell cell-teacher-flag">
+      <a nz-popconfirm nzTitle="您确认要标记这个老师为 ETP 老师？" (nzOnConfirm)="toggleEtpTags(context)">
+        <mat-icon class="toggle_icon toggle_icon--0">outlined_flag</mat-icon>
+      </a>
+    </div>
+  </ng-template>
+</ng-template>

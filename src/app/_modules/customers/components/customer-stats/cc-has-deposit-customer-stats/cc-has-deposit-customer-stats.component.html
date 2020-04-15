@@ -1,0 +1,66 @@
+<div class="stats-bar-container">
+  <div class="ant-row stats-bar">
+    <div class="ant-col-9 stat-section">
+      <div class="ant-row">
+        <div class="ant-col-8 stat-block stat-block-l">
+          <div class="content">
+            <div class="num"> {{ num('signingCustomerCount') }} </div>
+            <div class="title"> 已签 </div>
+          </div>
+        </div>
+        <div class="ant-col-8 stat-block stat-block-m">
+          <div class="content">
+            <div class="num"> {{ num('successfulVisitCustomerCount') }} </div>
+            <div class="title"> 已到访 </div>
+          </div>
+        </div>
+        <div class="ant-col-8 stat-block stat-block-r">
+          <div class="content">
+            <div class="num"> {{ num('depositCount') | ngxExcelCurrency }} 元 </div>
+            <div class="title"> 总订金 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-5 stat-section">
+      <div class="ant-row">
+        <div class="ant-col-12 stat-block stat-block-l">
+          <div class="content">
+            <div class="num"> {{ num('monthSuccessfulVisitCustomerCount') }} </div>
+            <div class="title"> 本月到访 </div>
+          </div>
+        </div>
+        <div class="ant-col-12 stat-block stat-block-r">
+          <div class="content">
+            <div class="num"> {{ num('monthDepositCount') | ngxExcelCurrency }} 元 </div>
+            <div class="title"> 本月订金 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-5 stat-section">
+      <div class="ant-row">
+        <div class="ant-col-12 stat-block stat-block-l">
+          <div class="content">
+            <div class="num"> {{ num('successfulMonthlySigningCustomerCount') }}</div>
+            <div class="title"> 本月签约 </div>
+          </div>
+        </div>
+        <div class="ant-col-12 stat-block stat-block-r">
+          <div class="content">
+            <div class="num"> {{ num('monthSuccessfulVisitCustomerCount') }} </div>
+            <div class="title"> 本月到访 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-5 stat-section">
+      <div class="stat-block">
+        <div class="content">
+          <div class="num"> {{ num('depositMonthlyTotalSum') | ngxExcelCurrency }} 元 </div>
+          <div class="label"> 本月订金签约金额 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

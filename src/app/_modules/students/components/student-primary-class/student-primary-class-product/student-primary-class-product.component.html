@@ -1,0 +1,30 @@
+<ngx-excel lazyload readonly [dataSet]="products">
+    <ngx-excel-column name="name"></ngx-excel-column>
+    <ngx-excel-column name="type_name"></ngx-excel-column>
+    <ngx-excel-column name="valid_month"></ngx-excel-column>
+    <ngx-excel-column name="is_presented" [template]='isPresentedTpl'></ngx-excel-column>
+    <ngx-excel-column name="is_plus_valid" [template]='isPlusValidTpl'></ngx-excel-column>
+    <ngx-excel-column name="is_packaged" [template]='isPackagedTpl'></ngx-excel-column>
+    <ngx-excel-column name="remark" [template]='remarkTpl'></ngx-excel-column>
+</ngx-excel>
+
+
+<ng-template #isPresentedTpl let-value="value">
+    <div class="cell" *ngIf="value == 0">累加</div>
+    <div class="cell" *ngIf="value == 1">不累加</div>
+</ng-template>
+
+<ng-template #isPlusValidTpl let-value="value">
+    <div class="cell" *ngIf="value == 0">不可以自选</div>
+    <div class="cell" *ngIf="value == 1">可以自选</div>
+</ng-template>
+
+<ng-template #isPackagedTpl let-value="value">
+    <div class="cell" *ngIf="value == 0">否</div>
+    <div class="cell" *ngIf="value == 1">是</div>
+</ng-template>
+
+<ng-template #remarkTpl let-value="value">
+    <div class="cell text-optional empty" *ngIf="value == ''">(空)</div>
+    <div class="cell" *ngIf="value !== ''">{{ value }}</div>
+</ng-template>

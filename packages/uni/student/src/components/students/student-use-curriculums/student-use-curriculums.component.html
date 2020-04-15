@@ -1,0 +1,19 @@
+<portlet title="学员已上课时列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="name" [template]="nameTpl" width="96"></ngx-excel-column>
+      <ngx-excel-column name="type" width="96"></ngx-excel-column>
+      <ngx-excel-column name="teachers" [template]="teachersTpl" width="96"></ngx-excel-column>
+      <ngx-excel-column name="performance" width="96"></ngx-excel-column>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+
+<ng-template #nameTpl let-context="context">
+  <div class="cell"> {{ context.name || '-' }} </div>
+</ng-template>
+
+<ng-template #teachersTpl let-context="context">
+  <div class="cell"> {{ context.teachers || '-' }} </div>
+</ng-template>

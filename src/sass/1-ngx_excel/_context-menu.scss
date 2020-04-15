@@ -1,0 +1,87 @@
+.ngx-contextmenu {
+  .dropdown-menu {
+    position: static;
+    float: none;
+    padding: 0;
+    width: 100%;
+    min-width: 180px;
+    border-radius: 2px;
+    border: none;
+    background-color: white;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    list-style: none;
+    text-align: left;
+    box-shadow: 0 2px 15px rgba(0,0,0,.175);
+  }
+
+  .dropdown-menu .divider {
+    height: 1px;
+    background-color: #f7f8fa;
+  }
+
+  .dropdown-menu > li > a {
+    position: relative;
+    display: block;
+    padding: 8px 18px 8px 40px;
+    font-size: 0.9rem;
+    height: 32px;
+    overflow: hidden;
+
+    > .mat-icon {
+      display: flex;
+      width: 32px;
+      height: 35px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      font-size: 1.2rem;
+      margin-right: 0;
+
+      &:not(.icon-append) {
+        left: 0;
+      }
+
+      &.icon-append {
+        right: 0;
+      }
+    }
+
+    &:before {
+      display: block;
+      width: 32px;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    & {
+      background-color: #fff;
+
+      &:before {
+        background-color: #f7f8fa;
+      }
+    }
+
+    &:hover {
+      background-color: #f7f8fa;
+    }
+  }
+
+  .dropdown-menu > li.disabled > a {
+    color: #aaa;
+    cursor: not-allowed;
+
+    > .mat-icon {
+      color: #aaa;
+    }
+
+    &:hover {
+      background-color: inherit;
+    }
+  }
+}

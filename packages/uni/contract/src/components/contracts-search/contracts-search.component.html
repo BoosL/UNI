@@ -1,0 +1,43 @@
+<portlet title="合同搜索..." noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="context">
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.sn"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.sn"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.student"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.student"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.createTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.createTime"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.beginTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.beginTime"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="reset($event)"> 重置并刷新列表 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" (click)="confirm($event)"> 确认搜索 </button>
+</div>

@@ -1,0 +1,92 @@
+alert-bar {
+  .alert-container {
+    display: block;
+    width: 100%;
+  }
+
+  .alert {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    @include mat-elevation(5, mat-color($angular-app-primary), 0.1);
+
+    .alert-icon {
+      padding: 1rem 2rem 1.5rem;
+      margin-bottom: 2rem;
+      padding-right: 0;
+      font-size: 1.8rem;
+    }
+
+    .alert-text {
+      flex: 1 1 auto;
+      padding: 1rem 2rem 1.5rem;
+
+      ul,
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 3px 0;
+      }
+
+      ul {
+        margin-bottom: 1rem;
+      }
+
+      ul li:before {
+        display: block;
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      a {
+        font-size: 0.9rem;
+        font-weight: bold;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .alert-container.compact {
+    .alert {
+      border-radius: 0;
+
+      .alert-icon, .alert-text {
+        padding: .8rem 1.5rem;
+      }
+
+      .alert-icon {
+        margin-bottom: 0;
+        padding-right: 0;
+        font-size: 1rem;
+      }
+
+      .line {
+        position: relative;
+        padding-right: 1.5rem;
+
+        a.close {
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+}

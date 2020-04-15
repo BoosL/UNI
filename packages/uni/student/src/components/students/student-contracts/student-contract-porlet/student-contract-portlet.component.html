@@ -1,0 +1,102 @@
+<div class="portlet-timeline">
+  <ng-template #buttonDeleteTpl>
+    <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'handleContractDelete', context)">
+      删除合同
+    </button>
+  </ng-template>
+  <ng-template #buttonDeferTpl>
+    <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'handleContractDefer', context)"> 合同延期
+    </button>
+  </ng-template>
+  <portlet noPadding class="table" [title]="context?.createdTime  + ' - ' + context?.sn" [actions]="[buttonDeleteTpl, buttonDeferTpl]">
+    <ng-template portletBody>
+      <ngx-excel-context readonly [context]="context" [excel]="excelComponent">
+        <div class="ant-row">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.type"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.type"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.status"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.relativeEmployee"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.relativeEmployee"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.relativeStudent"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.relativeStudent"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.createdTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.createdTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.amount"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.amount"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.isInstalment"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.isInstalment"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules['instalmentFee']"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules['instalmentFee']"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.beginTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.beginTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.endTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell normalCell [column]="rules.endTime"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-2">
+            <ngx-excel-cell headCell [column]="rules.relativeProducts"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-22">
+            <ngx-excel-cell normalCell [column]="rules.relativeProducts"
+                            [template]="relativeProductsTpl"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+    </ng-template>
+  </portlet>
+</div>
+<ng-template #relativeProductsTpl let-context="context">
+  <ng-container *ngIf="!context?.relativeProducts || context?.relativeProducts?.length < 0">
+    <div class="cell text-warning">未设置</div>
+  </ng-container>
+  <ng-container *ngIf="context?.relativeProducts && context?.relativeProducts.length > 0">
+    <div class="cell products-info" nz-tooltip [nzTitle]="getContractProductNames(context)"
+         nzPlacement="topLeft">{{getContractProductNames(context)}}</div>
+  </ng-container>
+
+</ng-template>

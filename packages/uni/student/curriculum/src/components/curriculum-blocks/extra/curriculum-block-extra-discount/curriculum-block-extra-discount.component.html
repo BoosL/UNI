@@ -1,0 +1,49 @@
+<ngx-excel-context [context]="context" (changeContext)="handleContextChange($event)">
+  <div class="ant-row">
+    <ng-container *ngIf="rules.globalSchemeOption.selectOptions.length === 1">
+      <ng-container *ngFor="let schemeOption of rules.globalSchemeOption.selectOptions">
+        <div class="ant-col-2">
+          <ngx-excel-cell
+            *ngIf="rules['discountScheme_' + schemeOption.value].columnType !== 'text' && schemeOption.value === context?.globalSchemeOption?.value"
+            headCell [column]="rules['discountScheme_' + schemeOption.value]"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell
+            *ngIf="rules['discountScheme_' + schemeOption.value].columnType !== 'text' && schemeOption.value === context?.globalSchemeOption?.value"
+            normalCell [column]="rules['discountScheme_' + schemeOption.value]"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5"></div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="rules.globalSchemeOption.selectOptions.length > 1">
+      <div class="ant-col-2">
+        <ngx-excel-cell headCell [column]="rules.globalSchemeOption"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.globalSchemeOption"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ng-container *ngFor="let schemeOption of rules.globalSchemeOption.selectOptions">
+          <ngx-excel-cell
+            *ngIf="rules['discountScheme_' + schemeOption.value].columnType !== 'text' && schemeOption.value === context?.globalSchemeOption?.value"
+            normalCell [column]="rules['discountScheme_' + schemeOption.value]"></ngx-excel-cell>
+        </ng-container>
+      </div>
+    </ng-container>
+    <div class="ant-col-6"></div>
+    <ng-container *ngIf="rules['discountScheme_7']">
+      <div class="ant-col-2">
+        <ngx-excel-cell headCell [column]="rules.discountScheme_7"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-4">
+        <ngx-excel-cell normalCell [column]="rules.discountScheme_7" [disabled]="!canEditPresentedCurriculumCount"
+          [template]="columnPresentedCurriculumCountTpl"></ngx-excel-cell>
+      </div>
+    </ng-container>
+  </div>
+</ngx-excel-context>
+
+<ng-template #columnPresentedCurriculumCountTpl let-value="value">
+    <div class="cell" *ngIf="value"> 赠送 {{ value }} 个月EP课程 </div>
+    <div class="cell" *ngIf="!value"> 不赠送 </div>
+</ng-template>

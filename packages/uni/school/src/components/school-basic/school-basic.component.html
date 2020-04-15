@@ -1,0 +1,84 @@
+<portlet title="校区基本信息" noPadding class="table">
+  <ng-template portletBody>
+    <ng-container *ngTemplateOutlet="basicInfoTpl; context: { school: school$ | async }"></ng-container>
+  </ng-template>
+</portlet>
+
+<ng-template #basicInfoTpl let-school="school">
+  <ngx-excel-context [context]="school">
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.nameCn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.nameCn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.nameEn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.nameEn"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.code"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.code"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.alias"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.alias"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.company"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.company"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.tel"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.tel"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.relativeArea"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.relativeArea"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.address"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-13">
+        <ngx-excel-cell normalCell disabled [column]="rules.address"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.relativePriceRuleTemplate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.relativePriceRuleTemplate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.relativeSalaryTemplate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.relativeSalaryTemplate"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell disabled [column]="rules.status"></ngx-excel-cell>
+      </div>
+    </div>
+  </ngx-excel-context>
+</ng-template>

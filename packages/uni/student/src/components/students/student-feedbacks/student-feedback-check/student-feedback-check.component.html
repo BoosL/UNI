@@ -1,0 +1,27 @@
+<portlet title="学员反馈" noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="feedback" readonly>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.type"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.type"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.content"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.content"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+
+<div class="drawer-footer">
+  <button matRipple nz-button  (click)="dismiss()"> 关闭 </button>
+</div>

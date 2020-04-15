@@ -1,0 +1,30 @@
+<nz-row [nzGutter]="16">
+  <nz-col [nzSpan]="6">
+    <nz-card>
+      <nz-statistic nzTitle="本月新增客户" nzSuffix="人"
+        [nzValue]="num('new_customers_count') === '-' ? '-' : (num('new_customers_count') | number)">
+      </nz-statistic>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="6">
+    <nz-card>
+      <nz-statistic nzTitle="本月有效客户" nzSuffix="人"
+        [nzValue]="num('valid_customers_count') === '-' ? '-' : (num('valid_customers_count') | number)">
+      </nz-statistic>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="6">
+    <nz-card>
+      <nz-statistic nzTitle="本月到访客户" nzSuffix="人"
+        [nzValue]="num('visited_customers_count') === '-' ? '-' : (num('visited_customers_count') | number)">
+      </nz-statistic>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="6">
+    <nz-card>
+      <nz-statistic nzTitle="本月签约客户" nzSuffix="人"
+        [nzValue]="num('signed_customers_count') === '-' ? '-' : (num('signed_customers_count') | number)">
+      </nz-statistic>
+    </nz-card>
+  </nz-col>
+</nz-row>

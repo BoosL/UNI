@@ -1,0 +1,25 @@
+<!-- <a *ngIf="display$ | async" matRipple nz-dropdown [nzDropdownMenu]="employeeMenu" [nzDisabled]="employeeMenuItems.length <= 1" nzPlacement="bottomRight" nzTrigger="click"
+  class="navbar-view navbar-employee" [class.readonly]="employeeMenuItems.length <= 1">
+  <ng-container *ngTemplateOutlet="currentEmployeeMenuTpl; context: { currentEmployeeMenu: currentEmployeeMenu$ | async }">
+  </ng-container>
+</a> -->
+
+<ng-template #currentEmployeeMenuTpl let-currentEmployeeMenu="currentEmployeeMenu">
+  <span class="label"> {{ currentEmployeeMenu?.name }} </span>
+  <i *ngIf="employeeMenuItems.length > 1" nz-icon nzType="caret-down" nzTheme="outline"></i>
+</ng-template>
+
+<!-- <nz-dropdown-menu #employeeMenu="nzDropdownMenu">
+  <ul nz-menu class="navbar-view-menus navbar-employee-menus">
+    <li nz-menu-item *ngFor="let employeeMenuItem of employeeMenuItems" (click)="handleMenuItemClick($event, employeeMenuItem)">
+      {{ employeeMenuItem.name }} </li>
+  </ul>
+</nz-dropdown-menu> -->
+
+<ng-container *ngIf="display$ | async">
+  <nz-select nzShowSearch [ngModel]="currentEmployeeMenu" [compareWith]="compareWith"
+    (ngModelChange)="handleMenuItemClick(null, $event)">
+    <nz-option *ngFor="let employeeMenuItem of employeeMenuItems" [nzValue]="employeeMenuItem"
+      [nzLabel]="employeeMenuItem.name"></nz-option>
+  </nz-select>
+</ng-container>

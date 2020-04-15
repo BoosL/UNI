@@ -1,0 +1,13 @@
+<portlet title="休息时间管理" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="relativeSchool"></ngx-excel-column>
+      <ngx-excel-column name="name" width="150" [locked]="true"></ngx-excel-column>
+      <ngx-excel-column name="startTime"></ngx-excel-column>
+      <ngx-excel-column name="endTime"></ngx-excel-column>
+      <ngx-excel-column name="createdTime"></ngx-excel-column>
+      <ngx-excel-context-action label="新增休息时间" prefix action="appendRow" icon="add_box" [execute]="appendSchoolRestTime"></ngx-excel-context-action>
+      <ngx-excel-context-action label="删除"  action="removeRow" icon="delete"></ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>

@@ -1,0 +1,91 @@
+<ng-container *ngIf="componentMode === 'portlet'">
+  <portlet title="学员基础信息" class="page" [actions]="[ actionRedirectTpl ]">
+    <ng-template portletBody>
+      <div class="layout">
+        <ng-container [ngTemplateOutlet]="containerStudentTpl"></ng-container>
+      </div>
+    </ng-template>
+  </portlet>
+</ng-container>
+
+<ng-container *ngIf="componentMode !== 'portlet'">
+  <ng-container [ngTemplateOutlet]="containerStudentTpl"></ng-container>
+</ng-container>
+
+<ng-template #actionRedirectTpl>
+  <button matRipple nz-button nzType="dashed" (click)="handleRedirectButtonClick($event)">
+    <i nz-icon nzType="icons/communication:share-1"></i> 页面方式打开
+  </button>
+</ng-template>
+
+<ng-template #containerStudentTpl>
+  <div class="layout-sub layout-sub-l" [layoutMenus]="layoutMenus" (layoutMenuClick)="handleMenuClick($event)">
+    <ng-template block>
+      <ng-container *ngTemplateOutlet="studentCardTpl; context: { student: student$ | async }"></ng-container>
+    </ng-template>
+  </div>
+
+  <div class="layout-main" canExternal>
+    <ng-template block>
+      <!-- <student-basic [student$]="student$"></student-basic> -->
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #studentCardTpl let-student="student">
+  <ng-template #portraintTpl>
+    <nz-avatar nzShape="square" nzIcon="user" [nzSrc]="student?.portrait?.url"></nz-avatar>
+  </ng-template>
+  <ng-template #nameTpl>
+    <span class="name"> {{ student?.name }} </span>
+  </ng-template>
+  <ng-template #descTpl>
+    <div class="status">
+      <ng-container *ngIf="student?.status" [ngSwitch]="student.status.value">
+        <span class="status text-primary" *ngSwitchCase="'0'">
+          <nz-badge nzStatus="processing"></nz-badge>
+          <span> {{ student.status.label }} </span>
+        </span>
+        <span class="status text-danger" *ngSwitchCase="'1'">
+          <nz-badge nzStatus="error"></nz-badge>
+          <span> {{ student.status.label }} </span>
+        </span>
+        <span class="status text-success" *ngSwitchCase="'2'">
+          <nz-badge nzStatus="success"></nz-badge>
+          <span> {{ student.status.label }} </span>
+        </span>
+        <span class="status text-warning" *ngSwitchDefault>
+          <nz-badge nzStatus="warning"></nz-badge>
+          <span> {{ student.status.label }} </span>
+        </span>
+      </ng-container>
+    </div>
+  </ng-template>
+  <nz-card class="card-profile">
+    <nz-card-meta [nzAvatar]="portraintTpl" [nzTitle]="nameTpl" [nzDescription]="descTpl"></nz-card-meta>
+    <dl>
+      <dt><span nz-text>所属校区：</span></dt>
+      <dd>
+        <span nz-text [nzType]="student?.school ? 'default' : 'warning'">
+          {{ student?.school?.name || '未设置' }}
+        </span>
+      </dd>
+    </dl>
+    <!-- <dl>
+      <dt><span nz-text>联系电话：</span></dt>
+      <dd>
+        <span nz-text [nzType]="student?.phone ? 'default' : 'warning'">
+          {{ student?.phone || '未设置' }}
+        </span>
+      </dd>
+    </dl> -->
+    <dl>
+      <dt><span nz-text>入学时间：</span></dt>
+      <dd>
+        <span nz-text [nzType]="student?.firstContractedAt ? 'default' : 'warning'">
+          {{ student?.firstContractedAt || '未设置' }}
+        </span>
+      </dd>
+    </dl>
+  </nz-card>
+</ng-template>

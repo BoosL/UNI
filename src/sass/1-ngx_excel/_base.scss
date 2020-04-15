@@ -1,0 +1,347 @@
+ngx-excel {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 1px 5px 1px rgba(69, 65, 78, 0.08);
+}
+
+.excel {
+  position: relative;
+  background-color: white;
+  width: 100%;
+
+  &:not(.scrollable) {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &.scrollable {
+    height: calc(100% - 20px);
+    overflow: scroll;
+  }
+
+  &::-webkit-scrollbar {
+    height: 0;
+    background-color: #f4f4f4;
+  }
+
+  .excel-row {
+    min-height: 40px;
+    // height: 100%;
+    background-color: white;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .excel-row-skeleton .cell {
+    flex: 1 0 auto;
+    padding: 8px 12px;
+
+    span {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background-color: #f2f2f2;
+      opacity: 0.35;
+    }
+  }
+}
+
+.excel .excel-head {
+  display: block;
+  width: 100%;
+  height: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .excel-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .mat-progress-bar {
+    position: absolute;
+    z-index: 150;
+  }
+
+  .cell {
+    display: flex !important;
+    justify-content: space-between;
+  }
+
+  .mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 1.6rem;
+    opacity: 0.25;
+  }
+}
+
+.excel .excel-body {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: auto !important;
+  height: calc(100% - 40px);
+
+  .excel-row {
+    display: block;
+    width: 100%;
+  }
+
+  .excel-row > ngx-excel-context {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.excel-foot {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  box-shadow: 0 1px 5px 1px rgba(69, 65, 78, 0.08);
+  background-color: #f4f4f4;
+  padding-right: 18px;
+
+  .sheet-info {
+    padding: 0 6px;
+
+    i {
+      margin-right: 6px;
+    }
+
+    &,
+    span {
+      font-size: 0.6rem;
+    }
+  }
+
+  .excel-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    flex: 1 0 auto;
+    box-shadow: none;
+    transition: all 0.6s ease;
+
+    nz-pagination {
+      background-color: #f7f8fa;
+      border-radius: 4px 4px 0 0;
+    }
+
+    ul,
+    li,
+    a {
+      display: flex;
+      width: 100%;
+      // height: 100%;
+      justify-content: center;
+      align-items: center;
+      font-family: Poppins;
+      line-height: normal;
+      border-width: 0;
+      background-color: transparent;
+    }
+
+    a {
+      width: 32px;
+      margin: 0;
+      border-radius: 4px;
+      // background-color: white;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .ant-pagination-item,
+    a {
+      height: 18px;
+      background-color: transparent;
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next,
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+      transform: scale(0.6);
+    }
+
+    .ant-pagination-jump-prev a,
+    .ant-pagination-jump-next a {
+      background-color: transparent !important;
+    }
+
+    .ant-pagination-item-active a {
+      background-color: mat-color($angular-app-primary);
+      color: white;
+    }
+
+    &:hover {
+      height: 48px;
+
+      nz-pagination {
+        padding: 8px 12px;
+        box-shadow: 0 1px 3px 1px rgba(69, 65, 78, 0.08);
+      }
+
+      a {
+        font-weight: bold;
+      }
+
+      .ant-pagination-item,
+      a {
+        height: 32px;
+        background-color: white;
+      }
+
+      .ant-pagination-prev,
+      .ant-pagination-next,
+      .ant-pagination-jump-prev,
+      .ant-pagination-jump-next {
+        transform: scale(1);
+        // display: flex;
+      }
+
+      .ant-pagination-item-active a {
+        background-color: mat-color($angular-app-primary);
+        transform: scale(1.05);
+      }
+
+      a:hover {
+        transform: translateY(-5px);
+      }
+
+      .ant-pagination-jump-prev a:hover,
+      .ant-pagination-jump-next a:hover {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .scrollbar-x {
+    display: block;
+    width: 30%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    span {
+      display: block;
+      content: "";
+      width: 100%;
+      height: 1px;
+    }
+  }
+}
+
+ngx-excel.custom {
+  background-color: transparent;
+  box-shadow: none;
+
+  .excel,
+  .excel-row {
+    background-color: transparent;
+  }
+
+  .excel-body .excel-row > ngx-excel-context {
+    display: block;
+  }
+
+  .excel-foot {
+    box-shadow: none;
+  }
+}
+
+/* ngx-excel .excel.mode--pagination .excel-foot {
+  padding: 8px 0;
+  height: auto;
+  // background-color: white;
+  // box-shadow: 0 1px 15px 1px rgba(69, 65, 78, 0.08);
+
+  .ant-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  .ant-pagination-total-text,
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-jump-next,
+  .ant-pagination-item,
+  .ant-pagination-item a,
+  .ant-pagination-item-link {
+    display: flex;
+    line-height: normal;
+    align-items: center;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-jump-next,
+  .ant-pagination-item {
+    justify-content: center;
+
+    a {
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: .6rem;
+    }
+  }
+
+  .ant-pagination-total-text {
+    padding-left: 6px;
+    margin-right: 24px;
+  }
+
+  .ant-pagination-item {
+    border-width: 0 !important;
+
+    a {
+      font-family: Poppins;
+      font-size: .9rem;
+    }
+
+    &:not(.ant-pagination-item-active):hover,
+    &:not(.ant-pagination-item-active):focus {
+      background-color: mat-color($angular-app-primary, default, 0.06);
+    }
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    border-width: 0 !important;
+    font-size: 0.6rem;
+  }
+
+  .ant-pagination-jump-prev .ant-pagination-item-link,
+  .ant-pagination-jump-next .ant-pagination-item-link {
+    font-size: 1rem;
+  }
+
+  .ant-pagination-item-active {
+    transform: scale(1.05);
+    background-color: mat-color($angular-app-primary);
+
+    a {
+      color: white;
+      font-weight: bold;
+    }
+  }
+} */

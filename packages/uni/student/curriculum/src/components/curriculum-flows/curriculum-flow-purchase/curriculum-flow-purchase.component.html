@@ -1,0 +1,18 @@
+<portlet title="购课" noPadding>
+  <ng-template portletBody>
+    <div *ngIf="!componentReady" class="loading">
+      <i nz-icon nzType="loading" nzTheme="outline"></i> 数据加载中，请稍候...
+    </div>
+    <ng-container #curriculumBlockContainer></ng-container>
+  </ng-template>
+  <ng-template portletFoot>
+    <div class="portlet-foot-extra">
+      <label nz-checkbox [(ngModel)]="agreement"> 我已准确核对购课清单信息，确认提交购课信息 </label>
+    </div>
+    <div class="portlet-foot-buttons">
+      <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+      <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading"
+        (click)="confirm($event)"> 确认提交购课 </button>
+    </div>
+  </ng-template>
+</portlet>

@@ -1,0 +1,60 @@
+<portlet title="修改记录" class="list" [actions]="[actionTabsTpl]">
+  <ng-template portletBody>
+    <ng-template #portletExcelContent let-currentScope="currentScope">
+      <ngx-excel name="x01" lazyload readonly *ngIf="currentScope === 'source'">
+        <ngx-excel-column name="createdTime"></ngx-excel-column>
+        <ngx-excel-column name="relativeFirstSource"></ngx-excel-column>
+        <ngx-excel-column name="relativeSecondSource"></ngx-excel-column>
+        <ngx-excel-column name="relativeThirdSource"></ngx-excel-column>
+        <ngx-excel-column name="relativeSourceEmployee"></ngx-excel-column>
+        <ngx-excel-column name="contactType"></ngx-excel-column>
+        <ngx-excel-column name="tmk"></ngx-excel-column>
+        <ngx-excel-column name="cc"></ngx-excel-column>
+      </ngx-excel>
+      <ngx-excel name="x02" lazyload readonly *ngIf="currentScope === 'campus'">
+        <ngx-excel-column name="createdTime"></ngx-excel-column>
+        <ngx-excel-column name="campus"></ngx-excel-column>
+        <ngx-excel-column name="creator"></ngx-excel-column>
+        <ngx-excel-column name="creator.role" label="角色"></ngx-excel-column>
+      </ngx-excel>
+      <ngx-excel name="x03" lazyload readonly *ngIf="currentScope === 'identity'">
+        <ngx-excel-column name="createdTime"></ngx-excel-column>
+        <ngx-excel-column name="capacity"></ngx-excel-column>
+        <ngx-excel-column name="grade"></ngx-excel-column>
+        <ngx-excel-column name="creator"></ngx-excel-column>
+        <ngx-excel-column name="creator.role" label="角色"></ngx-excel-column>
+      </ngx-excel>
+      <ngx-excel name="x04" lazyload readonly *ngIf="currentScope === 'learning_purpose'">
+        <ngx-excel-column name="createdTime"></ngx-excel-column>
+        <ngx-excel-column name="learningPurpose"></ngx-excel-column>
+        <ngx-excel-column name="creator"></ngx-excel-column>
+        <ngx-excel-column name="creator.role" label="角色"></ngx-excel-column>
+      </ngx-excel>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="portletExcelContent; context: { currentScope: scope$ | async }"></ng-container>
+  </ng-template>
+</portlet>
+
+<ng-template #actionTabsTpl>
+  <ng-template #actionNavTabsTpl let-currentScope="currentScope">
+    <ul class="nav-tabs nav-tabs-link">
+      <li class="nav-item">
+        <a matRipple class="nav-link" [class.active]="currentScope === 'source'" (click)="handleScopeSelect('source')">
+          所属渠道变更 </a>
+      </li>
+      <li class="nav-item">
+        <a matRipple class="nav-link" [class.active]="currentScope === 'campus'" (click)="handleScopeSelect('campus')">
+          所属校区变更 </a>
+      </li>
+      <li class="nav-item">
+        <a matRipple class="nav-link" [class.active]="currentScope === 'identity'"
+          (click)="handleScopeSelect('identity')"> 客户身份变更 </a>
+      </li>
+      <li class="nav-item">
+        <a matRipple class="nav-link" [class.active]="currentScope === 'learning_purpose'"
+          (click)="handleScopeSelect('learning_purpose')"> 学习目的变更 </a>
+      </li>
+    </ul>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="actionNavTabsTpl; context: { currentScope: scope$ | async }"></ng-container>
+</ng-template>

@@ -1,0 +1,42 @@
+<div class="stats-bar-container">
+  <div class="ant-row stats-bar">
+    <div class="ant-col-10 stat-section">
+      <div class="ant-row">
+        <div class="ant-col-8 stat-block">
+          <div class="content">
+            <div class="num"> {{ num('successfulMonthlyAppointmentCount') }} </div>
+            <div class="label"> 月邀约成功数 </div>
+          </div>
+        </div>
+        <div class="ant-col-8 stat-block">
+          <div class="content">
+            <div class="num"> {{ num('monthDialCount') }} </div>
+            <div class="label"> 月拨打数 </div>
+          </div>
+        </div>
+        <div class="ant-col-8 stat-block">
+          <div class="content">
+            <div class="num"> {{ num('oldCallCount') }} </div>
+            <div class="label"> 总数 </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-7 stat-section">
+      <div class="stat-block">
+        <div class="content">
+          <div class="num"> {{ num('todayOldCallCount') }}/{{ num('monthDialCount') }} </div>
+          <div class="label"> 今日 OLD CALL </div>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-7 stat-section">
+      <div class="stat-block">
+        <div class="content">
+          <div class="num"> {{ num('successfulTodayAppointmentCount') }}/{{ num('todayOldCallCount') }} </div>
+          <div class="label"> 邀约到访 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

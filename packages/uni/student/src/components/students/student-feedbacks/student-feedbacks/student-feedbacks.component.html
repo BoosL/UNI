@@ -1,0 +1,15 @@
+<portlet title="学员反馈列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="type" width="96"></ngx-excel-column>
+      <ngx-excel-column name="content" width="96"></ngx-excel-column>
+      <ngx-excel-context-action label="新增学员反馈" prefix icon="add_box" action="addFeedback"
+        [execute]="addFeedback">
+      </ngx-excel-context-action>
+      <ngx-excel-context-action label="查看学员反馈" icon="add_box" action="feedbackReview"
+        [execute]="feedbackReview">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+

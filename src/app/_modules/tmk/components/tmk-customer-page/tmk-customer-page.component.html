@@ -1,0 +1,9 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleBackButtonClick($event)">
+    <i nz-icon nzType="unordered-list" nzTheme="outline"></i> 客户列表
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<tmk-customer [customerId$]="customerId$"></tmk-customer>

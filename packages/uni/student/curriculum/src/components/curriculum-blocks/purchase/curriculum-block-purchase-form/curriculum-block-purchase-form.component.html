@@ -1,0 +1,37 @@
+<ngx-excel-context [context]="curriculumFormValue" (contextChange)="handleContextChange($event)">
+  <div class="ant-row">
+    <div class="ant-col-2">
+      <ngx-excel-cell headCell [column]="rules.curriculumCount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell normalCell [column]="rules.curriculumCount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell headCell [column]="rules.levelStart"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell normalCell [disabled]="cantEditLevelStart" [column]="rules.levelStart"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell headCell [column]="rules.levelCount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell normalCell [disabled]="cantEditLevelCount" [column]="rules.levelCount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell headCell [column]="rules.levelEnd"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell normalCell disabled [column]="rules.levelEnd"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <ngx-excel-cell headCell [column]="rules.purpose"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell normalCell [column]="rules.purpose"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-2">
+      <button matRipple nz-button nzType="link" [nzLoading]="loading" (click)="handleFormSubmit($event)"> 提交 </button>
+    </div>
+  </div>
+</ngx-excel-context>

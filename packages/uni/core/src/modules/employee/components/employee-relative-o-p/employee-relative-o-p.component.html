@@ -1,0 +1,14 @@
+<portlet title="关联的组织职位" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="isMain" label="是否主职位？" width="96" [template]="columnIsMainTpl"></ngx-excel-column>
+      <ngx-excel-column name="organization" label="组织" width="240"></ngx-excel-column>
+      <ngx-excel-column name="position" label="职位" width="96"></ngx-excel-column>
+      <ngx-excel-column name="level" label="职称等级" width="96"></ngx-excel-column>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #columnIsMainTpl let-value="value">
+  <div class="cell" [class.text-success]="value"> {{ value ? '是' : '否' }} </div>
+</ng-template>

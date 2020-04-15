@@ -1,0 +1,93 @@
+<div page>
+  <ng-template pageLSideBar>
+    <ng-container *ngIf="employee$ | async as employee">
+      <portlet noPadding class="block match-parent">
+        <ng-template portletBody>
+          <ng-template #portraintTpl>
+            <nz-avatar nzShape="square" nzSrc="https://keenthemes.com/metronic/preview/assets/media/users/100_1.jpg">
+            </nz-avatar>
+          </ng-template>
+          <ng-template #nameTpl>
+            <ng-container *ngIf="employee.nameCn && employee.nameEn">
+              <span class="name"> {{ employee.nameCn }} </span>
+              <span class="name_extra">（{{ employee.nameEn }}）</span>
+            </ng-container>
+            <ng-container *ngIf="!employee.nameCn || !employee.nameEn">
+              <span class="name"> {{ employee.nameCn || employee.nameEn }} </span>
+            </ng-container>
+          </ng-template>
+          <ng-template #descTpl>
+            <span nz-text nzType="secondary" class="subline"> {{ employee.organizationPosition?.name }} </span>
+            <div class="status">
+              <ng-container *ngIf="employee.status" [ngSwitch]="employee.status.value">
+                <ng-container *ngSwitchCase="1">
+                  <nz-badge nzStatus="success"></nz-badge>
+                  <span nz-text> {{ employee.status.label }} </span>
+                </ng-container>
+                <ng-container *ngSwitchCase="2">
+                  <nz-badge nzStatus="error"></nz-badge>
+                  <span nz-text nzType="danger"> {{ employee.status.label }} </span>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <nz-badge nzStatus="default"></nz-badge>
+                  <span nz-text nzType="secondary"> {{ employee.status.label }} </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-template>
+          <nz-card class="card-profile">
+            <nz-card-meta [nzAvatar]="portraintTpl" [nzTitle]="nameTpl" [nzDescription]="descTpl"></nz-card-meta>
+            <dl>
+              <dt><span nz-text>所属校区：</span></dt>
+              <dd>
+                <span nz-text [nzType]="employee.school ? 'default' : 'warning'">
+                  {{ employee.school?.name || '未设置' }}
+                </span>
+              </dd>
+            </dl>
+            <dl>
+              <dt><span nz-text>所属部门：</span></dt>
+              <dd>
+                <span nz-text [nzType]="employee.organizationPosition?.organization ? 'default' : 'warning'">
+                  {{ employee.organizationPosition?.organization?.nameShort || '未设置' }}
+                </span>
+              </dd>
+            </dl>
+            <ng-template #entryTpl>
+              <dl>
+                <dt><span nz-text>入职日期：</span></dt>
+                <dd>
+                  <span nz-text [nzType]="employee.entryDate ? 'default' : 'warning'">
+                    {{ employee.entryDate || '未设置' }}
+                  </span>
+                </dd>
+              </dl>
+            </ng-template>
+            <ng-template #departureTpl>
+              <dl>
+                <dt><span nz-text>离职日期：</span></dt>
+                <dd>
+                  <span nz-text [nzType]="employee.departureDate ? 'default' : 'warning'">
+                    {{ employee.departureDate || '未设置' }}
+                  </span>
+                </dd>
+              </dl>
+            </ng-template>
+            <ng-container *ngIf="employee.status?.value === '2'; then departureTpl; else entryTpl"></ng-container>
+          </nz-card>
+          <ul class="nav nav-aside">
+            <li><a matRipple href="javascript:;" class="active"> 关联的组织职位 </a></li>
+          </ul>
+        </ng-template>
+      </portlet>
+    </ng-container>
+  </ng-template>
+  <ng-template pageBody>
+    <div class="block">
+      <employee-basic [employee$]="employee$" (employeeChange)="handleEmployeeChange($event)"></employee-basic>
+    </div>
+    <div class="block match-parent">
+      <employee-relative-o-p [employee$]="employee$"></employee-relative-o-p>
+    </div>
+  </ng-template>
+</div>

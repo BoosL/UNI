@@ -1,0 +1,32 @@
+<div class="left">
+  <div class="ant-row search">
+    <div class="ant-col-9">
+      <div class="ngx-excel-cell ngx-excel-cell--normal">
+        <div class="cell-form-control">
+          <nz-select class="form-control" [(ngModel)]="searchProductType"
+            (ngModelChange)="handleSearchChange($event)">
+            <nz-option [nzLabel]="'不限类型'" [nzValue]="''"></nz-option>
+            <nz-option *ngFor="let productType of productTypes" [nzLabel]="productType.label"
+              [nzValue]="productType.value"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </div>
+    <div class="ant-col-15">
+      <div class="ngx-excel-cell ngx-excel-cell--normal">
+        <div class="cell-form-control">
+          <input class="form-control" type="text" placeholder="请输入产品名称" nz-input
+            [(ngModel)]="searchKeyword" (ngModelChange)="handleSearchChange($event)">
+          <mat-progress-spinner *ngIf="searching" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tree">
+    <product-tree [nodes$]="productTreeNodes$" [onExpandCallback]="expandCallback" (nodeSelect)="handleNodeSelect($event)">
+    </product-tree>
+  </div>
+</div>
+<div class="right">
+  <curriculums [filters$]="curriculumsFilters$"></curriculums>
+</div>

@@ -1,0 +1,32 @@
+<ng-container>
+  <div class="schedule-calendar-header">
+    <div class="leading">
+      <div class="navigator">
+        <a matRipple class="prev" (click)="handlePrevMonthClick($event)">
+          <mat-icon>chevron_left</mat-icon>
+        </a>
+        <a matRipple class="next" (click)="handleNextMonthClick($event)">
+          <mat-icon>chevron_right</mat-icon>
+        </a>
+      </div>
+      <a matRipple class="today" (click)="handleTodayClick($event)"> 今日 </a>
+      <span class="title">{{getScheduleDate()}}</span>
+    </div>
+
+  </div>
+</ng-container>
+<nz-calendar
+  nzCard
+  scheduleCalendar
+  nzMode="month"
+  [ngModel]="selectCurrentDate"
+  (nzSelectChange)="onValueChange($event)"
+  [nzDateFullCell]="dateFullCellTpl"
+>
+</nz-calendar>
+<ng-template #dateFullCellTpl let-date>
+  <ng-container *ngIf="selectCurrentDate">
+    <div class="ant-fullcalendar-value ng-star-inserted" [style.color] = 'getColor(date)'>{{date.getDate()}}
+    </div>
+  </ng-container>
+</ng-template>

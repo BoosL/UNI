@@ -1,0 +1,89 @@
+<!--<ng-container *ngTemplateOutlet="scheduleBasicTpl; context: { schedule: componentValueSubject | async }"></ng-container>-->
+<!--<ng-template #scheduleBasicTpl let-schedule="schedule">-->
+  <ngx-excel-context [(context)]="componentValue" (contextChange)="handleBasicChange($event)" [attachSelectTo]="attachSelectTo">
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.productType"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.productType"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.product"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.product" [template]="productTpl"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.subject"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.subject" [template]="subjectTpl" ></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.curriculum"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.curriculum" [template]="curriculumTpl"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.teacher"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.teacher"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.teachingType"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-9">
+        <ngx-excel-cell normalCell [column]="rules.teachingType"></ngx-excel-cell>
+      </div>
+    </div>
+  </ngx-excel-context>
+<!--</ng-template>-->
+
+
+<!--基本信息-->
+<!--排课产品-->
+<ng-template #productTpl let-context="context">
+  <ng-container *ngIf="context.productType && context.productType.value">
+    <div *ngIf="!context.product" class="cell cell-combo ng-star-inserted text-warning"> 未设置</div>
+    <div *ngIf="context.product " class="cell-combo ng-star-inserted">
+      {{context.product.name}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.productType">
+    <div class="cell cell-combo ng-star-inserted text-optional">（请选择排课类型）</div>
+  </ng-container>
+</ng-template>
+<!--排课科目-->
+<ng-template #subjectTpl let-context="context">
+  <ng-container *ngIf="context.product && context.product.id">
+    <div *ngIf="!context.subject" class="cell cell-combo ng-star-inserted text-warning"> 未设置</div>
+    <div *ngIf="context.subject " class="cell-combo ng-star-inserted">
+      {{context.subject.name}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.product">
+    <div class="cell cell-combo ng-star-inserted text-optional">（请选择排课产品）</div>
+  </ng-container>
+</ng-template>
+<!--排课课程-->
+<ng-template #curriculumTpl let-context="context">
+  <ng-container *ngIf="context.subject && context.subject.id">
+    <div *ngIf="!context.curriculum" class="cell cell-combo ng-star-inserted text-warning"> 未设置</div>
+    <div *ngIf="context.curriculum " class="cell-combo ng-star-inserted">
+      {{context.curriculum.name}}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!context.subject">
+    <div class="cell cell-combo ng-star-inserted text-optional">（请选择科目列表）</div>
+  </ng-container>
+</ng-template>
+
+
+

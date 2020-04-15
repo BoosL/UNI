@@ -1,0 +1,45 @@
+<ng-container>
+  <div class="schedule-calendar-header">
+    <div class="leading">
+      <div class="navigator">
+        <a matRipple class="prev" (click)="handlePrevMonthClick($event)">
+          <mat-icon>chevron_left</mat-icon>
+        </a>
+        <a matRipple class="next" (click)="handleNextMonthClick($event)">
+          <mat-icon>chevron_right</mat-icon>
+        </a>
+      </div>
+      <a matRipple class="today" (click)="handleTodayClick($event)"> 今日 </a>
+      <span class="title">{{getScheduleDate()}}</span>
+    </div>
+
+  </div>
+</ng-container>
+<ng-container>
+  <div class="header-badge">
+    <div class="header-badge-item"><span [style.backgroundColor]="scheduleTypeColors[0]"></span>排课中</div>
+    <div class="header-badge-item"><span [style.backgroundColor]="scheduleTypeColors[1]"></span>已排课</div>
+    <div class="header-badge-item"><span [style.backgroundColor]="scheduleTypeColors[2]"></span>审核中</div>
+    <div class="header-badge-item"><span [style.backgroundColor]="scheduleTypeColors[5]"></span>未签课</div>
+  </div>
+</ng-container>
+<nz-calendar
+  [nzFullscreen]="false"
+  scheduleCalendar
+  nzMode="month"
+  [ngModel]="scheduleDateSubject | async"
+  (nzSelectChange)="onValueChange($event)"
+  [nzDateFullCell]="dateFullCellTpl"
+>
+</nz-calendar>
+<ng-template #dateFullCellTpl let-date>
+  <ng-container *ngIf="selectCurrentDate">
+    <div class="ant-fullcalendar-value ng-star-inserted"
+         [ngClass]="getStatusClass(date)">{{date.getDate()}}
+      <ng-container *ngIf="getColor(date) as color">
+          <span class="schedule-status" [style.backgroundColor]="color">
+        </span>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>

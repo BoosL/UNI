@@ -1,0 +1,58 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleSearchButtonClick($event)">
+    <i nz-icon nzType="search" nzTheme="outline"></i> 员工搜索
+  </button>
+</ng-template>
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="员工列表" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="TmkEmployeeConfig" lazyload>
+          <ngx-excel-column name="sn" readonly width="120"></ngx-excel-column>
+          <ngx-excel-column name="nameCn" readonly width="120"></ngx-excel-column>
+          <ngx-excel-column name="nameEn" readonly width="120"></ngx-excel-column>
+          <ngx-excel-column name="relativeSchools" readonly width="360"></ngx-excel-column>
+          <ngx-excel-column name="accept" width="96"></ngx-excel-column>
+          <ngx-excel-column name="relativeSources" readonly label="TMK渠道标签" width="360"
+            [template]="columnRelativeSourcesTpl" [onClickedCallback]="handleRelativeSourcesColumnClick">
+          </ngx-excel-column>
+          <ngx-excel-column name="level" readonly width="96"></ngx-excel-column>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #columnRelativeSourcesTpl let-context="context">
+  <ng-container *ngIf="context.accept && context.relativeSources.length === 0">
+    <div class="cell text-warning"> 未设置 </div>
+  </ng-container>
+  <ng-container *ngIf="context.accept && context.relativeSources.length > 0">
+    <ng-template #relativeSourcesTooltipTemplate>
+      {{ context.relativeSources | ngxExcelMultiItem:'name' }}
+    </ng-template>
+    <div nz-tooltip nzPlacement="topLeft" [nzTitle]="relativeSourcesTooltipTemplate" class="cell">
+      {{ context.relativeSources | ngxExcelMultiItem:'name':5 }} </div>
+  </ng-container>
+  <ng-container *ngIf="!context.accept">
+    <div class="cell text-optional">（未参与分配的员工无需绑定渠道标签）</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnRelativeSourcesEditTpl let-context="context">
+  <ng-template #relativeSourcesTreeTpl let-nodes="availableSources">
+    <div class="cell" *ngIf="!nodes"> loading </div>
+    <nz-tree-select *ngIf="nodes" style="width:100%;" [(ngModel)]="context.relativeSources" [nzNodes]="nodes"
+      [nzAllowClear]="false" nzShowSearch nzCheckable>
+      <ng-template #nzTreeTemplate let-node>
+        <span class="ant-tree-node-content-wrapper" [class.ant-tree-node-selected]="node.isSelected">
+          <span *ngIf="node.key !== '*'"> {{ node.title }} </span>
+        </span>
+      </ng-template>
+    </nz-tree-select>
+  </ng-template>
+  <ng-container
+    *ngTemplateOutlet="relativeSourcesTreeTpl; context: { availableSources: context.availableSourcesSubject | async }">
+  </ng-container>
+</ng-template>

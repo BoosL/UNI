@@ -1,0 +1,273 @@
+.students {
+  display: flex;
+  width: 100%;
+  .etp-progress-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.4rem 0 0.5rem;
+    .s,
+    .e {
+      font-size: 0.9rem;
+      overflow: hidden;
+    }
+    .s {
+      text-align: right;
+      margin-right: 12px;
+    }
+    .e {
+      text-align: left;
+      margin-left: 8px;
+    }
+    .progress {
+      flex: 1 0 auto;
+      margin-bottom: 0;
+      overflow: visible;
+      background-color: rgba(120, 130, 140, 0.13);
+      box-shadow: none !important;
+      height: 6px;
+      border-radius: 50px;
+      .progress-bar {
+        position: relative;
+        border-radius: 50px;
+        box-shadow: none;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+        background-color: #4e9de6;
+        transition: width 0.6s ease;
+        .text {
+          display: block;
+          position: absolute;
+          right: 0;
+          top: -16px;
+          font-size: 0.9rem;
+          font-weight: normal;
+          color: #878787;
+          width: 100%;
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+.text-primary {
+  color: mat-color($angular-app-primary, default, 1);
+}
+.text-success {
+  color: mat-color($angular-app-accent, default, 1);
+}
+.text-danger {
+  color: mat-color($angular-app-danger, default, 1);
+}
+.text-warning {
+  color: mat-color($angular-app-warn, default, 1);
+}
+
+student.layout,
+student:not(.layout) .layout {
+  padding: 0;
+}
+
+student-basic portlet.table {
+  .portlet-head {
+    height: 54px;
+  }
+
+  .portlet-body {
+    width: 100%;
+    height: calc(100% - 54px);
+  }
+
+  .portlet-body .ngx-excel-context {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    .ant-row:last-child {
+      flex: 1 0 auto;
+      .ngx-excel-cell--head,
+      .ngx-excel-cell--normal {
+        height: 100% !important;
+      }
+    }
+  }
+}
+
+student-achievement-edit,
+student-achievement-check,
+student-cc-follow-edit,
+student-sc-follow-edit,
+student-schedule-edit,
+student-teach-log-edit,
+student-primary-class,
+student-primary-class-edit,
+student-complain-basic-follows,
+student-complain-basic {
+  .minor-title {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    min-height: 3rem;
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: bold;
+    span {
+      font-size: 0.6rem;
+      color: mat-color($angular-app-primary, default, 0.5);
+    }
+  }
+}
+student-primary-class{
+  .primary-class-detail{
+    ngx-excel{
+      height: 15rem;
+      width: 100%;
+    }
+  }
+}
+
+
+student-teach-log-edit {
+  .ant-col-24 {
+    height: 300px !important;
+  }
+}
+
+student-achievement-check {
+  ngx-excel-context {
+    .ant-row:nth-last-of-type(2) {
+      .ant-col-21 {
+        height: 220px;
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+student-achievement-edit-subentry,
+student-primary-class-edit-ucze,
+student-primary-class-ucze-basic,
+student-primary-class-product-basic {
+  ngx-excel {
+    height: 20rem;
+  }
+}
+
+.student-complain {
+  student-complain-basic-follows {
+    ngx-excel {
+      height: 40rem;
+    }
+  }
+}
+
+student-complain-basic {
+  .excel-row {
+    height: 40px;
+    .ngx-excel-cell--normal-multiline-text,
+    .ngx-excel-cell--head-multiline-text {
+      height: 39px !important;
+    }
+  }
+}
+
+student-cc-follows {
+  audio {
+    height: 30px;
+    width: 280px;
+    margin-top: 4px;
+    border: 0;
+    outline: none;
+  }
+
+  audio:nth-child(2) {
+    padding-left: 4px;
+  }
+}
+
+student-follows {
+  .ant-tabs {
+    height: 100%;
+    background-color: white;
+    .ant-tabs-bar {
+      position: absolute;
+      right: 0;
+      z-index: 99;
+      margin: 0;
+    }
+    .ant-tabs-nav {
+      left: calc(100% - 285px);
+      height: 55px;
+    }
+    .ant-tabs-tab-active {
+      font-weight: bold !important;
+      color: #1c134d !important;
+    }
+    .ant-tabs-content {
+      height: 100%;
+    }
+  }
+}
+
+.portlet-contract {
+  portlet.table {
+    border-radius: 4px;
+  }
+  .portlet-head {
+    background-color: #fff;
+    .subtitle {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      dt{
+        color: #333;
+        font-weight: 600;
+      }
+      dl,
+      dd {
+        margin: 0;
+        font-weight: normal;
+      }
+
+      dl {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-right: 3.6rem;
+      }
+
+      dd:not(.text-warning) {
+        color: rgba(0, 0, 0, 0.65);
+      }
+    }
+
+    .actions {
+      .ant-btn:not(.ant-btn-icon-only) {
+        padding: 0 15px;
+      }
+    }
+  }
+
+  .ngx-excel-cell--normal .cell > b {
+    font-size: 0.9rem;
+    font-weight: normal;
+  }
+  .ngx-excel-cell--normal .cell.products-info{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+.student-contract-subjects{
+  height: 10em!important;
+}

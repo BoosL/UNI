@@ -1,0 +1,54 @@
+<portlet title="资源转移" class="table" noPadding>
+  <ng-template portletBody>
+    <ngx-excel-context compact [(context)]="record">
+      <div class="ant-row">
+        <ng-container *ngIf="!customers || customers.length <= 0; else hasCustomerTpl">
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.fromTmk"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-20">
+            <ngx-excel-cell normalCell [column]="rules.fromTmk"></ngx-excel-cell>
+          </div>
+
+        </ng-container>
+        <ng-template #hasCustomerTpl>
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.fromTmk"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-20">
+            <ng-template #fromTmkTpl>
+              <div class="cell">
+                {{getCustomerTmk()}}
+              </div>
+            </ng-template>
+            <ngx-excel-cell normalCell [column]="rules.fromTmk" [template]="fromTmkTpl" disabled></ngx-excel-cell>
+          </div>
+        </ng-template>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.targetTmk"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.targetTmk"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.migrateCount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-20">
+          <ngx-excel-cell normalCell [column]="rules.migrateCount" disabled></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm($event)">
+    确认 </button>
+</div>

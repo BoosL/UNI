@@ -1,0 +1,36 @@
+<ng-template pageHead>
+  <h1 class="page-title"> 控制面板 </h1>
+  <ul class="breadcrumb">
+    <li *ngIf="currentRole === 'SO'"><a href="javascript:;"> 渠道中心 </a></li>
+    <li *ngIf="currentRole === 'US'"><a href="javascript:;"> 校区前台 </a></li>
+    <li *ngIf="currentRole === 'CC'"><a href="javascript:;"> CC </a></li>
+  </ul>
+  <ng-container *ngIf="currentRole === 'US'">
+    <button matRipple nz-button nzType="dashed" (click)="handleAddButtonClick($event)">
+      <i nz-icon nzType="plus" nzTheme="outline"></i> 新增客户
+    </button>
+    <button matRipple nz-button nzType="dashed" (click)="handleAppendVisitedRecordButtonClick($event)">
+      <i nz-icon>
+        <svg t="1567144367803" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          p-id="4145" width="12" height="12">
+          <path
+            d="M801.414 362.17a274.176 274.176 0 0 0-92.064-80.775c-65.336-35.515-132.2-39.346-157.904-39.346-7.66 0-11.978 0.32-12.65 0.387-91.308 12.045-147.218 55.204-178.063 89.258-33.6 37.128-45.41 71.4-46.167 73.752-34.423 138.953 54.65 186.816 113.602 218.5 20.63 11.055 40.118 21.488 48.031 32.61 34.205 47.896 19.303 103.084 7.342 147.42-3.965 14.716-7.695 28.61-9.375 41.008-5.628 42.32 2.47 77.28 24.108 103.925 39.161 48.451 108.579 52.198 128.924 52.198 12.247 0 23.755-1.092 33.314-3.192 49.98-11.004 91.98-37.212 124.824-77.885 27.922-34.474 49.207-79.414 63.269-133.543 25.284-97.541 22.193-206.707 10.87-276.36-9.476-57.91-28.997-107.705-58.061-147.958zM398.7 163.071c0-83.143-67.654-150.78-150.83-150.78-83.144 0-150.797 67.637-150.797 150.78 0 83.177 67.653 150.848 150.796 150.848 83.177 0 150.83-67.67 150.83-150.848z m107.553 6.166c41.9 0 75.97-34.07 75.97-75.953s-34.07-75.953-75.97-75.953c-41.882 0-75.952 34.07-75.952 75.953s34.07 75.953 75.952 75.953z m202.49 17.422a76.037 76.037 0 0 0 75.954-75.953c0-41.883-34.07-75.953-75.953-75.953s-75.953 34.07-75.953 75.953a76.02 76.02 0 0 0 75.953 75.953z m164.12-61.119a76.054 76.054 0 0 0-75.953 75.953 76.037 76.037 0 0 0 75.953 75.953 76.037 76.037 0 0 0 75.953-75.953 76.02 76.02 0 0 0-75.953-75.953z"
+            p-id="4146"></path>
+        </svg>
+      </i>
+      客户到访
+    </button>
+  </ng-container>
+</ng-template>
+
+<div pageOnInit></div>
+
+<ng-container *ngIf="currentRole === 'SO'">
+  <so-dashboard></so-dashboard>
+</ng-container>
+<ng-container *ngIf="currentRole === 'US'">
+  <us-dashboard></us-dashboard>
+</ng-container>
+<ng-container *ngIf="currentRole === 'CC'">
+  <cc-dashboard></cc-dashboard>
+</ng-container>

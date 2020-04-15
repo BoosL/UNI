@@ -1,0 +1,40 @@
+<portlet title="导入课表..." noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="context">
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.date"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.date"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-6">
+          <ngx-excel-cell headCell [column]="rules.attachment"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-18">
+          <ngx-excel-cell normalCell [column]="rules.attachment"></ngx-excel-cell>
+        </div>
+      </div>
+
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+
+<!--<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" (click)="confirm($event)"> 保存 </button>
+</div>-->
+
+<div class="drawer-footer">
+  <button
+     matRipple nz-button [disabled]="loading" (click)="dismiss($event)"> 关闭 </button>
+    
+  <button
+     matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" [disabled]="loading" (click)="confirm($event)"> 保存
+      </button>
+
+</div>

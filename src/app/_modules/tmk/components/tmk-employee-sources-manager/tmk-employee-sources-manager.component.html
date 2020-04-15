@@ -1,0 +1,64 @@
+<portlet title="员工绑定TMK渠道标签..." noPadding class="table">
+  <ng-template portletBody>
+    <div class="left">
+      <div class="search">
+        <div class="ngx-excel-cell ngx-excel-cell--normal">
+          <div class="cell-form-control">
+            <input class="form-control" type="text" placeholder="请输入关键字" nz-input [(ngModel)]="searchKeyword"
+              (ngModelChange)="handleSearchChange($event)">
+            <i nz-icon *ngIf="searching" nzType="loading" nzTheme="outline"></i>
+          </div>
+        </div>
+      </div>
+      <div class="tree">
+        <ng-container *ngTemplateOutlet="employeeSourcesTreeTpl; context: { nodes: nodes$ | async }">
+        </ng-container>
+      </div>
+    </div>
+    <div class="right">
+      <div *ngIf="selectedEmployeeSources.length === 0" class="empty">
+        <nz-empty></nz-empty>
+      </div>
+      <div *ngIf="selectedEmployeeSources.length > 0" class="selected-sources-wrapper">
+        <div class="selected-sources-grid">
+          <div *ngFor="let selectedEmployeeSource of selectedEmployeeSources" class="selected-source">
+            <a (click)="deleteEmployeeSource(selectedEmployeeSource)"> &times; </a>
+            <span class="label"> {{ selectedEmployeeSource.name }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</portlet>
+
+<div *nzModalFooter>
+  <button matRipple nz-button nzType="default" (click)="close($event)"> 取消 </button>
+  <button matRipple nz-button nzType="primary" class="ant-btn-accent" (click)="confirm($event)"> 确认 </button>
+</div>
+
+<ng-template #employeeSourcesTreeTpl let-nodes="nodes">
+  <ng-container *ngIf="nodes === null">
+    <div class="loading">
+      <i nz-icon nzType="loading" nzTheme="outline"></i>
+      数据加载中...
+    </div>
+  </ng-container>
+  <ng-container *ngIf="nodes !== null && nodes.length === 0">
+    <div class="empty">
+      <nz-empty></nz-empty>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="nodes !== null && nodes.length > 0">
+    <ng-template #nzTreeTemplate let-node>
+      <span class="ant-tree-node-content-wrapper">
+        <span class="ant-tree-title"> {{ node.title }} </span>
+        <a class="ant-tree-handle" (click)="handleTreeClick(node)">
+          <i nz-icon nzType="double-right" nzTheme="outline"></i>
+        </a>
+      </span>
+    </ng-template>
+    <nz-tree [nzData]="nodes" [nzSearchValue]="nzSearchValue" [nzTreeTemplate]="nzTreeTemplate" nzShowLine
+      (nzClick)="handleTreeEvent($event)" (nzExpandChange)="handleTreeEvent($event)">
+    </nz-tree>
+  </ng-container>
+</ng-template>

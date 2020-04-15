@@ -1,0 +1,16 @@
+<ngx-excel #excelComponent lazyload readonly [cellHeight]="schemeConfig.height" [customTemplate]="excelBodyTpl">
+</ngx-excel>
+
+<ng-template #excelBodyTpl let-context>
+  <div class="portlet-customer" [style.height.px]="schemeConfig.height - 18">
+    <ng-container
+      *ngTemplateOutlet="portletTpl; context: { config: schemeConfig, context: context, excel: excelComponent }">
+    </ng-container>
+<!--    <so-customer-portlet *ngIf="schemeConfig.name === 'SO'" [context]="context" [excelComponent]="excelComponent"
+      (actionButtonClick)="handleActionButtonClick($event)"></so-customer-portlet>
+    <us-customer-portlet *ngIf="schemeConfig.name === 'US'" [context]="context" [excelComponent]="excelComponent"
+      (actionButtonClick)="handleActionButtonClick($event)"></us-customer-portlet>
+    <cc-customer-portlet *ngIf="schemeConfig.name === 'CC'" [context]="context" [excelComponent]="excelComponent"
+      (actionButtonClick)="handleActionButtonClick($event)"></cc-customer-portlet>-->
+  </div>
+</ng-template>

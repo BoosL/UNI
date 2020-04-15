@@ -1,0 +1,21 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="学员投诉列表" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="excelStudents" cellHeight="60" lazyload readonly>
+          <ngx-excel-column name="theme" width="96"></ngx-excel-column>
+          <ngx-excel-column name="student" width="60"></ngx-excel-column>
+          <ngx-excel-column name="complaintDate" width="120"></ngx-excel-column>
+          <ngx-excel-column name="complaintsType" width="60"></ngx-excel-column>
+          <ngx-excel-column name="byComplainant" width="60"></ngx-excel-column>
+          <ngx-excel-column name="followUpTime" width="60"></ngx-excel-column>
+          <ngx-excel-column name="state" width="60"></ngx-excel-column>
+          <ngx-excel-column name="campus" width="60"></ngx-excel-column>
+          <ngx-excel-context-action action="view" label="查看详情" icon="insert_drive_file" [execute]="view">
+          </ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

@@ -1,0 +1,89 @@
+<portlet title="学员课程管理" class="list" [actions]="[
+  actionNewPurchaseButtonTpl,
+  actionContinuousPurchaseButtonTpl,
+  actionNonEtpExchangeButtonTpl,
+  actionEtpExchangeButtonTpl,
+  actionEtpTranslationButtonTpl
+]">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly [dataSet]="curriculumManagementNodes">
+      <ngx-excel-column name="type" width="96" [template]="columnTypeTpl"></ngx-excel-column>
+      <ngx-excel-column name="productName" width="180" label="产品名称" [template]="columnNameTpl"></ngx-excel-column>
+      <ngx-excel-column name="subjectName" width="180" label="科目名称" [template]="columnNameTpl"></ngx-excel-column>
+      <ngx-excel-column name="teacher" width="120" label="上课老师" [template]="columnTeacherTpl"
+        [onClickedCallback]="handleTeacherColumnClick"></ngx-excel-column>
+      <ngx-excel-column name="startTime" width="120" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="endTime" width="120" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="remainedCurriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="consumedCurriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="lockedCurriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="overdueCurriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="deprecatedCurriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+      <ngx-excel-column name="curriculumCount" width="96" [template]="columnDefaultTpl"></ngx-excel-column>
+
+      <ngx-excel-context-action label="调整课时 / 课号" action="swap" icon="swap_horiz" [execute]="handleSwapMenuClick">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #actionNewPurchaseButtonTpl>
+  <button matRipple nz-button nzType="default"
+    class="btn-curriculum btn-curriculum-purchase btn-curriculum-new-purchase" (click)="handleActionButtonClick($event, 'new-purchase')"> 新购 </button>
+</ng-template>
+
+<ng-template #actionContinuousPurchaseButtonTpl>
+  <button matRipple nz-button nzType="default"
+    class="btn-curriculum btn-curriculum-purchase btn-curriculum-continuous-purchase" (click)="handleActionButtonClick($event, 'continuous-purchase')"> 复购 </button>
+</ng-template>
+
+<ng-template #actionNonEtpExchangeButtonTpl>
+  <button matRipple nz-button nzType="default"
+    class="btn-curriculum btn-curriculum-exchange btn-curriculum-non-etp-exchange" (click)="handleActionButtonClick($event, 'non-etp-exchange')"> 非 ETP 类换课 </button>
+</ng-template>
+
+<ng-template #actionEtpExchangeButtonTpl>
+  <button matRipple nz-button nzType="default"
+    class="btn-curriculum btn-curriculum-exchange btn-curriculum-etp-exchange" (click)="handleActionButtonClick($event, 'etp-exchange')"> ETP 类换课 </button>
+</ng-template>
+
+<ng-template #actionEtpTranslationButtonTpl>
+  <button matRipple nz-button nzType="default"
+    class="btn-curriculum btn-curriculum-etp-translation" (click)="handleActionButtonClick($event, 'etp-translation')"> ETP 平移 </button>
+</ng-template>
+
+<ng-template #columnTypeTpl let-context="context">
+  <div *ngIf="context.level === 0" class="cell" [class.text-warning]="!context.type">
+    {{ context?.type?.label || '未设置' }} </div>
+</ng-template>
+
+<ng-template #columnNameTpl let-column="column" let-context="context">
+  <ng-container *ngIf="column.name === 'productName'">
+    <div *ngIf="context.level === 0" class="cell" [class.text-warning]="!context.name"> {{ context?.name || '未设置' }}
+    </div>
+  </ng-container>
+  <ng-container *ngIf="column.name === 'subjectName'">
+    <div *ngIf="context.level === 1" class="cell" [class.text-warning]="!context.name"> {{ context?.name || '未设置' }}
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnTeacherTpl let-context="context">
+  <ng-container *ngIf="context.level === 1">
+    <div *ngIf="context.canBindTeacher" class="cell" [class.text-warning]="!context.relativeTeacher">
+      {{ context?.relativeTeacher?.name || '未设置' }} </div>
+    <div *ngIf="!context.canBindTeacher" class="cell text-optional"> 无需绑定老师 </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #columnDefaultTpl let-column="column" let-value="value">
+  <ng-template #defaultDateTpl>
+    <div *ngIf="value" class="cell"> {{ value | ngxExcelDateTime:'date' }} </div>
+  </ng-template>
+  <ng-template #defaultNumTpl>
+    <div *ngIf="value >= 0" class="cell"> {{ value }} </div>
+  </ng-template>
+  <ng-container
+    *ngIf="column.name === 'startTime' || column.name === 'endTime'; then defaultDateTpl; else defaultNumTpl">
+  </ng-container>
+</ng-template>

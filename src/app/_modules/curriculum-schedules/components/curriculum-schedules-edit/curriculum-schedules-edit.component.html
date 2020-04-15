@@ -1,0 +1,82 @@
+<portlet [title]="(editType? ((editType === 'detail')?'':'编辑'):'新增')  + (operateType === 'multiple' ? '多人教学' : '一对一教学')"
+         class="table" noPadding>
+  <ng-template portletBody>
+    <div class="layout">
+      <ng-container [ngTemplateOutlet]="containerScheduleTpl"></ng-container>
+    </div>
+  </ng-template>
+</portlet>
+
+<ng-template #containerScheduleTpl>
+  <div class="layout-main" canExternal>
+    <ngx-excel-context #attachedContextComponent [(context)]="context">
+      <ng-container *ngIf="!editType || editType === 'info'|| editType === 'detail'">
+        <ng-template block>
+          <div class="section">
+            <div class="section-head">
+              <div class="title"> 基础信息</div>
+            </div>
+            <div class="section-body">
+              <curriculum-schedules-edit-basic [schoolResourceTeacherIds]="schoolResourceTeacherIds"
+                                               (handleChange)="handleChange($event)"
+                                               [componentValueSubject]="componentValueSubject"
+                                               [operateType]="operateType"
+                                               [attachSelectTo]="attachedContextComponent"></curriculum-schedules-edit-basic>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="!editType || editType === 'entry'|| editType === 'detail'">
+        <ng-template block>
+          <div class="section">
+            <div class="section-head">
+              <div class="title"> 上课名单</div>
+            </div>
+            <div class="section-body">
+              <curriculum-schedules-edit-entries (handleChange)="handleChange($event)" [editType]="editType"
+                                                 [componentValueSubject]="componentValueSubject"
+                                                 [operateType]="operateType"></curriculum-schedules-edit-entries>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="!editType || editType === 'info'|| editType === 'detail'">
+        <ng-template block>
+          <div class="section">
+            <div class="section-head">
+              <div class="title"> 次要信息</div>
+            </div>
+            <div class="section-body">
+              <curriculum-schedules-edit-minor [schoolResourceClassroomIds]="schoolResourceClassroomIds"
+                                               (handleChange)="handleChange($event)"
+                                               [componentValueSubject]="componentValueSubject"
+                                               [attachSelectTo]="attachedContextComponent"></curriculum-schedules-edit-minor>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ngx-excel-context>
+  </div>
+</ng-template>
+
+<alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+<div class="drawer-footer">
+  <ng-container *ngIf="componentValueSubject | async as schedule">
+    <div *ngIf="schedule && schedule.status && ['3', '4'].includes(schedule.status.value)"
+         class="review-tip">{{schedule.status.label}}...
+    </div>
+  </ng-container>
+  <button
+     matRipple nz-button [disabled]="loading"  (click)="dismiss()"> 关闭 
+  </button>
+    
+  <button
+     matRipple nz-button nzType="primary"  class="ant-btn-accent"  [nzLoading]="loading"
+    [disabled]="loading || btnIsNotAble"  (click)="confirm()"> 保存
+      
+  </button>
+
+</div>
+
+
+

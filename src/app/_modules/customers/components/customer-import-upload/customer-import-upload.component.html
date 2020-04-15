@@ -1,0 +1,11 @@
+<nz-upload nzType="drag" [nzMultiple]="false" nzAction="documents/_upload" nzName="upload_files" [nzLimit]="1"
+  [nzDisabled]="!canUpload" (nzChange)="handleChange($event)">
+  <p class="ant-upload-drag-icon">
+    <i nz-icon nzType="inbox"></i>
+  </p>
+  <p class="ant-upload-text">请选择需要批量导入文件</p>
+  <p class="ant-upload-hint">
+    当前系统支持固定Excel模板导入
+  </p>
+</nz-upload>
+<div class="uploadText" *ngIf="!canUpload">请耐心等待上传结果！</div>

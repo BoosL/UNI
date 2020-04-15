@@ -1,0 +1,15 @@
+<ngx-graph [links]="lines" [nodes]="nodes" [curve]="curve" [layout]="layout" [layoutSettings]="layoutSettings"
+  [update$]="update$" [center$]="center$">
+  <ng-template #nodeTemplate let-node>
+    <svg:g class="node" xmlns="http://www.w3.org/2000/xhtml" width="120" height="40">
+      <svg:foreignObject width="120" height="40">
+        <xhtml:div class="ngx-excel-cell ngx-excel-cell--normal" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="cell"> {{ node.label }} </div>
+          <a class="" (click)="handleExpandIconClick(node, 'left')">
+            <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+          </a>
+        </xhtml:div>
+      </svg:foreignObject>
+    </svg:g>
+  </ng-template>
+</ngx-graph>

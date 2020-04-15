@@ -1,0 +1,38 @@
+<ngx-excel-context readonly scene="table" [context]="record" [excel]="excel">
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.status"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.productType"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.productType"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.refundableAmount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.refundableAmount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.actualRefundAmount"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.actualRefundAmount"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <div class="cell">科目列表</div>
+    </div>
+    <div class="ant-col-9  student-contract-subjects">
+      <student-contract-record-subjects [subjects]="record.newSubjects"></student-contract-record-subjects>
+    </div>
+  </div>
+</ngx-excel-context>

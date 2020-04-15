@@ -1,0 +1,22 @@
+<ngx-excel [readonly]="readonly" lazyload [(dataSet)]="tableRows">
+  <ngx-excel-column name="type" width="96" [label]="tableColumns.type?.label || '产品类型'" [template]="tableColumns.type?.template || columnTypeTpl"></ngx-excel-column>
+  <ngx-excel-column name="selectedProduct" width="180" [label]="tableColumns.selectedProduct?.label" [template]="tableColumns.selectedProduct?.template"></ngx-excel-column>
+  <ngx-excel-column name="selectedSubject" width="180" [label]="tableColumns.selectedSubject?.label" [template]="tableColumns.selectedSubject?.template || columnSubjectTpl"></ngx-excel-column>
+  <ngx-excel-column name="curriculumCount" width="96" [label]="tableColumns.curriculumCount?.label" [template]="tableColumns.curriculumCount?.template"></ngx-excel-column>
+  <ng-container *ngIf="extraColumns">
+    <ngx-excel-column *ngFor="let extraColumn of extraColumns" [name]="extraColumn.name" [width]="extraColumn.width || 96" [label]="extraColumn.label" [template]="extraColumn.template"></ngx-excel-column>
+  </ng-container>
+</ngx-excel>
+
+<ng-template #columnTypeTpl let-context="context">
+  <div class="cell"> {{ context?.selectedProduct?.type?.label || '未设置' }} </div>
+</ng-template>
+
+<ng-template #columnSubjectTpl let-context="context">
+  <ng-container *ngIf="context.isEtpProductType">
+    <div class="cell"> - </div>
+  </ng-container>
+  <ng-container *ngIf="!context.isEtpProductType">
+    <div class="cell" [class.text-warning]="!context.selectedSubject"> {{ context.selectedSubject?.name || '未设置' }} </div>
+  </ng-container>
+</ng-template>

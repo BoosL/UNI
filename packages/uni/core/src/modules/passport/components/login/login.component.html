@@ -1,0 +1,36 @@
+<h1>系统登陆</h1>
+<form [formGroup]="credential" (ngSubmit)="login(credential)" novalidate action="">
+  <div class="form-group">
+    <input nz-input nzSize="large" type="text" formControlName="username" placeholder="请输入登陆用户名" autocomplete="off">
+  </div>
+  <div class="form-group">
+    <nz-input-group class="input-group" nzSize="large" [nzSuffix]="suffixTemplate">
+      <input nz-input nzSize="large" [type]="passwordMode === 'text' ? 'text' : 'password'" formControlName="password"
+        placeholder="请输入登陆密码" autocomplete="off">
+    </nz-input-group>
+    <ng-template #suffixTemplate>
+      <a [class.password-mode--text]="passwordMode === 'text'"
+        [class.password-mode--password]="passwordMode === 'password'"
+        (click)="togglePasswordMode()">
+        <mat-icon> remove_red_eye </mat-icon>
+      </a>
+    </ng-template>
+  </div>
+  <div class="form-actions">
+    <button class="button-ladda" mat-flat-button color="accent" [disabled]="loading" type="submit">
+      <mat-progress-spinner *ngIf="loading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+      立即登陆
+    </button>
+    <a href="javascript:;" (click)="navigateTo('forget-password')">忘记密码？</a>
+  </div>
+  <div class="login-options">
+    <h4>你也可以通过这些方式登陆</h4>
+    <ul class="social-icons">
+      <li>
+        <a class="wechat" [href]="wechatLoginUrl">
+          <img src="/assets/img/wxchat.png">
+        </a>
+      </li>
+    </ul>
+  </div>
+</form>

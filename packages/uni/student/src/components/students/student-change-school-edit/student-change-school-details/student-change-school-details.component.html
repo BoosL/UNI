@@ -1,0 +1,34 @@
+<portlet noPadding class="table">
+  <ng-template portletBody>
+    <ngx-excel-context [(context)]="context">
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.outContractAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell disabled [column]="rules.outContractAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.intocContractAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell disabled [column]="rules.intocContractAmount"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.diffAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell disabled [column]="rules.diffAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell headCell [column]="rules.customSpread"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-8">
+          <ngx-excel-cell normalCell [column]="rules.customSpread"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>

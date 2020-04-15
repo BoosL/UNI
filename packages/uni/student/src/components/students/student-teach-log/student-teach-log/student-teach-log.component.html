@@ -1,0 +1,22 @@
+<portlet title="教学日志列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="name" width="150"></ngx-excel-column>
+      <ngx-excel-column name="data" width="150"></ngx-excel-column>
+      <ngx-excel-column name="teacher" width="150"></ngx-excel-column>
+      <ngx-excel-column name="newLogTime" width="240" [template]="TimeTpl"></ngx-excel-column>
+      <ngx-excel-column name="updated" width="240" [template]="TimeTpl"></ngx-excel-column>
+      <ngx-excel-column name="completion" width="96"></ngx-excel-column>
+      <ngx-excel-column name="fact" width="240"></ngx-excel-column>
+      <ngx-excel-column name="classSituation" width="240"></ngx-excel-column>
+      <ngx-excel-column name="assignment" width="240"></ngx-excel-column>
+      <!-- <ngx-excel-context-action label="教学日志评论" icon="add_box" action="reviewTeachingLog" [execute]="reviewTeachingLog"> 
+      </ngx-excel-context-action>-->
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+<ng-template #TimeTpl let-value="value">
+  <div class="cell text-optional empty" *ngIf="value === ''">(空)</div>
+  <div class="cell" *ngIf="value !== ''">{{ value }}</div>
+</ng-template>

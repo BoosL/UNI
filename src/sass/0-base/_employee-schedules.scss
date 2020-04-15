@@ -1,0 +1,110 @@
+backend-page.employee-schedules {
+
+    alert-bar[name="Schedules"] .alert-text a {
+        margin-left: 10px;
+    }
+
+    .schedule-type {
+        display: block;
+        margin-bottom: 1rem;
+
+        nz-badge {
+            display: block;
+            border-radius: 4px;
+            padding: .5rem 1rem;
+            border: 1px solid mat-color($angular-app-primary, 0.06);
+            background-color: white;
+            @include mat-elevation(8, mat-color($angular-app-primary), 0.1);
+        }
+
+        nz-badge .ant-badge-status-text {
+            font-size: .9rem;
+        }
+
+        &.fill {
+            nz-badge .ant-badge-status-text {
+                color: white;
+            }
+        
+            nz-badge[nzColor="green"] {
+                border: 1px solid mat-color($mat-green, 700, 0.06);
+                background-color: mat-color($mat-green, 700);
+                @include mat-elevation(8, mat-color($mat-green, 700), 0.1);
+            }
+
+            nz-badge[nzColor="pink"] {
+                border: 1px solid mat-color($mat-pink, A700, 0.06);
+                background-color: mat-color($mat-pink, A700);
+                @include mat-elevation(8, mat-color($mat-pink, A700), 0.1);
+            }
+
+            nz-badge[nzColor="red"] {
+                border: 1px solid mat-color($mat-red, A700, 0.06);
+                background-color: mat-color($mat-red, A700);
+                @include mat-elevation(8, mat-color($mat-red, A700), 0.1);
+            }
+
+            nz-badge[nzColor="gold"] {
+                border: 1px solid mat-color($mat-yellow, 700, 0.06);
+                background-color: mat-color($mat-yellow, 700);
+                @include mat-elevation(8, mat-color($mat-yellow, 700), 0.1);
+            }
+
+            nz-badge[nzColor="orange"] {
+                border: 1px solid mat-color($mat-orange, A700, 0.06);
+                background-color: mat-color($mat-orange, A700);
+                @include mat-elevation(8, mat-color($mat-orange, A700), 0.1);
+            }
+
+            nz-badge[nzColor="cyan"] {
+                border: 1px solid mat-color($mat-cyan, 700, 0.06);
+                background-color: mat-color($mat-cyan, 700);
+                @include mat-elevation(8, mat-color($mat-cyan, 700), 0.1);
+            }
+
+            nz-badge[nzColor="blue"] {
+                border: 1px solid mat-color($mat-blue, 700, 0.06);
+                background-color: mat-color($mat-blue, 700);
+                @include mat-elevation(8, mat-color($mat-blue, 700), 0.1);
+            }
+
+            nz-badge[nzColor="lime"] {
+                border: 1px solid mat-color($mat-lime, 700, 0.06);
+                background-color: mat-color($mat-lime, 700);
+                @include mat-elevation(8, mat-color($mat-lime, 700), 0.1);
+            }
+        }
+    }
+
+    .available-schedule-types .schedule-type nz-badge {
+        cursor: grab;
+    }
+
+    .section-schedule-types {
+        ul, li {
+            list-style: none;
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    /*.container[cdkDropListGroup] {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .section-schedule-types {
+        flex: 0 0 25%;
+    }
+
+    .section-schedules {
+        flex: 1 0 auto; 
+    }*/
+    
+}

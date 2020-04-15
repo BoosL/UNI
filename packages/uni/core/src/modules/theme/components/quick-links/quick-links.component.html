@@ -1,0 +1,20 @@
+<ul class="quick-links">
+  <ng-container *ngIf="documents$ | async as documents; else placeholderTpl">
+    <ng-container *ngIf="documents.length > 0; else placeholderTpl">
+      <li *ngFor="let document of documents">
+        <a matRipple nz-button nzType="dashed" [href]="document.url" target="_blank">
+          <i nz-icon nzType="question-circle" nzTheme="outline"></i>
+          {{ document.name }}
+        </a>
+      </li>
+    </ng-container>
+  </ng-container>
+</ul>
+
+<ng-template #placeholderTpl>
+  <li>
+    <a mat-ripple class="placeholder" href="javascript:;" (click)="handlePlaceholderClicked($event)">
+      <mat-icon>add</mat-icon>
+    </a>
+  </li>
+</ng-template>

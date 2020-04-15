@@ -1,0 +1,11 @@
+<portlet title="客户信息" noPadding scrollableY class="table">
+  <ng-template portletBody>
+    <customer-basic #customerBasicComponent readonly [customer$]="customer$"></customer-basic>
+    <customer-source [customer$]="customer$" [attachSelectTo]="customerBasicComponent.attachedContextComponent">
+    </customer-source>
+    <customer-relationship [customer$]="customer$" [attachSelectTo]="customerBasicComponent.attachedContextComponent">
+    </customer-relationship>
+    <customer-status [customer$]="customer$" [attachSelectTo]="customerBasicComponent.attachedContextComponent">
+    </customer-status>
+  </ng-template>
+</portlet>

@@ -1,0 +1,88 @@
+<ngx-excel-context *ngIf="record.reasonForAbandoning" readonly scene="table" [context]="record" [excel]="excel">
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.reasonForAbandoning"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-21">
+      <ngx-excel-cell normalCell [column]="rules.reasonForAbandoning"></ngx-excel-cell>
+    </div>
+  </div>
+</ngx-excel-context>
+<ngx-excel-context *ngIf="!record.reasonForAbandoning" scene="table" readonly [context]="record" [excel]="excel">
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.type"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.type"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.duration"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.duration"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.nextFollowBeginTime"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.nextFollowBeginTime"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.isInvite"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ng-template #isInviteYesTpl>
+        <div *ngIf="record.inviteFailedReason" class="cell"> 否 </div>
+        <div *ngIf="!record.inviteFailedReason" class="cell"> 是 </div>
+      </ng-template>
+      <ngx-excel-cell normalCell [column]="rules.isInvite" [template]="isInviteYesTpl"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.nextVisitedTime"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.nextVisitedTime"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.nextFollowEndTime"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.nextFollowEndTime"></ngx-excel-cell>
+    </div>
+  </div>
+  <div *ngIf="record.inviteFailedReason" class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.inviteFailedReason"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-21">
+      <ngx-excel-cell normalCell [column]="rules.inviteFailedReason"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.contractRate"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-5">
+      <ngx-excel-cell normalCell [column]="rules.contractRate"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.attachments"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-21">
+      <ngx-excel-cell normalCell [column]="rules.attachments"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-3">
+      <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-21">
+      <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+    </div>
+  </div>
+</ngx-excel-context>

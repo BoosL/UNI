@@ -1,0 +1,111 @@
+<div pageOnInit></div>
+<alert-bar name="Schedule" icon="info-circle">
+  <ng-template alertBarBody let-context="context">
+    <ul>
+      <li>选择班表类型中对应的条目，右边日历对应显示选择类型排班</li>
+      <li>班表在确认提交之前只能设置本休和节假日（未设置的日期都默认是工作日）；班表提交确认之后可以对班表进行变动调整（例如：请假、存休、调休等）</li>
+      <li>班表变动调整需要经过相应负责人的审核，审核通过之后才会生效，审核被拒当日的班表类型会被还原</li>
+      <li>在日历中填充显示的班表类型代表审核状态，非填充的班表类型代表生效状态</li>
+    </ul>
+    <a (click)="context.close()">我知道了</a>
+  </ng-template>
+</alert-bar>
+<div class="layout">
+  <div class="layout-sub layout-sub-l" title="班表类型过滤">
+    <ng-template block>
+      <nz-checkbox-wrapper (nzOnChange)="handleFilteredScheduleTypeChange($event)">
+        <div nz-row>
+          <div nz-col nzSpan="12" *ngFor="let scheduleType of scheduleTypes$ | async">
+            <span class="schedule-type">
+              <label nz-checkbox [nzValue]="scheduleType" [nzDisabled]="scheduleType.disabled"> {{ scheduleType.label }}
+              </label>
+            </span>
+          </div>
+        </div>
+      </nz-checkbox-wrapper>
+    </ng-template>
+  </div>
+  <div class="layout-main">
+    <ng-template block>
+      <portlet title="班表出勤" noPadding class="list" [actions]="[ buttonConfirmTpl, buttonApplyTpl ]">
+        <ng-template portletBody>
+          <div class="schedule-calendar">
+            <div class="schedule-calendar-head">
+              <div class="leading">
+                <div class="navigator">
+                  <a matRipple class="prev" (click)="handlePrevMonthClick($event)">
+                    <mat-icon>chevron_left</mat-icon>
+                  </a>
+                  <a matRipple class="next" (click)="handleNextMonthClick($event)">
+                    <mat-icon>chevron_right</mat-icon>
+                  </a>
+                </div>
+                <a matRipple class="today" (click)="handleTodayClick($event)"> 今日 </a>
+              </div>
+              <div class="title">
+                {{ getCurrentDate() }}
+              </div>
+              <div class="trailing">
+                <nz-badge *ngIf="scheduleStatus === 'Unconfirmed'" [nzStatus]="'default'" [nzText]="'尚未提交'"></nz-badge>
+                <nz-badge *ngIf="scheduleStatus === 'Confirming'" [nzStatus]="'processing'" [nzText]="'确认审核中...'">
+                </nz-badge>
+                <nz-badge *ngIf="scheduleStatus === 'Confirmed'" [nzStatus]="'success'" [nzText]="'已确认'"></nz-badge>
+              </div>
+            </div>
+            <div class="schedule-calendar-body">
+              <nz-calendar [nzDateFullCell]="dateCellTpl" [(ngModel)]="selectedDate"
+                (nzSelectChange)="handleCalendarSelect($event)"></nz-calendar>
+              <div class="current-month">
+                <span [@scale]="currentMonthScaleState" (@scale.done)="handleScaleAnimationDone($event)">
+                  {{ currentMonthScaleValue }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </portlet>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #buttonConfirmTpl>
+  <a *ngIf="scheduleStatus === 'Unconfirmed'" mat-flat-button
+    class="button-ladda" color="accent"
+    [disabled]="loading"
+    (click)="handleConfirmButtonClick($event)"
+  >
+    <mat-progress-spinner *ngIf="loading" color="white" mode="indeterminate" [diameter]="18"></mat-progress-spinner>
+    确认班表
+  </a>
+</ng-template>
+
+<ng-template #buttonApplyTpl>
+  <a *ngIf="scheduleStatus === 'Confirmed'" mat-flat-button
+    class="button-ladda" color="accent"
+    (click)="handleApplyButtonClick($event)"
+  > 申请变动 </a>
+</ng-template>
+
+<ng-template #dateCellTpl let-date>
+  <a matRipple class="ant-fullcalendar-value">
+    <ng-container *ngTemplateOutlet="dateCellTextTpl; context: { employeeSchedule: getEmployeeScheduleByDate(date), date: date }"></ng-container>
+  </a>
+</ng-template>
+
+<ng-template #dateCellTextTpl let-employeeSchedule="employeeSchedule" let-date="date">
+  <ng-container *ngIf="employeeSchedule">
+    <ng-container *ngIf="employeeSchedule.status?.value === '4'">
+      <nz-badge [nzStatus]="'processing'" [nzShowDot]="false" [nzText]="date.getDate()"></nz-badge>
+      <div class="type" [style.color]="getScheduleTypeColor(employeeSchedule.auditType)">
+        {{ employeeSchedule.auditType?.label }} 审核中
+      </div>
+    </ng-container>
+    <ng-container *ngIf="employeeSchedule.status?.value !== '4'">
+      {{ date | date:'d' }}
+      <div class="type" [style.color]="getScheduleTypeColor(employeeSchedule.type)"> {{ employeeSchedule.type?.label }} </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!employeeSchedule">
+    {{ date | date:'d' }}
+  </ng-container>
+</ng-template>

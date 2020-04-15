@@ -1,0 +1,35 @@
+<portlet title="操作记录" class="list">
+  <ng-template portletBody>
+    <ngx-excel #excelComponent readonly lazyload [cellHeight]="300" [customCalculateHeight]="calculateTimelineHeight"
+      [customTemplate]="timelineItemTpl"></ngx-excel>
+  </ng-template>
+</portlet>
+<ng-template #timelineItemTpl let-context>
+  <ng-template #actionTpl>
+    操作人：<span>{{ context?.relativeEmployee?.name || '系统判定' }}</span>
+  </ng-template>
+  <div class="portlet-timeline">
+    <portlet class="table" [title]="context?.createdTime + ' - ' + context?.type?.label" [actions]="[actionTpl]">
+      <ng-template portletBody>
+        <ng-container [ngSwitch]="context?.type?.value">
+          <student-contract-exchange-record *ngSwitchCase="'3'" [record]="context" [rules]="rules"
+            [excel]="excelComponent">
+          </student-contract-exchange-record>
+          <student-contract-purchase-record *ngSwitchCase="'1'" [record]="context" [rules]="rules"
+                                            [excel]="excelComponent">
+          </student-contract-purchase-record>
+          <student-contract-purchase-record *ngSwitchCase="'2'" [record]="context" [rules]="rules"
+                                            [excel]="excelComponent">
+          </student-contract-purchase-record>
+          <student-contract-refund-record *ngSwitchCase="'8'" [record]="context" [rules]="rules"
+                                            [excel]="excelComponent">
+          </student-contract-refund-record>
+          <student-contract-translation-record *ngSwitchCase="'4'" [record]="context" [rules]="rules"
+                                            [excel]="excelComponent">
+          </student-contract-translation-record>
+          <student-contract-purchase-record *ngSwitchDefault [record]="context" [rules]="rules" [excel]="excelComponent"></student-contract-purchase-record>
+        </ng-container>
+      </ng-template>
+    </portlet>
+  </div>
+</ng-template>

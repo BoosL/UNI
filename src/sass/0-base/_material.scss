@@ -1,0 +1,121 @@
+@import "~@angular/material/theming";
+
+$mat-uni-purple: (
+  50: #e6e7ef,
+  100: #c0c2d9,
+  200: #989abf,
+  300: #7274a5,
+  400: #575793,
+  500: #3d3c82,
+  600: #38357a,
+  700: #302c6f,
+  800: #282363,
+  900: #1c134d,
+  A100: #b388ff,
+  A200: #7c4dff,
+  A400: #651fff,
+  A700: #6200ea,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+
+$mat-uni-green: (
+  50: #dff3f0,
+  100: #b1e1d8,
+  200: #7ecebf,
+  300: #48baa5,
+  400: #15ab92,
+  500: #009c80,
+  600: #008e73,
+  700: #007e64,
+  800: #006e55,
+  900: #00523a,
+  A100: #b9f6ca,
+  A200: #69f0ae,
+  A400: #00e676,
+  A700: #00c853,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text
+  )
+);
+$angular-app-primary: mat-palette($mat-uni-purple, 900);
+$angular-app-accent: mat-palette($mat-uni-green, 400, A100, A400);
+$angular-app-warn: mat-palette($mat-orange, A200, A100, A400);
+$angular-app-danger: mat-palette($mat-red, A700, A100, A400);
+$angular-app-foreground: (
+  base: black,
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba(black, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: black,
+  hint-text: $dark-disabled-text,
+  secondary-text: $dark-secondary-text,
+  icon: rgba(black, 0.54),
+  icons: rgba(black, 0.54),
+  text: rgba(black, 0.87),
+  slider-min: rgba(black, 0.87),
+  slider-off: rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38)
+);
+
+$angular-app-background: (
+  status-bar: map_get($mat-grey, 300),
+  app-bar: map_get($mat-grey, 100),
+  background: map_get($mat-grey, 50),
+  hover: rgba(black, 0.04),
+  card: white,
+  dialog: white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-grey, 300),
+  selected-disabled-button: map_get($mat-grey, 400),
+  disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map_get($mat-grey, 300),
+  disabled-list-option: map_get($mat-grey, 200)
+);
+
+$angular-app-theme: (
+  primary: $angular-app-primary,
+  accent: $angular-app-accent,
+  warn: $angular-app-warn,
+  is-dark: false,
+  foreground: $angular-app-foreground,
+  background: $angular-app-background
+);
+$angular-app-typography: mat-typography-config(
+  $font-family,
+  $body-1: mat-typography-level(13px, 20px, 400)
+);
+
+@include mat-core($angular-app-typography);
+@include angular-material-theme($angular-app-theme);

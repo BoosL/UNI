@@ -1,0 +1,80 @@
+<ngx-excel-context *ngIf="componentReady" [(context)]="context">
+  <div class="ant-row">
+    <div class="ant-col-6">
+      <div class="ngx-excel-cell ngx-excel-cell--head">
+        <div class="cell"> &nbsp; </div>
+      </div>
+    </div>
+    <div class="ant-col-9">
+      <div class="ngx-excel-cell ngx-excel-cell--head">
+        <div class="cell"> 调整前 </div>
+      </div>
+    </div>
+    <div class="ant-col-9">
+      <div class="ngx-excel-cell ngx-excel-cell--head">
+        <div class="cell"> 调整后 </div>
+      </div>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-6">
+      <ngx-excel-cell headCell label="调整产品" [column]="rules.relativeProduct"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell disabled [column]="rules.relativeProduct"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell disabled [column]="rules.relativeProduct"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row">
+    <div class="ant-col-6">
+      <ngx-excel-cell headCell label="调整科目" [column]="rules.relativeSubject"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell [column]="rules.relativeSubject"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell [column]="rules.relativeSubject"></ngx-excel-cell>
+    </div>
+  </div>
+  <div class="ant-row list-curriculums">
+    <div class="ant-col-6">
+      <ngx-excel-cell headCell label="课程列表" [column]="rules.relativeCurriculum"></ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell disabled [column]="rules.relativeCurriculum" [template]="columnRemainedCurriculumsTpl">
+      </ngx-excel-cell>
+    </div>
+    <div class="ant-col-9">
+      <ngx-excel-cell normalCell disabled [column]="rules.relativeCurriculum" [template]="columnExpectedCurriculumsTpl">
+      </ngx-excel-cell>
+    </div>
+  </div>
+</ngx-excel-context>
+
+<ng-template #columnRemainedCurriculumsTpl>
+  <div class="cell ps" [perfectScrollbar]="{ suppressScrollX: true }" (psScrollY)="handleCurriculumsScroll($event)">
+    <ul>
+      <li *ngFor="let node of curriculumSwapNodes">
+        <span [class.disabled]="!node.isBoughtCurriculum"> {{ node.relativeCurriculum.name }} </span>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #columnExpectedCurriculumsTpl>
+  <div class="cell ps" [perfectScrollbar]="{ suppressScrollX: true }" (psScrollY)="handleCurriculumsScroll($event)">
+    <ul>
+      <li *ngFor="let node of expectedCurriculumSwapNodes">
+        <span [class.disabled]="!node.isExpectedCurriculum"> {{ node.relativeCurriculum.name }} </span>
+        <button *ngIf="!node.isExpectedCurriculum" [disabled]="cantExpectButton" matRipple nz-button nzType="default" nzShape="circle" (click)="handleExpectButtonClick($event, node)">
+          <i nz-icon nzType="check" nzTheme="outline"></i>
+        </button>
+        <button *ngIf="node.isExpectedCurriculum" matRipple nz-button nzType="default" nzShape="circle" (click)="handleUnExpectButtonClick($event, node)">
+          <i nz-icon nzType="close" nzTheme="outline"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</ng-template>

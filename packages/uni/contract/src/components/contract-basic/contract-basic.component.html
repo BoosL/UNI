@@ -1,0 +1,190 @@
+<div class="section">
+  <div class="section-head">
+    <div class="title"> 基本信息</div>
+  </div>
+  <div class="section-body">
+    <ngx-excel-context readonly [context]="contract">
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.sn"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.sn"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.type"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.type"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.status"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.status"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.relativeStudent"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.relativeStudent"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['relativeStudentCC']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #relativeStudentCCTpl let-context="context">
+            <ng-container *ngIf="context.relativeStudent && context.relativeStudent.cc">
+              <div class="cell">{{context.relativeStudent.cc.name || ''}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.relativeStudent || !context.relativeStudent.cc">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['relativeStudentCC']" [template]="relativeStudentCCTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['relativeStudentSC']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #relativeStudentSCTpl let-context="context">
+            <ng-container *ngIf="context.relativeStudent && context.relativeStudent.sc">
+              <div class="cell">{{context.relativeStudent.sc.name || ''}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.relativeStudent || !context.relativeStudent.sc">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['relativeStudentSC']" [template]="relativeStudentSCTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['tmk']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #tmkTpl let-context="context">
+            <ng-container *ngIf="context.customer && context.customer.tmk">
+              <div class="cell">{{context.customer.tmk.name || ''}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.customer ||  !context.customer.tmk">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['tmk']" [template]="tmkTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['relativeSource']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-13">
+          <ng-template #relativeSourceTpl let-context="context">
+            <ng-container *ngIf="context.customer && context.customer.relativeSource">
+              <div class="cell">{{context.customer.relativeSource}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.customer || !context.customer.relativeSource">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['relativeSource']" [template]="relativeSourceTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.beginTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.beginTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.endTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.endTime"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.amount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.amount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.isInstalment"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.isInstalment"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['instalmentBankName']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #instalmentBankNameTpl let-context="context">
+            <ng-container *ngIf="context.instalment && context.instalment.instalmentBankName">
+              <div class="cell">{{context.instalment.instalmentBankName}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.instalment || !context.instalment.instalmentBankName">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['instalmentBankName']" [template]="instalmentBankNameTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['instalmentNum']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #instalmentNumTpl let-context="context">
+            <ng-container *ngIf="context.instalment && context.instalment.instalmentNum">
+              <div class="cell">{{context.instalment.instalmentNum}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.instalment || !context.instalment.instalmentNum">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['instalmentNum']" [template]="instalmentNumTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.downPayment"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.downPayment"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules['instalmentFee']"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ng-template #instalmentFeeTpl let-context="context">
+            <ng-container *ngIf="context.instalment && context.instalment.instalmentFee">
+              <div class="cell">{{context.instalment.instalmentFee}}</div>
+            </ng-container>
+            <ng-container *ngIf="!context.instalment || !context.instalment.instalmentFee">
+              <div class="cell text-optional">（空）</div>
+            </ng-container>
+          </ng-template>
+          <ngx-excel-cell normalCell [column]="rules['instalmentFee']" [template]="instalmentFeeTpl"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.unpaidAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.unpaidAmount" ></ngx-excel-cell>
+        </div>
+        <div class="ant-col-3">
+          <ngx-excel-cell headCell [column]="rules.actualAmount"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-5">
+          <ngx-excel-cell normalCell [column]="rules.actualAmount"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </div>
+</div>
+

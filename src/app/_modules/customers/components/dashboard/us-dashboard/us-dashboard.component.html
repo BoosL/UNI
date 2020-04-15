@@ -1,0 +1,22 @@
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="今日到访" class="list">
+      <ng-template portletBody>
+        <ngx-excel lazyload readonly>
+          <ngx-excel-column name="relativeMarketingCustomer"></ngx-excel-column>
+          <ngx-excel-column name="nextVisitedTime"></ngx-excel-column>
+          <ngx-excel-column name="visitedTime" [onClickedCallback]="handleVisitedTimeClick"></ngx-excel-column>
+          <ngx-excel-column name="relativeMarketingCustomer.cc"></ngx-excel-column>
+          <ngx-excel-column name="leaveTime" [onClickedCallback]="handleLeaveTimeClick"></ngx-excel-column>
+          <ngx-excel-column name="consultingDuration" [template]="columnConsultingDurationTpl"></ngx-excel-column>
+          <ngx-excel-column name="consultingStatus"></ngx-excel-column>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #columnConsultingDurationTpl let-value="value">
+  <div *ngIf="!value || value == 0" class="cell text-optional"> (空) </div>
+  <div *ngIf="value && value != 0" class="cell"> {{ getConsultingDurationMinutes(value) }} 分钟 </div>
+</ng-template>

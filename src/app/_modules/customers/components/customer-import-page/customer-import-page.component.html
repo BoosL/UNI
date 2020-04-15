@@ -1,0 +1,43 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleDownButtonClick($event)">
+    <i nz-icon nzType="download" nzTheme="outline"></i> 模板下载
+  </button>
+  <button matRipple nz-button nzType="dashed" (click)="handleRefreshButtonClick($event)">
+    <i nz-icon [nzType]="'sync'" [nzSpin]="false"></i> 刷新
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<div class="layout-main">
+  <ng-template block>
+    <customer-import-upload [canUpload]="canUpload" (actionButtonClick)="onDecideClick($event)">
+    </customer-import-upload>
+  </ng-template>
+
+  <ng-template block>
+    <portlet title="导入客户状态" class="list">
+      <ng-template portletBody>
+        <ngx-excel lazyload readonly>
+          <ngx-excel-column name="chName"></ngx-excel-column>
+          <ngx-excel-column name="enName" [template]="enNameTpl"></ngx-excel-column>
+          <ngx-excel-column name="mobile"></ngx-excel-column>
+          <ngx-excel-column name="message"></ngx-excel-column>
+          <ngx-excel-column name="status"></ngx-excel-column>
+          <ngx-excel-column name="isImplement" [template]="isImplementTpl"></ngx-excel-column>
+          <ngx-excel-column name="created_at"></ngx-excel-column>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>
+
+<ng-template #enNameTpl let-value="value">
+  <div class="cell text-optional empty" *ngIf="value == ' '">(空)</div>
+  <div class="cell" *ngIf="value !== ' '">{{ value }}</div>
+</ng-template>
+
+<ng-template #isImplementTpl let-value="value">
+  <div class="cell" *ngIf="value == 0">未执行</div>
+  <div class="cell" *ngIf="value == 1">已执行</div>
+</ng-template>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="display$ | async as display; then canSelectSchoolTpl; else cantSelectSchoolTpl"></ng-container>
+
+<ng-template #canSelectSchoolTpl>
+  <nz-select nzShowSearch [ngModel]="currentSchool" [compareWith]="compareWith"
+    (ngModelChange)="handleMenuItemClick(null, $event)">
+    <nz-option *ngFor="let schoolMenuItem of schoolMenuItems" [nzValue]="schoolMenuItem"
+      [nzLabel]="schoolMenuItem.name"></nz-option>
+  </nz-select>
+</ng-template>
+
+<ng-template #cantSelectSchoolTpl>
+  <nz-select [nzDisabled]="true" [ngModel]="{id:0}" [compareWith]="compareWith">
+    <nz-option [nzValue]="{id:0}" nzLabel="该页面不可切换校区"></nz-option>
+  </nz-select>
+</ng-template>

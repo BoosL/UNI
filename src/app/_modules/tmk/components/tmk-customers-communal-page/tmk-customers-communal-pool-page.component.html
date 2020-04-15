@@ -1,0 +1,16 @@
+<ng-template pageHeadButtons>
+  <button matRipple nz-button nzType="dashed" (click)="handleAllocationButtonClick($event)">
+    <i nz-icon nzType="plus" nzTheme="outline"></i> 资源分配
+  </button>
+  <button matRipple nz-button nzType="dashed" (click)="handleSearchButtonClick($event)">
+    <i nz-icon nzType="search" nzTheme="outline"></i> 客户搜索
+  </button>
+</ng-template>
+
+<div pageOnInit></div>
+
+<div class="layout-main">
+  <ng-template block>
+    <tmk-customers [extraFilters$] = "extraFilters$" (handleChangeSelect)="handleChangeSelect($event)" [isPool] = "true"></tmk-customers>
+  </ng-template>
+</div>

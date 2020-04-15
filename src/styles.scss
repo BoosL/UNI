@@ -1,0 +1,394 @@
+/* You can add global styles to this file, and also import other style files */
+@import "sass/constants";
+@import "sass/0-base/base-dir";
+@import "sass/1-ngx_excel/ngx_excel-dir";
+@import "sass/2-components/components-dir";
+@import "sass/3-pages/pages-dir";
+
+/* 主题颜色方案 */
+html,
+body,
+backend {
+  background-color: #f4f4f4;
+}
+
+backend-theme {
+  background-color: #f4f4f4;
+
+  .container-main > .mat-toolbar.navbar-header .menubar-toggle {
+    background-color: mat-color($angular-app-warn);
+
+    span.bar,
+    span.bar::before,
+    span.bar::after {
+      background-color: mat-contrast($angular-app-warn, 900);
+    }
+  }
+
+  .sidebar-left {
+    background-color: mat-color($angular-app-primary);
+
+    .brand-logo {
+      background-color: rgba(mat-contrast($angular-app-primary, 50), 0.15);
+      background-image: url("assets/logo.png");
+    }
+  }
+
+  .sidebar-left .menubar {
+    li.separator {
+      color: rgba(mat-contrast($angular-app-primary, 900), 0.25);
+
+      .anticon g [fill] {
+        fill: rgba(mat-contrast($angular-app-primary, 900), 0.25);
+      }
+    }
+
+    li.menu-item a {
+      // color: rgba(mat-contrast($angular-app-primary, 900), 0.75);
+      // color: mat-color($angular-app-primary, 300);
+      color: rgba(mat-contrast($angular-app-primary, 900), 0.75);
+      background-color: transparent;
+
+      .bullet::after {
+        background-color: rgba(mat-contrast($angular-app-primary, 900), 0.75);
+      }
+
+      .anticon g [fill] {
+        fill: mat-color($angular-app-primary, 300);
+      }
+    }
+
+    li.menu-item a.active,
+    li.menu-item a.expand {
+      color: white;
+      background-color: rgba(mat-contrast($angular-app-primary, 50), 0.15);
+      // background-color: mat-color($angular-app-accent);
+      // background-color: mat-color();
+
+      .bullet::after {
+        background-color: white;
+      }
+
+      .anticon g [fill] {
+        // fill: mat-color($angular-app-primary);
+        fill: mat-color($mat-indigo, 500);
+        // fill: white;
+      }
+    }
+
+    li.menu-item a:not(.active):not(.expand):hover {
+      background-color: rgba($color: mat-contrast($angular-app-primary, 900), $alpha: 0.05);
+    }
+  }
+
+  .navbar-header {
+    background-color: white;
+    color: mat-color($angular-app-primary, 300);
+    box-shadow: 0px 10px 30px 0px rgba(82, 63, 105, 0.08);
+
+    .navbar-primary {
+      border-bottom: 1px solid $border-color;
+
+      .quick-links a {
+        color: mat-color($angular-app-primary, 300);
+        background-color: transparent;
+
+        &:hover,
+        &.active {
+          color: mat-color($angular-app-primary);
+          background-color: mat-color($angular-app-primary, default, 0.06);
+        }
+      }
+
+      .navbar-userinfo {
+        background-color: transparent;
+
+        &:hover,
+        &.active {
+          background-color: mat-color($angular-app-primary, default, 0.06);
+        }
+
+        .nickname {
+          color: mat-color($angular-app-primary);
+        }
+        .username {
+          color: mat-color($angular-app-accent);
+          background-color: mat-color($angular-app-accent, 0.06);
+        }
+      }
+    }
+
+    .navbar-secondary {
+      .page-title {
+        color: mat-color($angular-app-primary);
+        border-color: $border-color;
+      }
+
+      .breadcrumb a {
+        color: mat-color($angular-app-primary, 300);
+
+        &:after {
+          background-color: mat-color($angular-app-primary, 300) !important;
+        }
+      }
+
+      .back-to-dashboard {
+        color: mat-color($angular-app-warn);
+        background-color: mat-color($angular-app-warn, 0.1);
+      }
+
+      .navbar-view {
+        color: mat-color($angular-app-primary);
+        background-color: mat-color($angular-app-primary, default, 0.025);
+      }
+    }
+  }
+}
+
+.ant-drawer {
+  portlet {
+    background-color: white;
+
+    .portlet-head {
+      border-color: $border-color;
+
+      .subtitle {
+        color: mat-color($angular-app-primary, 0.25);
+      }
+    }
+
+    .portlet-body .separator {
+      border-color: $border-color;
+    }
+  }
+
+  .drawer-footer button + button {
+    margin-left: 8px;
+  }
+}
+
+.ant-modal {
+  .ant-modal-footer {
+    border-color: $border-color;
+  }
+}
+
+alert-bar {
+  .alert {
+    background-color: white;
+    border-color: white;
+
+    .alert-text {
+      ul li:before {
+        background-color: mat-color($angular-app-primary);
+      }
+
+      button.mat-button {
+        background-color: mat-color($angular-app-primary, default, .06);
+      }
+    }
+
+    &.alert-danger {
+      background-color: rgba(253, 57, 122, .1);
+      border-left-color: rgba(253, 57, 122, .1);
+      border-right-color: rgba(253, 57, 122, .1);
+      .alert-icon, .alert-text, .alert-text a {
+        color: mat-color($angular-app-danger);
+      }
+    }
+
+    &.alert-info {
+      .alert-icon {
+        color: mat-color($angular-app-primary, 500);
+      }
+    }
+  }
+}
+
+portlet {
+  background-color: white;
+
+  .portlet-head {
+    border-color: $border-color;
+
+    .subtitle {
+      color: mat-color($angular-app-primary, 0.25);
+    }
+  }
+
+  .portlet-body .separator {
+    border-color: $border-color;
+  }
+}
+
+toggler {
+  span,
+  span:before,
+  span:after {
+    background-color: #5d5f77;
+  }
+  &:hover {
+    span,
+    span:before,
+    span:after {
+      background-color: #716aca;
+    }
+  }
+}
+
+nav.navbar {
+  background-color: #1c134d;
+  color: #fff;
+  toggler {
+    background-color: #ffc40f;
+    span,
+    span:before,
+    span:after {
+      background-color: #fff !important;
+    }
+  }
+  div.navbar-tasks a {
+    border-top-color: rgba(255, 196, 15, 0.8);
+    color: #fff;
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.fixed-sidebar-left {
+  background-color: #1c134d;
+  color: #fff;
+}
+
+sidebar-menus .side-nav {
+  background-color: transparent !important;
+  color: #fff;
+
+  .navigation-header {
+    background-color: #150f3b;
+  }
+
+  > li {
+    a {
+      background-color: transparent;
+      color: #ccc;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #fff;
+      }
+    }
+  }
+
+  > li.active {
+    a {
+      color: #16ab81;
+    }
+
+    > a {
+      background-color: #16ab91 !important;
+      color: #fff;
+    }
+  }
+}
+
+.theme.collapsed-sidebar-menus sidebar-menus .side-nav li.nav-parent {
+  ul {
+    background-color: #1c134d;
+  }
+
+  &:hover > a {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+}
+
+breadcrumbs {
+  background-color: rgb(244, 244, 244);
+  border-bottom-color: rgb(234, 234, 234);
+}
+
+@include tablet() {
+  sidebar-menus .side-nav li.nav-parent {
+    ul {
+      background-color: #1c134d;
+    }
+
+    &:hover > a {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+  }
+}
+
+@include mobile() {
+  nav.navbar {
+    background-color: #fff;
+    color: #ddd;
+  }
+}
+
+.page-wrapper.auth-page {
+  background-color: transparent;
+
+  .auth-form-wrap {
+    padding: 0 !important;
+  }
+}
+
+.navbar-userinfo-card {
+  .me {
+    background-image: url("assets/userinfo-cover.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: cover;
+
+    .leading .username,
+    .leading .portrait {
+      color: mat-color($angular-app-accent);
+      background-color: rgba(white, 0.1);
+    }
+
+    .title .nickname,
+    .title .nickname_extra,
+    .title .position {
+      color: white;
+    }
+  }
+
+  .ant-card-body ul {
+    li {
+      border-bottom: 1px solid $border-color;
+    }
+
+    a {
+      background-color: transparent;
+
+      &:hover {
+        background-color: mat-color($angular-app-primary, default, 0.06);
+      }
+    }
+
+    dd {
+      color: mat-color($angular-app-primary, 0.25);
+    }
+  }
+
+  .ant-card-actions {
+    background-color: transparent !important;
+
+    li:first-child {
+      .mat-button {
+        color: mat-color($angular-app-primary);
+        background-color: mat-color($angular-app-primary, default, 0.06);
+      }
+    }
+  }
+}

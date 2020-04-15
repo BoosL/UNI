@@ -1,0 +1,29 @@
+<portlet title="调整课时 / 课号" noPadding class="table" [actions]="[ actionModeButtonsTpl ]">
+  <ng-template portletBody>
+    <div *ngIf="!componentReady" class="loading">
+      <i nz-icon nzType="loading" nzTheme="outline"></i> 数据加载中，请稍候...
+    </div>
+    <ng-container #curriculumSwapBlockContainer></ng-container>
+  </ng-template>
+</portlet>
+
+<div class="drawer-footer">
+  <div class="info">
+    <ng-container *ngIf="componentReady">
+      待分配课时 / 课号数：<span> {{ complementary }} </span>
+    </ng-container>
+  </div>
+  <div class="buttons">
+    <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+    <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm($event)">
+      确认调整
+    </button>
+  </div>
+</div>
+
+<ng-template #actionModeButtonsTpl>
+  <nz-button-group>
+    <button *ngFor="let modeButton of modeButtons" matRipple nz-button nzType="default"
+      [class.active]="modeButton.active" (click)="handleModeButtonClick($event, modeButton)"> {{ modeButton.label }} </button>
+  </nz-button-group>
+</ng-template>

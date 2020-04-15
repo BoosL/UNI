@@ -1,0 +1,156 @@
+<portlet [title]="context?.name" noPadding class="table">
+  <ng-template portletHead>
+    <div class="title">
+      {{ context?.name }}
+      <div class="subtitle">
+        <dl>
+          <dt>当前状态：</dt>
+          <dd> {{ context?.status?.label || '未知状态' }} </dd>
+        </dl>
+        <dl>
+          <dt>重要客户：</dt>
+          <dd> {{ context?.isImportant ? '是' : '否' }} </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="trailing">
+      <ul class="actions">
+        <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'appendConsultingRecord', context)">
+          <i nz-icon>
+            <svg t="1567148494058" class="icon" viewBox="0 0 1194 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              p-id="8202" width="12" height="12">
+              <path
+                d="M887.893333 934.229333h-79.488a210.986667 210.986667 0 0 0-115.370666-163.328 144.085333 144.085333 0 0 0 49.493333-108.373333 144.213333 144.213333 0 0 0-144.256-143.872 144.213333 144.213333 0 0 0-144.256 143.872c0 41.6 18.261333 81.152 49.493333 108.373333a210.944 210.944 0 0 0-115.413333 163.328h-81.493333c-134.442667 0-243.882667-106.88-243.882667-238.208 0-131.328 109.44-238.208 243.925333-238.208H887.893333c134.570667 0 244.010667 106.88 244.010667 238.208 0 131.328-109.44 238.208-244.010667 238.208h-0.042666z m-375.68-271.957333c0-47.530667 38.528-86.229333 86.058667-86.229333a86.272 86.272 0 0 1 0 172.501333 86.272 86.272 0 0 1-86.058667-86.272z m86.058667 144.128a154.24 154.24 0 0 1 151.722667 127.786667h-303.445334a154.197333 154.197333 0 0 1 151.722667-127.786667z m0-518.656c69.205333 0 127.957333 45.909333 147.285333 108.672h-294.613333a154.410667 154.410667 0 0 1 147.328-108.672z m0-230.314667a86.272 86.272 0 0 1 0 172.501334 86.272 86.272 0 0 1 0-172.501334z m289.664 339.029334h-82.645333a210.986667 210.986667 0 0 0-112.298667-144.213334 144.128 144.128 0 0 0 49.536-108.330666A144.213333 144.213333 0 0 0 598.272 0a144.213333 144.213333 0 0 0-144.256 143.872c0 41.6 18.261333 81.152 49.493333 108.373333a211.029333 211.029333 0 0 0-112.298666 144.213334H306.688C137.514667 396.416 0 530.816 0 696.021333c0 165.205333 137.6 299.52 306.645333 299.52H887.893333c169.088 0 306.730667-134.4 306.730667-299.562666s-137.6-299.52-306.730667-299.52z"
+                p-id="8203"></path>
+            </svg>
+          </i>
+          咨询录入
+        </button>
+        <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'appendNotConsultingRecord', context)"> 未咨
+        </button>
+        <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'appendFollowRecord', context)">
+          <svg t="1567148663223" class="icon" viewBox="0 0 1152 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="8750" width="12" height="12">
+            <path
+              d="M451.059044 731.931271l-7.293721 0.06398c-16.122962 0-32.181943-1.02368-52.143705-3.26298-7.037801 0-14.075601 1.79144-19.002062 4.158701l-145.106654 112.284911v-156.111216a32.629803 32.629803 0 0 0-9.916901-22.393002l-3.32696-2.04736A320.923711 320.923711 0 0 1 59.117526 394.948579c-0.12796-80.486848 33.013683-158.414495 93.282849-219.451422C227.065042 100.06473 335.895033 56.814246 450.867104 56.814246c215.996501 0 391.749578 151.504655 391.749578 337.814433 0 185.989878-175.753077 337.366573-391.557638 337.366572z m603.459419 44.082225a344.276414 344.276414 0 0 0 90.659669-306.08035 341.717213 341.717213 0 0 0-198.33802-248.242424 28.982943 28.982943 0 0 0-35.508903 14.907341c-6.398001 13.243861-1.66348 29.302843 9.341081 36.468604a282.215808 282.215808 0 0 1 168.011496 204.22418 299.426429 299.426429 0 0 1-89.763948 272.810746 26.615683 26.615683 0 0 0-6.589941 24.632303l27.639363 140.308153-149.393315-70.378007a33.013683 33.013683 0 0 0-20.089722-2.43124c-7.293721 2.30328-14.075601 4.28666-20.601562 6.206061a374.986817 374.986817 0 0 0-28.343143 9.149141 367.245236 367.245236 0 0 1-85.861168 10.108841c-67.562887 0-133.974133-18.490222-197.890159-55.150766l-2.367261-19.513902a480.105967 480.105967 0 0 0 274.666167-133.398313A365.645736 365.645736 0 0 0 901.734208 396.995939C901.734208 178.312277 699.493408 0.3199 450.867104 0.3199 202.2408 0.3199 0 178.312277 0 396.995939a376.778257 376.778257 0 0 0 163.212996 307.67985l4.28666 2.8791v199.61762c0 11.452421 6.206061 22.137082 11.132521 26.487722 4.1587 0 7.933521 1.02368 11.388442 1.79144 2.5592 0.6398 4.86248 1.21562 7.16576 1.21562 6.270041 0 12.156201-2.30328 17.466542-7.29372l180.551578-136.533334 6.90984-1.85542h3.262981c13.051921 1.9194 26.231803 2.94308 39.411683 2.943081h14.779382c13.179881 0 26.231803-1.02368 39.347704-2.943081l5.4383 18.746142a33.589503 33.589503 0 0 0-13.755701 11.388441 24.568322 24.568322 0 0 0-1.98338 22.073102c2.5592 7.741581 7.613621 14.523461 13.755701 18.810122a426.490722 426.490722 0 0 0 316.445111 48.624805c14.907341-2.8791 29.558763-6.909841 43.890284-11.900281l3.774821-1.2796 191.108278 91.939269c4.60656 1.21562 9.277101 2.11134 12.668042 2.62318h7.74158a40.307404 40.307404 0 0 0 10.556701-4.094721 26.999563 26.999563 0 0 0 11.260481-25.719962l-49.200624-182.087098 3.90278-4.09472zM630.267042 336.598813a54.319025 54.319025 0 0 0-53.743206 54.574945 56.302405 56.302405 0 0 0 54.894846 54.446986 54.255045 54.255045 0 0 0 53.167385-55.022806 54.319025 54.319025 0 0 0-54.319025-53.999125z m-380.681038-2.94308a54.255045 54.255045 0 0 0-54.127085 54.255045 54.255045 54.255045 0 0 0 53.551265 54.830865 53.935145 53.935145 0 0 0 38.515964-15.867041 54.894845 54.894845 0 0 0 15.931022-38.707904c0-30.070603-24.056482-54.383005-53.871166-54.510965z m168.459357 4.1587a54.574945 54.574945 0 0 0-33.333583 50.352265c0 30.134583 24.184442 54.574945 53.999125 54.574945 21.881162 0 41.587004-13.307841 49.968385-33.653483a55.022805 55.022805 0 0 0-11.708341-59.501406 53.743205 53.743205 0 0 0-58.925586-11.772321z"
+              p-id="8751"></path>
+          </svg>
+          跟进录入
+        </button>
+        <button matRipple nz-button nzType="link" (click)="navigateTo($event, 'detail', context)">
+          <i nz-icon nzType="eye" nzTheme="outline"></i>
+        </button>
+      </ul>
+    </div>
+  </ng-template>
+  <ng-template portletBody>
+    <ngx-excel-context readonly [context]="context" [excel]="excelComponent">
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.age"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.age"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.firstConsultingDuration"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.firstConsultingDuration" [template]="columnFirstConsultingDurationTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.cc"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.cc"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.level"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.recommendCurriculumType"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.recommendCurriculumType"
+            [template]="columnRecommendCurriculumTypeTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.relativeSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.relativeSource"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.capacity"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.capacity" [template]="columnCapacityTpl"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.contractRate"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.contractRate"></ngx-excel-cell>
+        </div>
+      </div>
+      <div class="ant-row">
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.learningPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.learningPurpose"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.lastVisitedTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-4">
+          <ngx-excel-cell normalCell [column]="rules.lastVisitedTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-2">
+          <ngx-excel-cell headCell [column]="rules.nextFollowTime"></ngx-excel-cell>
+        </div>
+        <div class="ant-col-10">
+          <ngx-excel-cell normalCell [column]="rules.nextFollowTime"></ngx-excel-cell>
+        </div>
+      </div>
+    </ngx-excel-context>
+  </ng-template>
+</portlet>
+
+<ng-template #columnRecommendCurriculumTypeTpl let-context="context">
+  <div
+    *ngIf="!context.recommendCurriculumType && !context.recommendCurriculumCount && !context.recommendCurriculumMonthCount"
+    class="cell text-optional">
+    (空)
+  </div>
+  <div
+    *ngIf="context.recommendCurriculumType || context.recommendCurriculumCount || context.recommendCurriculumMonthCount"
+    class="cell">
+    <b [class.text-warning]="!context?.recommendCurriculumType"> {{ context?.recommendCurriculumType?.label || '未推荐课程' }} </b>
+    &nbsp;/&nbsp;
+    <b [class.text-warning]="!context?.recommendCurriculumCount"> {{ context?.recommendCurriculumCount || '0' }} 节 </b>
+    &nbsp;/&nbsp;
+    <b [class.text-warning]="!context?.recommendCurriculumMonthCount"> {{ context?.recommendCurriculumMonthCount || '0' }} 个月 </b>
+  </div>
+</ng-template>
+
+<ng-template #columnCapacityTpl let-context="context">
+  <div *ngIf="!context.capacity && !context.grade" class="cell text-warning"> 未设置 </div>
+  <div *ngIf="context.capacity || context.grade" class="cell">
+    <b [class.text-warning]="!context?.capacity"> {{ context?.capacity?.label || '未设置身份' }} </b>
+    <ng-container *ngIf="context?.grade">
+      &nbsp;/&nbsp;
+      <b [class.text-warning]="!context?.grade"> {{ context?.grade?.label || '未设置年级' }} </b>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #columnFirstConsultingDurationTpl let-value="value">
+  <div *ngIf="!value || value == 0" class="cell text-optional"> (空) </div>
+  <div *ngIf="value && value != 0" class="cell"> {{ getConsultingDurationMinutes(value) }} 分钟 </div>
+</ng-template>

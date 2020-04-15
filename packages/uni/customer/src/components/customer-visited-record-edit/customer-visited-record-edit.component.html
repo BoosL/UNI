@@ -1,0 +1,180 @@
+<ng-container *ngIf="componentMode === 'simple'">
+  <ngx-excel-context [(context)]="record" [attachSelectTo]="attachSelectTo"
+    (contextChange)="handleContextChange($event)">
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.visitedTime"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.visitedTime"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.visitorCount"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.visitorCount"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.visitType"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-5">
+        <ngx-excel-cell normalCell [column]="rules.visitType"></ngx-excel-cell>
+      </div>
+    </div>
+    <div class="ant-row">
+      <div class="ant-col-3">
+        <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+      <div class="ant-col-20">
+        <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+      </div>
+    </div>
+  </ngx-excel-context>
+</ng-container>
+
+<ng-container *ngIf="componentMode === 'portlet' || componentMode === 'section'">
+  <portlet title="客户到访" noPadding class="table">
+    <ng-template portletBody>
+      <div *ngIf="componentMode === 'section'" class="search">
+        <div class="ngx-excel-cell ngx-excel-cell--head">
+          <div class="cell"> 手机号码 </div>
+        </div>
+        <div class="ngx-excel-cell ngx-excel-cell--normal">
+          <div class="cell-form-control input-search">
+            <input class="form-control" type="text" placeholder="请输入手机号码" nz-input [(ngModel)]="searchPhone"
+              (ngModelChange)="handleSearchPhoneChange()">
+          </div>
+        </div>
+        <div class="ngx-excel-cell ngx-excel-cell--btn">
+          <div class="cell-form-control button-search">
+            <button type="submit" matRipple nz-button nzType="link" (click)="handleSearchPhoneConfirm($event)"
+              [nzLoading]="searching">
+              <i nz-icon nzType="search" nzTheme="outline"></i>
+              搜索
+            </button>
+          </div>
+        </div>
+      </div>
+      <ngx-excel-context *ngIf="record?.relativeMarketingCustomer" [(context)]="record"
+        [attachSelectTo]="attachSelectTo">
+        <div class="ant-row">
+          <div class="ant-col-4">
+            <div class="ngx-excel-cell ngx-excel-cell--head">
+              <div class="cell"> 客户姓名 </div>
+            </div>
+          </div>
+          <div class="ant-col-8">
+            <div class="ngx-excel-cell ngx-excel-cell--normal">
+              <div class="cell"> {{ record?.relativeMarketingCustomer?.name }} </div>
+            </div>
+          </div>
+          <div class="ant-col-4">
+            <div class="ngx-excel-cell ngx-excel-cell--head">
+              <div class="cell"> 预约时间 </div>
+            </div>
+          </div>
+          <div class="ant-col-8">
+            <div class="ngx-excel-cell ngx-excel-cell--normal">
+              <div class="cell"> {{ record?.relativeMarketingCustomer?.nextVisitedTime }} </div>
+            </div>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-4">
+            <div class="ngx-excel-cell ngx-excel-cell--head">
+              <div class="cell"> TMK </div>
+            </div>
+          </div>
+          <div class="ant-col-8">
+            <div class="ngx-excel-cell ngx-excel-cell--normal">
+              <div class="cell"> {{ record?.relativeMarketingCustomer?.tmk?.name }} </div>
+            </div>
+          </div>
+          <div class="ant-col-4">
+            <div class="ngx-excel-cell ngx-excel-cell--head">
+              <div class="cell"> 渠道 </div>
+            </div>
+          </div>
+          <div class="ant-col-8">
+            <div class="ngx-excel-cell ngx-excel-cell--normal">
+              <div class="cell"> {{ record?.relativeMarketingCustomer?.relativeSource }} </div>
+            </div>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.visitedTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-8">
+            <ngx-excel-cell normalCell [column]="rules.visitedTime"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.visitorCount"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-8">
+            <ngx-excel-cell normalCell [column]="rules.visitorCount"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.cc"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-8">
+            <ngx-excel-cell normalCell [column]="rules.cc"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.visitType"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-8">
+            <ngx-excel-cell normalCell [column]="rules.visitType"></ngx-excel-cell>
+          </div>
+        </div>
+        <div class="ant-row">
+          <div class="ant-col-4">
+            <ngx-excel-cell headCell [column]="rules.remark"></ngx-excel-cell>
+          </div>
+          <div class="ant-col-20">
+            <ngx-excel-cell normalCell [column]="rules.remark"></ngx-excel-cell>
+          </div>
+        </div>
+      </ngx-excel-context>
+    </ng-template>
+  </portlet>
+  <alert-bar *ngIf="message" type="danger" icon="close-circle" [(message)]="message"></alert-bar>
+</ng-container>
+
+<ng-container *ngIf="drawerRef">
+  <div class="drawer-footer">
+    <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+    <button matRipple nz-button nzType="primary" class="ant-btn-accent" [nzLoading]="loading" (click)="confirm($event)">
+      保存
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="modalRef">
+  <div *nzModalFooter>
+    <button matRipple nz-button nzType="default" (click)="dismiss($event)"> 取消 </button>
+    <button *ngIf="record.relativeMarketingCustomer" matRipple nz-button nzType="primary" class="ant-btn-accent"
+      [nzLoading]="loading" (click)="confirm($event)">
+      保存
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #columnNameTpl let-context="context">
+  <div class="cell"> {{ context?.relativeMarketingCustomer?.name }} </div>
+</ng-template>
+
+<ng-template #columnNextVisitedTimeTpl let-context="context">
+  <div class="cell"> {{ context?.relativeMarketingCustomer?.nextVisitedTime }} </div>
+</ng-template>
+
+<ng-template #columnTmkTpl let-context="context">
+  <div class="cell" [class.text-optional]="!context?.relativeMarketingCustomer?.tmk">
+    {{ context?.relativeMarketingCustomer?.tmk?.name || '(尚未分配TMK)' }} </div>
+</ng-template>
+
+<ng-template #columnRelativeSourceTpl let-context="context">
+  <div class="cell"> {{ context?.relativeSource }} </div>
+</ng-template>

@@ -1,0 +1,149 @@
+<div class="curriculum-schedules-container">
+  <div class="curriculum-schedules-body">
+    <div class="table table-info schedule-table-head">
+      <div class="table-row">
+        <div class="table-cell table-cell-label schedule-time">
+        </div>
+        <div class="table-cell table-cell-label noclassroom-schedule">
+          未分配教室
+        </div>
+        <ng-container *ngIf="classrooms && classrooms.length > 0">
+          <ng-container *ngFor="let item of classrooms">
+            <div class="table-cell">
+              {{item.name}}
+            </div>
+          </ng-container>
+        </ng-container>
+
+      </div>
+    </div>
+
+    <div class="table table-info ">
+      <ng-container *ngFor="let item of curriculumSchedules">
+        <div nz-tooltip class="table-row nomal" [ngClass]="{'disabled-schedule': item.schoolResource && item.schoolResource.allClassrooms && item.schoolResource.allTeachers}"
+             nzPlacement="left"
+             [nzTitle]="item.schoolResource && item.schoolResource.restName ? item.schoolResource.restName : ''">
+            <div class="table-cell table-cell-label schedule-time">
+              {{item.time}}
+            </div>
+            <ng-container *ngIf="!item.schedules || item.schedules.length <= 0">
+              <!--不存在排课或者没有排课-->
+              <div class="no-schedule" (contextmenu)="onContextMenu($event, item,  noContextTemplate)">
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.schedules && item.schedules.length > 0">
+              <ng-container *ngFor="let schedule of item.schedules;let i = index">
+                <ng-container *ngIf="schedule && (!schedule.classroom || (item.schoolResource && item.schoolResource.allClassrooms && item.schoolResource.allTeachers))">
+                  <ng-container
+                    *ngTemplateOutlet="scheduleItemTpl; context: { item: item, schedule: schedule,index: i }"></ng-container>
+                </ng-container>
+
+              </ng-container>
+              <!--没有排课-->
+              <div class="no-schedule" (contextmenu)="onContextMenu($event, item, noContextTemplate)">
+              </div>
+              <ng-container *ngFor="let schedule of item.schedules;let i = index">
+                <ng-container *ngIf="!schedule">
+                    <div class="table-cell" (contextmenu)="onContextMenu($event, item, noContextTemplate, i)" cdkDropList
+                         [cdkDropListData]="[{classroom: classrooms[i - (item.schedules.length - classrooms.length)],schoolResource: item.schoolResource}]"
+                         (cdkDropListDropped)="drop($event)"
+                         [cdkDropListEnterPredicate]="dropLimit"
+                         [ngClass]="{'disabled-schedule': judgeClassroomIsNotAble(item, i)}" name="nihao">
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="schedule && schedule.classroom && !((item.schoolResource && item.schoolResource.allClassrooms && item.schoolResource.allTeachers))">
+                  <ng-container
+                    *ngTemplateOutlet="scheduleItemTpl; context: { item: item, schedule: schedule,index: i }"></ng-container>
+                </ng-container>
+
+              </ng-container>
+
+            </ng-container>
+
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="excel-foot">
+   <div class="sheet-info">
+     当前日期（{{scheduleDate}}）共 <span class="begin" > {{ (curriculumSchedulesSubject | async).length }}</span>条排课记录
+   </div>
+  <div class="scrollbar-x"><span></span></div>
+</div>
+
+<ng-template #scheduleItemTpl let-item="item" let-schedule="schedule" let-index="index">
+  <div class="table-cell has-schedule" [ngClass]="{'disable-drag':dragIsStart && schedule.classroom,'disabled-schedule': judgeClassroomIsNotAble(item, index)}"
+       (contextmenu)="onContextMenu($event,item,hasContextTemplate,index,schedule)"
+       (click) = "onDetailClick($event,item,hasContextTemplate,index,schedule)"
+       [style.color]="schedule.isComplete?'#15ab92':'#f5222d'" cdkDropList
+       [cdkDropListData]="[{schedule:schedule,schoolResource: item.schoolResource}]"
+       (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="dropLimit"
+  >
+    <div [style.borderTopColor]="getScheduleStatusBlockColor(schedule)" class="schedule-status-block"></div>
+    <div cdkDrag [cdkDragData]="{schedule:schedule,schoolResource: item.schoolResource}"
+         [cdkDragDisabled]="item.schoolResource.allTeachers && item.schoolResource.allClassrooms"
+         (cdkDragStarted)="dragStart($event)" (cdkDragEnded)="dragEnd($event)">
+      <ng-container *ngTemplateOutlet="scheduleContentTpl, context:{schedule: schedule}">
+      </ng-container>
+      <div *cdkDragPreview class="drag-schedule" [style.color]="schedule.isComplete?'#2ecd99':'#ed6f56'">
+        <ng-container *ngTemplateOutlet="scheduleContentTpl, context:{schedule: schedule}"></ng-container>
+      </div>
+    </div>
+    <ng-template #scheduleContentTpl let-schedule="schedule">
+      <span class="curriculum-name">{{schedule.curriculum ? schedule.curriculum.name : ''}}</span>
+      <span class="teacher-name">{{schedule.teacher ? schedule.teacher.name : ''}}</span>
+      <div class="relative-entries">
+        <ng-container *ngIf="schedule.relativeEntries && schedule.relativeEntries.length > 0">
+          <ng-container *ngFor="let item of schedule.relativeEntries">
+            <ng-container *ngIf="item.student">
+              <span>{{item.student.name}}</span>
+            </ng-container>
+            <ng-container *ngIf="item.customer">
+              <span>{{item.customer.name}}</span>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-template>
+
+  </div>
+</ng-template>
+
+<context-menu #noContextTemplate>
+  <ng-template contextMenuItem (execute)="showEditDrawer('multiple')">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> add_box
+    </mat-icon>
+    新增多人教学
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showEditDrawer()">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> add_box
+    </mat-icon>
+    新增一对一教学
+  </ng-template>
+</context-menu>
+<context-menu #hasContextTemplate>
+  <!--未确认，已确认-->
+  <ng-template contextMenuItem (execute)="showEdit('info')">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> edit
+    </mat-icon>
+    编辑排课信息
+  </ng-template>
+  <ng-template contextMenuItem (execute)="showEdit('entry')">
+    编辑上课名单
+  </ng-template>
+  <ng-template  contextMenuItem (execute)="showSigningDrawer()" [enabled]="signBtnVisible">
+    签课
+  </ng-template>
+  <!--未确认，已确认-->
+  <ng-template contextMenuItem (execute)="onDelete()"  [enabled]="scheduleContext && scheduleContext.status && !['3', '4', '5'].includes(scheduleContext.status.value)">
+    <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted" role="img"
+              aria-hidden="true"> delete
+    </mat-icon>
+    删除课程
+  </ng-template>
+</context-menu>
+

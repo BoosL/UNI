@@ -1,0 +1,18 @@
+<portlet title="学员成绩列表" class="list">
+  <ng-template portletBody>
+    <ngx-excel lazyload readonly>
+      <ngx-excel-column name="type" width="96"></ngx-excel-column>
+      <ngx-excel-column name="testDate" width="96"></ngx-excel-column>
+      <ngx-excel-column name="resultDate" width="96"></ngx-excel-column>
+      <ngx-excel-column name="totalPoints" width="96"></ngx-excel-column>
+      <ngx-excel-column name="isProgressed" width="96"></ngx-excel-column>
+      <ngx-excel-column name="isQualified" width="96"></ngx-excel-column>
+      <ngx-excel-context-action label="查看学员成绩" icon="insert_drive_file" action="view" [execute]="checkStudentScores">
+      </ngx-excel-context-action>
+      <ngx-excel-context-action label="添加学员成绩" prefix icon="add_box" action="appendRow" [execute]="addStudentScores">
+      </ngx-excel-context-action>
+    </ngx-excel>
+  </ng-template>
+</portlet>
+
+

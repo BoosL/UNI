@@ -1,0 +1,21 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="课后作业" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="after-classes" >
+          <ngx-excel-column name="acTask.student" width="150" readonly> </ngx-excel-column>
+          <ngx-excel-column name="acTask.student.tutor" width="150" readonly></ngx-excel-column>
+          <ngx-excel-column name="acTask.student.school" width="150" readonly></ngx-excel-column>
+          <ngx-excel-column name="acTask.taskDate" width="120" readonly></ngx-excel-column>
+          <ngx-excel-column name="acTask.timeSchool" width="120" readonly></ngx-excel-column>
+          <ngx-excel-column name="task" width="150"></ngx-excel-column>
+          <ngx-excel-column name="status" width="96"></ngx-excel-column>
+          <ngx-excel-column name="correctionOpinion" width="150"></ngx-excel-column>
+          <ngx-excel-column name="createdAt" width="150" readonly></ngx-excel-column>
+          <ngx-excel-context-action action="remove" label="删除" icon="insert_drive_file" ></ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

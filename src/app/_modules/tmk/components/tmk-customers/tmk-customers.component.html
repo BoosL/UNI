@@ -1,0 +1,47 @@
+<ngx-excel name="customerList" lazyload readonly>
+  <ngx-excel-column name="check" [template]="columnFlagTpl" width="48" locked></ngx-excel-column>
+  <ngx-excel-column name="tmkStatus" [template]="tmkStatusTpl" width="180"></ngx-excel-column>
+  <ngx-excel-column name="isDuplicate"></ngx-excel-column>
+  <ngx-excel-column name="name" width="240"></ngx-excel-column>
+  <ngx-excel-column name="phone"></ngx-excel-column>
+  <ngx-excel-column name="relativeSource" width="240"></ngx-excel-column>
+  <ngx-excel-column name="learningPurpose" width="240"></ngx-excel-column>
+  <ngx-excel-column name="level"></ngx-excel-column>
+  <ngx-excel-column name="capacity" [template]="columnCapacityTpl" width="180"></ngx-excel-column>
+  <ngx-excel-column name="tmk" width="270"></ngx-excel-column>
+  <ngx-excel-column name="lastFollowedAt"></ngx-excel-column>
+  <ngx-excel-column name="nextTime" ></ngx-excel-column>
+  <ngx-excel-column name="nextVisitedTime"></ngx-excel-column>
+  <ngx-excel-column name="lastVisitedTime"></ngx-excel-column>
+  <ngx-excel-column name="allotAt" [invisible]="isPool"></ngx-excel-column>
+  <ngx-excel-column name="createdTime"></ngx-excel-column>
+  <ngx-excel-column name="protectedRemainTime" [invisible]="isPool"></ngx-excel-column>
+  <ngx-excel-column name="relativeSourceEmployee" width="240"></ngx-excel-column>
+  <ngx-excel-context-action label="查看详情" action="detail" icon="visibility" [execute]="detail"></ngx-excel-context-action>
+  <ngx-excel-context-action label="还原" action="recoverTmk"  [execute]="recoverTmk" [invisible]="!isPool"></ngx-excel-context-action>
+</ngx-excel>
+
+<ng-template #columnFlagTpl let-context="context">
+  <div class="cell"><label nz-checkbox
+                           (nzCheckedChange)="handleChangeSelectRow($event, context)"></label></div>
+</ng-template>
+
+<ng-template #tmkStatusTpl let-context="context">
+  <div *ngIf="!context.tmkStatus && !context.endCode" class="cell text-warning"> 未设置</div>
+  <div *ngIf="context.tmkStatus || context.endCode" class="cell">
+      <span [class.text-warning]="!context?.tmkStatus"> {{ context?.tmkStatus?.label || '未设置' }} </span>
+    -
+      <span [class.text-warning]="!context?.endCode"> {{ context?.endCode?.label || '未设置' }} </span>
+  </div>
+</ng-template>
+
+<ng-template #columnCapacityTpl let-context="context">
+  <div *ngIf="!context.capacity && !context.grade" class="cell text-warning"> 未设置</div>
+  <div *ngIf="context.capacity || context.grade" class="cell">
+    <span [class.text-warning]="!context?.capacity"> {{ context?.capacity?.label || '未设置身份' }} </span>
+    <ng-container *ngIf="context?.grade">
+      &nbsp;/&nbsp;
+      <span [class.text-warning]="!context?.grade"> {{ context?.grade?.label || '未设置年级' }} </span>
+    </ng-container>
+  </div>
+</ng-template>

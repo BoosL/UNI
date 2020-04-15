@@ -1,0 +1,22 @@
+<div pageOnInit></div>
+<div class="layout-main">
+  <ng-template block>
+    <portlet title="学员成绩列表" class="list">
+      <ng-template portletBody>
+        <ngx-excel name="achievement" readonly>
+          <ngx-excel-column name="student" width="150"></ngx-excel-column>
+          <ngx-excel-column name="type" width="150"></ngx-excel-column>
+          <ngx-excel-column name="isProgressed" width="96"></ngx-excel-column>
+          <ngx-excel-column name="isQualified" width="96"></ngx-excel-column>
+          <ngx-excel-column name="schoolName" width="150"></ngx-excel-column>
+          <ngx-excel-column name="examDate" width="120"></ngx-excel-column>
+          <ngx-excel-column name="resultDate" width="120"></ngx-excel-column>
+          <ngx-excel-column name="totalScore" width="120"></ngx-excel-column>
+          <ngx-excel-column name="tutorName" width="150"></ngx-excel-column>
+          <ngx-excel-column name="createdAt" width="120"></ngx-excel-column>
+          <ngx-excel-context-action action="view" label="查看详情" icon="insert_drive_file" [execute]="view"></ngx-excel-context-action>
+        </ngx-excel>
+      </ng-template>
+    </portlet>
+  </ng-template>
+</div>

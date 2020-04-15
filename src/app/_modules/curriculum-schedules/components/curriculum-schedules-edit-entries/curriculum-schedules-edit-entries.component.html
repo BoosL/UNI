@@ -1,0 +1,16 @@
+
+<div [ngClass]="editType? 'edit-entries': 'add-entries'">
+  <div class="entries-body">
+      <ng-container #modelContainer></ng-container>
+  </div>
+
+  <div *ngIf="!editType" class="entries-footer">
+    <ng-container *ngFor="let item of modelBlocks">
+      <button matRipple nz-button nzType="line" [disabled]="!item.showBtn" (click)="handleAddBlock(item)">
+        {{item.label}}
+      </button>
+    </ng-container>
+  </div>
+</div>
+
+
